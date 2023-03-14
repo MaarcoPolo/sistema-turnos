@@ -1,0 +1,157 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.conteiner-seg {
+    @include m.tablet {
+        @include m.grid(2, 0rem);
+        min-height: 100vh;
+    }
+    .imagen::before {
+        display: none;
+        @include m.tablet {
+            display: block;
+            content: "";
+            background-color: v.$verde_v2;
+            width: 1rem;
+            height: 15rem;
+            position: absolute;
+            right: 0rem;
+        }
+    }
+    .imagen::after {
+        display: none;
+        @include m.tablet {
+            display: block;
+            content: "";
+            background-color: v.$morado_m2;
+            width: 1rem;
+            height: 15rem;
+            position: absolute;
+            right: -1rem;
+        }
+    }
+    .imagen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url(../../public/img/image-login.jpg);
+        background-size: cover;
+        background-position: center center;
+        height: 18rem;
+        @include m.tablet {
+            height: auto;
+        }
+    }
+    .app {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        .form-login{
+            margin-top: 7rem;
+            text-align: center;
+            min-width: 25rem;  
+            max-width: 40rem;   
+            & h1 {
+                font-weight: 700;
+            }
+            & p{
+                font-size: 2.1rem;
+            }   
+            & span {
+                font-weight: 700;
+            }
+            & .text-alert {
+                font-size: 1.8rem;
+                color: #ffff00;
+            }
+        }
+        input {
+            padding:.8rem;
+            display:block;
+            width: 100%;
+            background-color: v.$blanco;
+            border: 1px solid v.$gris_g3;
+            border-radius: .4rem;
+            margin-bottom: 1.2rem;
+            outline: none;
+            text-align: center;
+        }
+        ::placeholder {
+            color: v.$gris_g3;
+        }
+    }
+
+    .btn {
+        background-color: v.$verde_v2;
+        margin-top: 2rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 5rem;
+        color: v.$gris_g1;
+        text-transform: uppercase;
+        border: none;
+        font-size: 1.7rem;
+        font-weight:500;
+        margin: 0 auto;
+        @include m.telefono {
+            width: auto;
+        }
+        &:hover {
+            cursor: pointer;
+            color: v.$morado_m1;
+        }
+    }
+    
+    .titulo-bienvenido {
+        color: black;
+    }
+    
+    .custom-border-login-1 {
+        border-style: none none solid none;
+        border-color: v.$morado_m2;
+        border-width: .5rem;
+        display: block;
+        @include m.tablet {
+            display: none;
+        }
+    }
+    
+    .custom-border-login-2 {
+        border-style: none none solid none;
+        border-color: v.$verde_v2;
+        border-width: .5rem;
+        display: block;
+        @include m.tablet {
+            display: none;
+        }
+    }
+}
+
+.principal-class {
+    display: flex;
+}
+
+.div-custom-input-login {
+    position: relative;
+    background-color: v.$morado_m2;
+    height: 4rem;
+    width: 4rem;
+}
+
+.div-custom-input-login img {
+    position: absolute;
+    height: 2.6rem;
+    width: 2.6rem;
+    top: 15%;
+    left: 20%;
+}
+
+.custom-input-login {
+    height: 4rem!important;
+    width: 30rem!important;
+    font-size: 1.4rem!important;
+    background-color: v.$gris_g5!important;
+}
