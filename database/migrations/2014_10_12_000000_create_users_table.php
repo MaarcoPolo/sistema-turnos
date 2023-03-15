@@ -17,8 +17,16 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('username');
+            $table->string('tipo_usuario');
+            $table->unsignedBigInteger('casa_justicia_id');
+            $table->unsignedBigInteger('caja_id')->nullable();
+            $table->boolean('status');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
+            $table->foreign('caja_id')->references('id')->on('cajas');
         });
     }
 
