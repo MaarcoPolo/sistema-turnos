@@ -4,6 +4,7 @@ import store from './store'
 import Login from './pages/Login.vue'
 import Home from './pages/Home.vue'
 import Usuarios from './pages/Usuarios.vue'
+import KioscoPuebla from './pages/KioscoPuebla.vue'
 
 const routes = [
     {
@@ -26,6 +27,12 @@ const routes = [
         meta: {
             requiresAuth: true
         }
+    },
+    {
+        path: '/kiosco-puebla',
+        name: 'KioscoPuebla',
+        component: KioscoPuebla,
+      
     },
 ]
 
