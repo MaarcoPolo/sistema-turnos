@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'Felipe',
+            'nombre' => 'Felipe',
             'email' => 'example@example.com',
             'password' => 'password',
             'username' => 'admin',
@@ -22,10 +22,11 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 1,
             'status' => 1,
+            'tipo_usuario_id' => 1,
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Ventanilla1',
+            'nombre' => 'Ventanilla1',
             'email' => 'example1@example.com',
             'password' => 'password',
             'username' => 'ventanilla1',
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 1,
             'status' => 1,
+            'tipo_usuario_id' => 1,
         ]);
     }
 }

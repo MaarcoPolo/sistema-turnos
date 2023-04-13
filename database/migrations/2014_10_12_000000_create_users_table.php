@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
             $table->string('apellido_paterno', 50)->nullable();
             $table->string('apellido_materno', 50)->nullable();
             $table->string('nombre', 100)->nullable();
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->string('tipo_usuario');
             $table->unsignedBigInteger('casa_justicia_id');
             $table->unsignedBigInteger('caja_id')->nullable();
-            $table->boolean('status');
             $table->rememberToken();
             $table->boolean('status')->default(1);
             $table->foreignId('tipo_usuario_id')->constrained();
