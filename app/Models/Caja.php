@@ -14,8 +14,8 @@ class Caja extends Model
         return $this->belongsTo(CasaJusticia::class, 'casa_justicia_id');
     }
 
-    public function prioridad()
+    public function tipo_turno()
     {
-        return $this->belongsTo(prioridad::class, 'prioridad_id');
+        return $this->belongsTo(tipoTurno::class, 'tipo_turno_id');
     }
 }

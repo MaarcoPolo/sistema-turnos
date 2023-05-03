@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cajas', function (Blueprint $table) {
+        Schema::create('carga_trabajo', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->foreignID('user_id')->constrained();
             $table->unsignedBigInteger('casa_justicia_id');
-            $table->unsignedBigInteger('tipo_turno_id');
+            $table->foreignId('tipo_turno_id')->constrained();
+            $table->boolean('asignacion')->default(0);
             $table->timestamps();
-
+            
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
-            $table->foreign('tipo_turno_id')->references('id')->on('tipo_turnos');
+
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cajas');
+        Schema::dropIfExists('carga_trabajo');
     }
 };
