@@ -14,25 +14,43 @@ class TipoTurnoSeeder extends Seeder
     public function run(): void
     {
         DB::table('tipo_turnos')->insert([
-            'descripcion' => 'Atencion Rapida',
-            'nomenclatura' => 'R',
-            'status' => 1,
-        ]);
-
-        DB::table('tipo_turnos')->insert([
-            'descripcion' => 'Demandas',
-            'nomenclatura' => 'D',
-            'status' => 1,
-        ]);
-
-        DB::table('tipo_turnos')->insert([
-            'descripcion' => 'Tocas',
+            'nombre' => 'Turno',
+            'descripcion' => 'Turno',
             'nomenclatura' => 'T',
             'status' => 1,
         ]);
 
         DB::table('tipo_turnos')->insert([
-            'descripcion' => 'Juicios orales',
+            'nombre' => 'Turno Sala',
+            'descripcion' => 'Turno Sala',
+            'nomenclatura' => 'S',
+            'status' => 1,
+        ]);
+
+        DB::table('tipo_turnos')->insert([
+            'nombre' => 'Turno Interno',
+            'descripcion' => 'Turno Interno',
+            'nomenclatura' => 'A',
+            'status' => 1,
+        ]);
+
+        DB::table('tipo_turnos')->insert([
+            'nombre' => 'Atención Rapida',
+            'descripcion' => 'Atención Rápida',
+            'nomenclatura' => 'R',
+            'status' => 1,
+        ]);
+
+        DB::table('tipo_turnos')->insert([
+            'nombre' => 'Turno Demanda',
+            'descripcion' => 'Turno Demanda',
+            'nomenclatura' => 'D',
+            'status' => 1,
+        ]);
+
+        DB::table('tipo_turnos')->insert([
+            'nombre' => 'Oral Familiar',
+            'descripcion' => 'Oral Familiar',
             'nomenclatura' => 'J',
             'status' => 1,
         ]);

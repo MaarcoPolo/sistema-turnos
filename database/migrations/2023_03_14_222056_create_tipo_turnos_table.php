@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('tipo_turnos', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
+            $table->string('nombre');
             $table->string('nomenclatura');
+            $table->string('descripcion')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });
