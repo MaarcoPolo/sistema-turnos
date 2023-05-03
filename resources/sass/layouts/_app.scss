@@ -1,0 +1,161 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.main-head {
+    grid-area: header;
+}
+
+.content {
+    grid-area: content;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "sidebar"
+        "content";
+
+    @include m.tablet {
+        grid-template-columns: 1fr 5fr;
+        grid-template-areas:
+            "header header"
+            "sidebar content";
+    }
+}
+
+/* ================ INICIO HEADER ================ */
+.custom-page-header {
+    background-color: v.$blanco;
+
+    @include m.telefono {
+        display: grid;
+        grid-template-columns: auto 30rem;
+        background: rgb(140,146,188);
+        background: linear-gradient(135deg, rgba(140,146,188,1) 0%, rgba(140,146,188,1) 52%, rgba(117,124,176,1) 52%, rgba(140,146,188,1) 54%, rgba(140,146,188,1) 59%, rgba(255,255,255,1) 60%, rgba(255,255,255,1) 100%);
+    }
+
+    @include m.desktop {
+        grid-template-columns: auto 45rem;
+    }
+
+    & .separador {
+        display: none;
+
+        @include m.telefono {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding: 1rem;
+        }
+    }
+
+    & .separador-mobile {
+        background-color: rgb(140,146,188);
+        padding: 1rem;
+
+        @include m.telefono {
+            display: none;
+        }
+    }
+}
+
+.custom-image-header {
+    margin: auto;
+    width: auto;
+    height: 12rem;
+}
+
+.custom-border-header-1 {
+    border-style: none none solid none;
+    border-color: v.$morado_m2;
+    border-width: .3rem;
+}
+
+.custom-border-header-2 {
+    border-style: none none solid none;
+    border-color: v.$verde_v2;
+    border-width: .3rem;
+}
+
+.title-head {
+    color: v.$blanco;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+
+    font-size: 2rem;
+
+    @include m.telefono {
+        text-align: left;
+        font-size: 2.5rem;
+    }
+
+    @include m.desktop {
+        font-size: 3rem;
+    }
+}
+
+.title-head span {
+    font-weight: 700;
+}
+
+/* ================ INICIO SIDEBAR ================ */
+.sidebar .div-sidebar {
+    position: fixed;
+    height: 100%;
+    width: 16.6%;
+    background-color: v.$morado_m2;
+}
+
+.custom-ul {
+    list-style: none;
+    width: auto;
+    // padding-left: 1.5rem;
+}
+
+.div-logout {
+    position: relative;
+    display: inline-block;
+    bottom: 0;
+}
+
+.logout_sidebar_button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    // position: fixed;
+    // position: fixed;
+    // width: auto;
+    // // display: inline-block;
+    // bottom: 0;
+}
+
+.option-sidebar {
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    // list-style: none;
+    font-weight: 500;
+}
+
+.option-sidebar-unselected {
+    background-color: v.$morado_m2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option-sidebar-unselected:hover {
+    background-color: v.$morado_m1;
+}
+
+.option-sidebar-selected {
+    background-color: v.$verde_v2;
+    color: v.$morado_m1;
+    cursor: default;
+}

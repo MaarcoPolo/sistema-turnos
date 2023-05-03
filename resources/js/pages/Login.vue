@@ -9,7 +9,7 @@
         <div class="custom-border-login-2"></div>
         <div class="app animate__animated animate__zoomIn">
             <div class="div-titulo-login">
-                <img src="../../../public/img/login-titulo-1b.jpg" alt="">
+                <img style="width: 30.3rem; height: 21rem;" src="../../../public/img/login-titulo.jpg" alt="">
             </div>
             <form class="form-login" autocomplete="off" @submit.prevent>
                 <br>

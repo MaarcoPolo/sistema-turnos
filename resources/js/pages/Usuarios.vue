@@ -1,6 +1,10 @@
 <template>
     <div>
-        Usuarios
+        <div class="custom-title-div-normal row justify-content-between">
+            <div class="">
+                <p class="custom-title-page">Usuarios</p>
+            </div>
+        </div>
     </div>
 </template>
 

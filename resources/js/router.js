@@ -3,6 +3,7 @@ import store from './store'
 
 import Login from './pages/Login.vue'
 import Home from './pages/Home.vue'
+import Catalogos from './pages/Catalogos.vue'
 import Usuarios from './pages/Usuarios.vue'
 import KioscoPuebla from './pages/KioscoPuebla.vue'
 
@@ -16,6 +17,14 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/catalogos',
+        name: 'Catalogos',
+        component: Catalogos,
         meta: {
             requiresAuth: true
         }

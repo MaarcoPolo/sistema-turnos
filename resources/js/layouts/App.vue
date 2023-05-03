@@ -1,22 +1,39 @@
 <template>
-    <div>
-        <div v-if="user">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                    <li class="nav-item active" @click="this.$router.push('/')">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item" @click="this.$router.push('/usuarios')">
-                        <a class="nav-link" href="#">Usuarios</a>
-                    </li>
-                    <li class="nav-item" @click="logout()">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                    </ul>
+    <div class="wrapper" v-if="user">
+        <div class="main-head">
+            <div class="custom-page-header">
+                <div class="separador">
+                    <h1 class="title-head"><span>Control de Turnos</span><br>para la atención al público</h1>
                 </div>
-            </nav>
+                <div class="logo">
+                    <picture>
+                        <img class="custom-image-header" loading="lazy" src="../../../public/img/logo_poder_judicial_gris.svg" alt="Logo Poder Judicial del Estado de Puebla">
+                    </picture>
+                </div>
+                <div class="separador-mobile">
+                    <h1 class="title-head"><span>Control de Turnos</span><br>para la atención al público</h1>
+                </div>
+            </div>
+            <div class="custom-border-header-1"></div>
+            <div class="custom-border-header-2"></div>
         </div>
+        <aside class="sidebar">
+            <div class="div-sidebar">
+                <ul class="custom-ul">
+                    <li class="option-sidebar" :class="currentRoute == 'Home' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/')">Inicio</li>
+                    <li class="option-sidebar" :class="currentRoute == 'Catalogos' || currentRoute == 'Usuarios' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/catalogos')">Catálogos</li>
+                    <li class="logout_sidebar_button option-sidebar option-sidebar-unselected" @click="logout()">Cerrar Sesión</li>
+                    <!-- <div class="div-logout">
+                        <li class="logout_sidebar_button option-sidebar option-sidebar-unselected" @click="logout()">Cerrar Sesión</li>
+                    </div> -->
+                </ul>
+            </div>
+        </aside>
+        <div class="content">
+            <router-view></router-view>
+        </div>
+    </div>
+    <div v-else>
         <router-view></router-view>
     </div>
 </template>
