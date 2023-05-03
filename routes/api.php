@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 
+use App\Http\Controllers\TurnoController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(AuthController::class)->group(function() {
     Route::post('login', 'login');
 });
+
+Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
