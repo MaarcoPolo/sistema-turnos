@@ -14,19 +14,19 @@ class ContadorSeeder extends Seeder
     public function run(): void
     {
         DB::table('contadores')->insert([
-            'contador' => 0,
+            'contador' => 1,
             'casa_justicia_id' => 1,
         ]);
         DB::table('contadores')->insert([
-            'contador' => 0,
+            'contador' => 1,
             'casa_justicia_id' => 2,
         ]);
         DB::table('contadores')->insert([
-            'contador' => 0,
+            'contador' => 1,
             'casa_justicia_id' => 3,
         ]);
         DB::table('contadores')->insert([
-            'contador' => 0,
+            'contador' => 1,
             'casa_justicia_id' => 4,
         ]);
     }

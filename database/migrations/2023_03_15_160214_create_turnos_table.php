@@ -24,10 +24,10 @@ return new class extends Migration
             $table->date('fecha_atencion_fin')->nullable();
             $table->time('hora_atencion_fin')->nullable();
             $table->foreignId('user_id')->constrained();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
 
-            $table->foreign('casa_justicia_id')->references('id')->on('cajas');
+            $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
             $table->foreign('prioridad_id')->references('id')->on('prioridades');
         });
     }
