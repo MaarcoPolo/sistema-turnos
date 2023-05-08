@@ -1,0 +1,81 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.imprimir-turno-body {
+    background-image: url(../../public/img/imprimir-turno-background.png);
+    height: 100vh;
+    background-size: cover;
+    // background-position: center center;
+}
+
+.card-turno {
+    margin-top: 10rem;
+    width: 40%;
+}
+
+.card-turno-titulo {
+    border-top: .5rem solid v.$verde_v2;
+}
+
+.card-turno-titulo p {
+    padding-top: .5rem;
+    margin-bottom: .5rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: v.$gris_g2;
+}
+
+.card-turno-body {
+    background-color: v.$morado_m2;
+    background-image: url(../../public/img/background-nuevo-turno.png);
+    background-size: cover;
+    
+    min-height: 20rem;
+    border-bottom: .5rem solid v.$verde_v2;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-turno-body p {
+    font-weight: 700;
+    color: v.$blanco;
+    font-size: 5rem;
+}
+
+// .custom-card-step-actions {
+//     justify-content: center;
+// }
+
+.custom-card-action {
+    display: flex;
+    cursor: pointer;
+}
+
+.custom-card-action-icon {
+    position: relative;
+    height: 4rem;
+    width: 4rem;
+    background-color: v.$morado_m2;
+}
+
+.custom-card-action-icon img {
+    position: absolute;
+    height: 2.8rem;
+    width: 2.8rem;
+    top: 13%;
+    left: 15%;
+}
+
+.custom-card-button {
+    min-width: 15rem;
+    height: 3.9rem!important;
+    // padding: auto;
+    // margin: auto;
+    font-size: 1.2rem;
+    border-radius: 0;
+    border-right: .5rem solid v.$morado_m2;
+    font-weight: 600;
+}

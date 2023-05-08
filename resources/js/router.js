@@ -5,7 +5,9 @@ import Login from './pages/Login.vue'
 import Home from './pages/Home.vue'
 import Catalogos from './pages/Catalogos.vue'
 import Usuarios from './pages/Usuarios.vue'
+
 import KioscoPuebla from './pages/KioscoPuebla.vue'
+import ImprimirTurnoPuebla from './pages/ImprimirTurnoPuebla.vue'
 
 const routes = [
     {
@@ -41,8 +43,12 @@ const routes = [
         path: '/kiosco-puebla',
         name: 'KioscoPuebla',
         component: KioscoPuebla,
-      
     },
+    {
+        path: '/imprimir-turno-puebla',
+        name: 'ImprimirTurnoPuebla',
+        component: ImprimirTurnoPuebla,
+    }
 ]
 
 const router = createRouter({
