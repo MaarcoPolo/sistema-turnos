@@ -1,20 +1,60 @@
-.block{
- background-color: #b1bced;
- 
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.kiosco-body {
+    background-image: url(../../public/img/solicitar-turno-background.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
 }
-.tarjeta{
-    border-top: solid 6px  #b1bced;
-    border-left: solid 6px  #b1bced;
-    box-shadow: 6px 6px 8px rgb(197, 202, 192);  
+
+.custom-title-div-normal-2 {
+    display: none;
+
+    @include m.tablet {
+        display: flex;
+        background: rgb(196,244,93);
+        background: linear-gradient(135deg, rgba(196,244,93,1) 0%, rgba(196,244,93,1) 47%, rgba(255, 255, 255, 0) 43%, rgba(255, 255, 255, 0) 100%);
+    }
 }
-.ficha1{
-    // border: solid 2px gray;
-    border-left: solid 6px #c4f45d;
-    // box-shadow: 1px 9px 9px rgb(197, 202, 192);
+
+.custom-title-page-2 {
+    height: 3rem;
+}
+
+.division {
+    display: none;
     
-    // border-bottom: solid 5px #c4f45d;
-    // margin: 25px auto;
-    width: 500px;
-    height: 80px;
-    box-shadow: 6px 6px 8px rgb(197, 202, 192);  
+    @include m.tablet {
+        display: inline;
+        position: absolute;
+        z-index: 3;
+        left: 48.5%;
+
+        width: 3rem;
+        height: 27rem;
+    }
+
+    @include m.desktop {
+        width: 4rem;
+        height: 36rem;
+    }
+
+    @include m.desktopXL {
+        width: 5rem;
+        height: 51rem;
+    }
+}
+
+.boton-generar-turno {
+    padding-top: 8%;
+    width: 65%;
+    margin: auto;
+    
+    cursor: pointer;
+    transition: .5s all ease-in-out;
+}
+
+.boton-generar-turno:hover {
+    transform: scale(1.1);
 }

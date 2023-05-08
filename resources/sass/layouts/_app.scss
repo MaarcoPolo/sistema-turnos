@@ -28,6 +28,20 @@
     }
 }
 
+.wrapper-2 {
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "content";
+
+        @include m.tablet {
+            grid-template-columns: 1fr 5fr;
+            grid-template-areas:
+                "header header"
+                "content content";
+        }
+}
+
 /* ================ INICIO HEADER ================ */
 .custom-page-header {
     background-color: v.$blanco;

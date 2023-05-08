@@ -1,200 +1,49 @@
 <template>
-    <v-card
-      max-width="400"
-      class="mx-auto mt-4 tarjeta"
-    >
-  
-      <v-container >
-        <v-row>
-          <v-col cols="12">
-            <v-card
-              class="block"
-            >
-              <v-card-title class="text-h5">
-                <div class="mt-4">
-                     <img style="height: 10rem; widht: 10rem;" src="../../../public/img/logo_poder_judical_blanco.png" alt="">
+    <div class="container-fluid kiosco-body">
+        <div class="custom-title-div-normal-2 row justify-content-between">
+            <div class="">
+                <p class="custom-title-page-2"></p>
+            </div>
+        </div>
+        <div class="pt-6">
+            <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
+            <div class="row justify-content-between">
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno()">
                 </div>
-              </v-card-title>
-              <v-toolbar-title 
-                    class="text-center 
-                           textotitulo mb-6">
-                           <!-- TURNOS OFICIALÍA -->
-              </v-toolbar-title>
-            </v-card>
-          </v-col>
-          <!-- BOTON 1 -->
-          <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div >
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                           TURNOS OFICIALÍA
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-sala.png" alt="" @click="generarTurno()">
+                </div>
             </div>
-          </div>
-          </v-card>
-        </v-col>
-            <!-- BOTON 2 -->
-        <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div>
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                    TURNO-SALA
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
+            <div class="row justify-content-between">
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-interno.png" alt="" @click="generarTurno()">
+                </div>
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/atencion-rapida.png" alt="" @click="generarTurno()">
+                </div>
             </div>
-          </div>
-          </v-card>
-        </v-col>
-        <!-- BOTON 3 -->
-        <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div>
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                    TURNO-INTERNO
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
+            <div class="row justify-content-between">
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-demanda.png" alt="" @click="generarTurno()">
+                </div>
+                <div class="col-md-6 col-12">
+                    <img class="boton-generar-turno" src="../../../public/img/oral-familiar.png" alt="" @click="generarTurno()">
+                </div>
             </div>
-          </div>
-          </v-card>
-        </v-col>
-        <!-- BOTON 4 -->
-        <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div>
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                    ATENCIÓN RÁPIDA
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
-            </div>
-          </div>
-          </v-card>
-        </v-col>
-         <!-- BOTON 5 -->
-         <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div>
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                    TURNO-DEMANDA
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
-            </div>
-          </div>
-          </v-card>
-        </v-col>
-         <!-- BOTON 6 -->
-         <v-col cols="8" style="width: 100px; align-content: center;" class="pl-16">
-          <v-card
-            width="250px"
-            height="50px"
-            class="ficha1"
-          >
-           <div>
-            <div class="d-flex flex-no-wrap justify-space-between ">
-              <div>
-                <v-toolbar-title 
-                    class="text-left mt-4 pl-3">
-                    ORAL FAMILIAR
-                </v-toolbar-title>
-              </div>
-
-              <v-btn
-                    class="ma-1"
-                    color="purple"
-                    icon="mdi mdi-account-arrow-down"
-                    width="40px"
-                    height="40px"
-                ></v-btn>
-            </div>
-          </div>
-          </v-card>
-        </v-col>
-          
-           
-        </v-row>
-      </v-container>
-    </v-card>
-  </template>
+        </div>
+    </div>
+</template>
 
 <script>
     import { defineComponent } from "vue";
 
     export default defineComponent({
-        name: 'home',
+        name: 'kiosco-puebla',
+        methods: {
+            generarTurno() {
+                this.$router.push('/imprimir-turno-puebla')
+            }
+        }
     })
 </script>

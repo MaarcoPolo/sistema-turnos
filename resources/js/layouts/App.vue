@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" v-if="user">
+    <div class="wrapper" v-if="user && currentRoute != 'KioscoPuebla' && currentRoute != 'ImprimirTurnoPuebla'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">
@@ -29,6 +29,28 @@
                 </ul>
             </div>
         </aside>
+        <div class="content">
+            <router-view></router-view>
+        </div>
+    </div>
+    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla'">
+        <div class="main-head">
+            <div class="custom-page-header">
+                <div class="separador">
+                    <h1 class="title-head"><span>Control de Turnos</span><br>para la atención al público</h1>
+                </div>
+                <div class="logo">
+                    <picture>
+                        <img class="custom-image-header" loading="lazy" src="../../../public/img/logo_poder_judicial_gris.svg" alt="Logo Poder Judicial del Estado de Puebla">
+                    </picture>
+                </div>
+                <div class="separador-mobile">
+                    <h1 class="title-head"><span>Control de Turnos</span><br>para la atención al público</h1>
+                </div>
+            </div>
+            <div class="custom-border-header-1"></div>
+            <div class="custom-border-header-2"></div>
+        </div>
         <div class="content">
             <router-view></router-view>
         </div>
