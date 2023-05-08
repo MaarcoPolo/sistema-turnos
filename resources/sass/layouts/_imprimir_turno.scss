@@ -10,11 +10,20 @@
 
 .card-turno {
     margin-top: 10rem;
-    width: 40%;
+    width: 75%;
+
+    @include m.tablet {
+        width: 45%;
+    }
+
+    @include m.desktop {
+        width: 35%;
+    }
 }
 
 .card-turno-titulo {
     border-top: .5rem solid v.$verde_v2;
+    box-shadow: 2px -4px 10px v.$gris_g3;
 }
 
 .card-turno-titulo p {
@@ -22,8 +31,27 @@
     margin-bottom: .5rem;
     text-align: center;
     text-transform: uppercase;
-    font-weight: 700;
-    color: v.$gris_g2;
+    font-weight: 800;
+    color: v.$gris_g6;
+}
+
+.icono-nuevo-turno {
+    position: absolute;
+    width: 7rem;
+    margin-top: -3.2rem;
+    margin-left: -3.2rem;
+
+    @include m.tablet {
+        width: 10rem;
+        margin-top: -4.7rem;
+        margin-left: -4.7rem;
+    }
+
+    @include m.desktop {
+        width: 14rem;
+        margin-top: -6.7rem;
+        margin-left: -6.7rem;
+    }
 }
 
 .card-turno-body {
@@ -45,37 +73,50 @@
     font-size: 5rem;
 }
 
-// .custom-card-step-actions {
-//     justify-content: center;
-// }
-
 .custom-card-action {
     display: flex;
+    justify-content: center;
     cursor: pointer;
+    width: 90%;
+    height: 3.9rem;
+    margin: auto;
 }
 
 .custom-card-action-icon {
     position: relative;
-    height: 4rem;
-    width: 4rem;
+    height: 100%;
+    width: 20%;
     background-color: v.$morado_m2;
+
+    @include m.tablet {
+        width: 25%;
+    }
+
+    @include m.desktop {
+        width: 22%;
+    }
 }
 
 .custom-card-action-icon img {
     position: absolute;
-    height: 2.8rem;
-    width: 2.8rem;
-    top: 13%;
-    left: 15%;
+    height: 60%;
+    width: 60%;
+    top: 20%;
+    left: 20%;
 }
 
 .custom-card-button {
-    min-width: 15rem;
+    width: 80%;
     height: 3.9rem!important;
-    // padding: auto;
-    // margin: auto;
-    font-size: 1.2rem;
     border-radius: 0;
     border-right: .5rem solid v.$morado_m2;
     font-weight: 600;
+
+    @include m.tablet {
+        width: 75%;
+    }
+
+    @include m.desktop {
+        width: 73%;
+    }
 }
