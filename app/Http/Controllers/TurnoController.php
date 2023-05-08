@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Turno;
+use Carbon\Carbon;
 use App\Models\Contador;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
 
 
 
@@ -81,7 +84,7 @@ class TurnoController extends Controller
                         {
                             $turnoo = $turnoo.'S0001'.$nomen;
                         }
-                        elseif($conSador < 10)
+                        elseif($contador < 10)
                         {
                             $turnoo = $turnoo.'S000'.$contador.$nomen;
                         }
@@ -214,9 +217,34 @@ class TurnoController extends Controller
             $update->save();
             DB::commit();
 
+            $date = Carbon::now();
+            $fecha = $date->toDateTimeString();
+            $nombreImpresora = "Epson1";
+            $connector = new WindowsPrintConnector($nombreImpresora);
+            $impresora = new Printer($connector);
+            $impresora->setJustification(Printer::JUSTIFY_CENTER);
+            $impresora->setTextSize(1, 1);
+            $impresora->text("Oficialía Común de Partes\n");
+            $impresora->text("Puebla\n");
+            $impresora->text("\n");
+            $impresora->text("Turno:\n");
+            // $impresora->text("\n");
+            $impresora->setTextSize(4, 4);
+            $impresora->text($turnoo);
+            $impresora->text("\n");
+            $impresora->setTextSize(1, 1);
+            $impresora->text("\nFecha y hora:\n");
+            $impresora->setTextSize(2, 2);
+            $impresora->text($fecha);
+            // $impresora->setTextSize(1, 1);
+            
+            $impresora->feed(3);
+            $impresora->cut();
+            $impresora->close();
+
             return response()->json([
                 "status" => "ok",
-                "message" => "Turno generado con éxito.",
+                "message" => "Turno generado con éxito. ".$turnoo,
                 // "cita_agendada" => $citaAgendada,
             ], 200);
         }
