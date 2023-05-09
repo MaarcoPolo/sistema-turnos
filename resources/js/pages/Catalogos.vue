@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
                 <p class="custom-title-page">Catálogos</p>

@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" v-if="user && currentRoute != 'KioscoPuebla' && currentRoute != 'ImprimirTurnoPuebla'">
+    <div class="wrapper" v-if="user && currentRoute != 'KioscoPuebla' && currentRoute != 'ImprimirTurnoPuebla' && currentRoute != 'PantallaTurnosPuebla'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">
@@ -18,22 +18,23 @@
             <div class="custom-border-header-2"></div>
         </div>
         <aside class="sidebar">
-            <div class="div-sidebar">
+            <!-- <div class="div-sidebar"> -->
                 <ul class="custom-ul">
-                    <li class="option-sidebar" :class="currentRoute == 'Home' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/')">Inicio</li>
-                    <li class="option-sidebar" :class="currentRoute == 'Catalogos' || currentRoute == 'Usuarios' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/catalogos')">Catálogos</li>
+                    <li class="option-sidebar" :class="currentRoute == 'Home' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2">Inicio</li>
+                    <li class="option-sidebar" :class="currentRoute == 'Ventanilla' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/ventanilla')">Ventanilla</li>
+                    <li class="option-sidebar" :class="currentRoute == 'Catalogos' || currentRoute == 'Usuarios' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/catalogos')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2">Catálogos</li>
                     <li class="logout_sidebar_button option-sidebar option-sidebar-unselected" @click="logout()">Cerrar Sesión</li>
                     <!-- <div class="div-logout">
                         <li class="logout_sidebar_button option-sidebar option-sidebar-unselected" @click="logout()">Cerrar Sesión</li>
                     </div> -->
                 </ul>
-            </div>
+            <!-- </div> -->
         </aside>
-        <div class="content">
+        <div class="content imprimir-turno-body">
             <router-view></router-view>
         </div>
     </div>
-    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla'">
+    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla' || currentRoute == 'PantallaTurnosPuebla'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">
@@ -97,6 +98,13 @@
         methods: {
             logout() {
                 this.$store.dispatch('logout')
+            },
+            irInicio() {
+                if (this.user.user.tipo_usuario_id == 3) {
+                    this.$router.push('/ventanilla')
+                } else {
+                    this.$router.push('/')
+                }
             }
         }
     })

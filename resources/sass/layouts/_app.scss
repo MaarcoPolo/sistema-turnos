@@ -11,6 +11,7 @@
 
 .sidebar {
     grid-area: sidebar;
+    background-color: v.$morado_m2;
 }
 
 .wrapper {
@@ -129,7 +130,7 @@
 .custom-ul {
     list-style: none;
     width: auto;
-    // padding-left: 1.5rem;
+    margin-bottom: 0;
 }
 
 .div-logout {
@@ -139,14 +140,13 @@
 }
 
 .logout_sidebar_button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    // position: fixed;
-    // position: fixed;
-    // width: auto;
-    // // display: inline-block;
-    // bottom: 0;
+    position: inline;
+
+    @include m.tablet {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
 }
 
 .option-sidebar {
@@ -172,4 +172,20 @@
     background-color: v.$verde_v2;
     color: v.$morado_m1;
     cursor: default;
+}
+
+.boton-sencillo {
+    height: 3rem;
+    background-color: v.$verde_v2;
+    border-right: .5rem solid v.$morado_m2;
+    border-left: .5rem solid v.$morado_m2;
+    padding: 0 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    transition: .5s all ease-in-out;
+}
+
+.boton-sencillo:hover {
+    box-shadow: 0 .7rem 1.6rem 0 rgba(0,0,0,0.24), 0 1.7rem 5rem 0 rgba(0,0,0,0.19);
 }

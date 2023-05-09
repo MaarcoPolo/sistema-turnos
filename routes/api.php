@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
-
 use App\Http\Controllers\TurnoController;
+
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\TipoTurnoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,8 @@ Route::controller(AuthController::class)->group(function() {
 });
 
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
+
+Route::group(['middleware' => 'auth:sanctum'], function ($router) {
+    Route::get('/tipos-turnos', [TipoTurnoController::class, 'getTiposTurnos']);
+});
+    

@@ -1,0 +1,119 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.card-turno-3 {
+    margin: auto;
+    width: 80%;
+
+    box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+}
+
+.card-turno-body-3 {
+    background-color: v.$morado_m2;
+    
+    min-height: 17rem;
+    border-bottom: .3rem solid v.$verde_v2;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-ventanilla-turno {
+    font-weight: 700;
+    color: v.$blanco;
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.card-numero-turno {
+    font-weight: 700;
+    color: v.$blanco;
+    font-size: 7rem;
+}
+
+.icono-pantalla {
+    position: absolute;
+    width: 12rem;
+
+    margin-top: 5rem;
+    margin-left: -6.5rem;
+}
+
+.card-pantalla-tabla-titulo-turno {
+    background-color: v.$morado_m2;
+    border-top: .3rem solid v.$verde_v2;
+}
+
+.card-pantalla-tabla-titulo-ventanilla {
+    background-color: v.$blanco;
+    border-top: .3rem solid v.$verde_v2;
+}
+
+.card-pantalla-tabla-titulo-turno p {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-bottom: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: v.$blanco;
+}
+
+.card-pantalla-tabla-titulo-ventanilla p {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-bottom: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: v.$gris_g6
+}
+
+.card-pantalla-tabla-columna-turnos {
+    padding-top: 7%;
+    background-color: v.$blanco;
+}
+
+.card-pantalla-tabla-columna-ventanillas {
+    padding-top: 7%;
+    background-color: v.$morado_m2;
+}
+
+.pantalla-tabla-turno {
+    text-align: center;
+    font-weight: 700;
+    color: v.$gris_g6;
+    font-size: 2rem;
+
+    border-bottom: .1rem solid v.$gris_g3;
+    width: 70%;
+    margin: auto;
+    padding-bottom: 1rem;
+}
+
+.pantalla-tabla-ventanilla {
+    text-align: center;
+    font-weight: 700;
+    color: v.$blanco;
+    font-size: 2rem;
+
+    border-bottom: .1rem solid v.$gris_g3;
+    width: 70%;
+    margin: auto;
+    padding-bottom: 1rem;
+}
+
+.icono-flecha-turno {
+    position: absolute;
+    width: 3.5rem;
+
+    margin-top: -5rem;
+    margin-left: 14.5rem;
+
+    z-index: 1;
+}

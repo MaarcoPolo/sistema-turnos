@@ -1,0 +1,218 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.home-main-card {
+    border: .1rem solid v.$gris_g3;
+    min-height: 47rem;
+}
+
+.card-titulo-administrar-ventanillas {
+    background-color: v.$morado_m2;
+    width: 50%;
+    margin: auto;
+    border-bottom: .3rem solid v.$verde_v2;
+
+    box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+
+    @include m.tablet {
+        width: 80%;
+        margin-left: 6rem;
+    }
+}
+
+.card-titulo-administrar-ventanillas p {
+    margin-left: 2.5rem;
+    text-align: left;
+    text-transform: uppercase;
+    color: v.$blanco;
+    font-weight: 700;
+    padding-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: 1rem;
+
+    @include m.tablet {
+        margin-left: 5rem;
+        font-size: 1rem;
+    }
+
+    @include m.desktop {
+        font-size: 1.4rem;
+    }
+}
+
+.icono-administrar-ventanillas {
+    position: absolute;
+    width: 8rem;
+
+    margin-top: -2rem;
+    margin-left: -6rem;
+
+    @include m.tablet {
+        width: 8rem;
+
+        margin-top: -2.5rem;
+        margin-left: -5rem;
+    }
+}
+
+.card-tipo-turno {
+    margin: auto;
+    width: 80%;
+    height: auto;
+
+    box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+}
+
+.card-tipo-turno-titulo {
+    background-color: v.$morado_m2;
+    border-bottom: .3rem solid v.$verde_v2;
+}
+
+.card-tipo-turno-titulo p {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-bottom: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 80%;
+    color: v.$blanco;
+}
+
+.card-tipo-turno-body {
+    background-color: v.$blanco;
+    
+    min-height: 8rem;
+    // border-bottom: .3rem solid v.$verde_v2;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-tipo-turno-body p {
+    font-weight: 700;
+    color: v.$gris_g6;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.head-ventanillas {
+    background-color: v.$morado_m2;
+    border-bottom: .3rem solid v.$verde_v2;
+}
+
+.title-table-ventanillas {
+    color: v.$blanco;
+    text-align: center;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.data-table-ventanillas {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: v.$gris_g6;
+}
+
+.icon-sync-ventanillas {
+    color: v.$gris_g6;
+}
+
+.text-results-ventanillas {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    color: v.$gris_g6;
+}
+
+// MODAL
+.custom-border {
+    border-style: none none solid none;
+    border-color: v.$verde_v2;
+    border-width: .3rem;
+    // width: 96%;
+    margin: auto;
+}
+
+.custom-subtitle p {
+    background-color: v.$morado_m2;
+    width: 40rem;
+    margin: auto;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.div-custom-input-ventanilla label {
+    font-weight: 600;
+}
+
+.div-custom-input-ventanilla input {
+    height: 4rem;
+    width: 100%;
+    font-size: 1.4rem;
+    text-align: center;
+    background-color: v.$gris_g5;
+    border: .1rem solid v.$gris_g3;
+}
+
+.div-custom-select-audiencia label {
+    font-weight: 600;
+}
+
+.custom-button {
+    padding: auto;
+    margin: auto;
+    font-size: 1rem;
+    border-radius: 0;
+    border-right: .5rem solid v.$morado_m2;
+    font-weight: 700;
+}
+
+.custom-select {
+    height: 4rem;
+    font-size: 1.4rem;
+    background-color: v.$gris_g5;
+    cursor: pointer;
+    border: .1rem solid v.$gris_g3;
+}
+
+select.minimal {
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+  }
+  
+select.minimal:focus {
+    background-image:
+        linear-gradient(45deg, green 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, green 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 15px) 1em,
+        calc(100% - 20px) 1em,
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+}

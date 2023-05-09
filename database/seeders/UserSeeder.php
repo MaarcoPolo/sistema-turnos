@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 1,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla2',
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 2,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla3',
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 3,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla4',
@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 4,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla5',
@@ -90,7 +90,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 5,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla6',
@@ -101,7 +101,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 6,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla7',
@@ -112,7 +112,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 7,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla8',
@@ -123,7 +123,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 8,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla9',
@@ -134,7 +134,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 9,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla10',
@@ -145,7 +145,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 10,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla11',
@@ -156,7 +156,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 11,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla12',
@@ -167,7 +167,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 12,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla13',
@@ -178,7 +178,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 13,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla14',
@@ -189,7 +189,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 14,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla5',
@@ -200,7 +200,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 15,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
     }
 }
