@@ -15,31 +15,37 @@ class CajaSeeder extends Seeder
     {
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla1',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla2',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla3',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 3,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla4',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 4,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla5',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 4,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla6',
+            'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 4,
         ]);

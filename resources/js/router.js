@@ -5,6 +5,7 @@ import Login from './pages/Login.vue'
 import Home from './pages/Home.vue'
 import Catalogos from './pages/Catalogos.vue'
 import Usuarios from './pages/Usuarios.vue'
+import Cajas from './pages/Cajas.vue'
 
 import KioscoPuebla from './pages/KioscoPuebla.vue'
 import ImprimirTurnoPuebla from './pages/ImprimirTurnoPuebla.vue'
@@ -35,6 +36,14 @@ const routes = [
         path: '/usuarios',
         name: 'Usuarios',
         component: Usuarios,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/cajas',
+        name: 'Cajas',
+        component: Cajas,
         meta: {
             requiresAuth: true
         }

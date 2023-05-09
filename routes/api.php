@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 
 use App\Http\Controllers\TurnoController;
+use App\Http\Controllers\CajaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,9 @@ Route::controller(AuthController::class)->group(function() {
 });
 
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
+
+Route::get('/cajas', [CajaController::class, 'getCajas']);
+
+Route::post('/cajas/crear-caja', [CajaController::class, 'guardarCaja']);
+Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
+Route::post('/cajass/eliminar-caja', [CajaController::class, 'eliminarCaja']);

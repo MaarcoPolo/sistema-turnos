@@ -7,7 +7,9 @@ const store = createStore({
         user: null,
         contRecaptcha: 0,
         showRecaptcha: false,
+        cajas:[],
     },
+
     getters: {
         isLogged: state => !!state.user,
         user: function(state) {
@@ -18,6 +20,9 @@ const store = createStore({
         },
         getContRecaptcha: function(state) {
             return state.contRecaptcha
+        },
+        getCajas(state){
+            return state.cajas
         }
     },
     mutations: {
@@ -29,6 +34,9 @@ const store = createStore({
         clearUserData () {
             localStorage.removeItem('user')
             location.reload()
+        },
+        setCajas(state, payload) {
+            state.cajas = payload
         }
     },
     actions: {

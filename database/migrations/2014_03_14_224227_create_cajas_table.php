@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cajas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->boolean('status')->default(1);
             $table->unsignedBigInteger('casa_justicia_id');
             $table->unsignedBigInteger('tipo_turno_id');
             $table->timestamps();
