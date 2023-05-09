@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\Contador;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
 
 
 
@@ -219,22 +220,37 @@ class TurnoController extends Controller
 
             $date = Carbon::now();
             $fecha = $date->toDateTimeString();
+            $logo = EscposImage::load("../public/img/logo.png");
+            // $logo->resize(50,50);
             $nombreImpresora = "Epson1";
             $connector = new WindowsPrintConnector($nombreImpresora);
             $impresora = new Printer($connector);
+            
+            
+            
+            // $impresora->setJustification(Printer::JUSTIFY_LEFT);
+            
             $impresora->setJustification(Printer::JUSTIFY_CENTER);
+            $impresora->bitImageColumnFormat($logo);
+            $impresora->text("\n");
             $impresora->setTextSize(1, 1);
             $impresora->text("Oficialía Común de Partes\n");
+            // $impresora->text("\n");
             $impresora->text("Puebla\n");
             $impresora->text("\n");
-            $impresora->text("Turno:\n");
+            $impresora->setTextSize(2, 2);
+            $impresora->text("¡Hola!\n");
+            $impresora->text("Tu turno es:\n");
             // $impresora->text("\n");
-            $impresora->setTextSize(4, 4);
-            $impresora->text($turnoo);
+            $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
+            $impresora->setTextSize(5, 5);
+            $impresora->text($turnoo."\n");
+            $impresora->setTextSize(2, 2);
+            $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
             $impresora->text("\n");
             $impresora->setTextSize(1, 1);
             $impresora->text("\nFecha y hora:\n");
-            $impresora->setTextSize(2, 2);
+            // $impresora->setTextSize(2, 2);
             $impresora->text($fecha);
             // $impresora->setTextSize(1, 1);
             
