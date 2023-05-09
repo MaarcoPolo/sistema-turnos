@@ -38,6 +38,51 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'nombre' => 'AdminPuebla',
+            'email' => 'admin_puebla@example.com',
+            'username' => 'adminpuebla',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 1,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminCholula',
+            'email' => 'admin_cholula@example.com',
+            'username' => 'admincholula',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 2,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminHuejotzingo',
+            'email' => 'admin_huejotzingo@example.com',
+            'username' => 'adminhuejotzingo',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 3,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminLaborales',
+            'email' => 'admin_laborales@example.com',
+            'username' => 'adminlaborales',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 4,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+
+        DB::table('users')->insert([
             'nombre' => 'Ventanilla1',
             'email' => 'example1@example.com',
             'password' => 'password',

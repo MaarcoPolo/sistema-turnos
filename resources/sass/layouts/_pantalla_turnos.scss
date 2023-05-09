@@ -112,8 +112,23 @@
     position: absolute;
     width: 3.5rem;
 
-    margin-top: -5rem;
-    margin-left: 14.5rem;
+    margin-top: -40%;
+    margin-left: 70%;
 
     z-index: 1;
+
+    @include m.tablet {
+        margin-top: -40%;
+        margin-left: 70%;
+    }
+
+    @include m.desktop {
+        margin-top: -30%;
+        margin-left: 80%;
+    }
+    
+    @include m.desktopXL {
+        margin-top: -20%;
+        margin-left: 85%;
+    }
 }
