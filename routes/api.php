@@ -26,6 +26,7 @@ Route::controller(AuthController::class)->group(function() {
 });
 
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
+Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
 
 Route::get('/broadcast', function () {
     broadcast(new NewMessage());

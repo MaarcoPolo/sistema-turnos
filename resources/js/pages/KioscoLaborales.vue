@@ -41,12 +41,12 @@
     import { errorSweetAlert, successSweetAlert } from "../helpers/sweetAlertGlobals"
 
     export default defineComponent({
-        name: 'kiosco-puebla',
+        name: 'kiosco-laborales',
         data(){
             return{
                 turno:{
                     tipo_turno_id: null,
-                    casa_justicia_id: 1,
+                    casa_justicia_id: 4,
                 }
                     
                 
@@ -64,7 +64,7 @@
                                 this.$store.commit('setTurnoGenerado',response.data.turno)
                                 // console.log(this.$store.state.turno.turnoGenerado)
                                 // successSweetAlert(response.message)
-                                this.$router.push('/imprimir-turno-puebla')
+                                this.$router.push('/imprimir-turno-laborales')
                                 
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)

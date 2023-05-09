@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" v-if="user && currentRoute != 'KioscoPuebla' && currentRoute != 'ImprimirTurnoPuebla'">
+    <div class="wrapper" v-if="user && currentRoute != 'KioscoPuebla' && currentRoute != 'ImprimirTurnoPuebla' && currentRoute != 'KioscoCholula'  && currentRoute != 'ImprimirTurnoCholula' && currentRoute != 'KioscoHuejotzingo' && currentRoute != 'ImprimirTurnoHuejotzingo' && currentRoute != 'KioscoLaborales' && currentRoute != 'ImprimirTurnoLaborales'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">
@@ -33,7 +33,7 @@
             <router-view></router-view>
         </div>
     </div>
-    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla'">
+    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla' || currentRoute == 'KioscoCholula' || currentRoute == 'ImprimirTurnoCholula' || currentRoute == 'KioscoHuejotzingo' || currentRoute == 'ImprimirTurnoHuejotzingo' || currentRoute == 'KioscoLaborales' || currentRoute == 'ImprimirTurnoLaborales'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">

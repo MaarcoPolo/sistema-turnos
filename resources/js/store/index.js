@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { errorSweetAlert } from './../helpers/sweetAlertGlobals'
 import router from '../router'
+import turno from '../store/turno'
 
 const store = createStore({
     state: {
@@ -61,7 +62,7 @@ const store = createStore({
         }
     },
     modules: {
-        
+        turno,
     }
 })
 

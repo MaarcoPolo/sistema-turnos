@@ -18,6 +18,12 @@ class TurnoController extends Controller
 {
     public function generarTurno(Request $request)
     {
+        // return response()->json([
+        //     "status" => "ok",
+        //     "message" => $request->tipo_turno_id,
+        //     // "turno" => $turnoo,
+        // ], 200);
+
         $exito = false;
 
         DB::beginTransaction();
@@ -198,6 +204,9 @@ class TurnoController extends Controller
             }
             $turno->turno = $turnoo;
             $turno->save();
+            $object = new \stdClass();
+            $object->id = $turno->id;
+            $object->turno = $turno->turno;
 
             DB::commit();
             $exito = true;
@@ -218,50 +227,91 @@ class TurnoController extends Controller
             $update->save();
             DB::commit();
 
-            $date = Carbon::now();
-            $fecha = $date->toDateTimeString();
-            $logo = EscposImage::load("../public/img/logo.png");
-            // $logo->resize(50,50);
-            $nombreImpresora = "Epson1";
-            $connector = new WindowsPrintConnector($nombreImpresora);
-            $impresora = new Printer($connector);
-            
-            
-            
-            // $impresora->setJustification(Printer::JUSTIFY_LEFT);
-            
-            $impresora->setJustification(Printer::JUSTIFY_CENTER);
-            $impresora->bitImageColumnFormat($logo);
-            $impresora->text("\n");
-            $impresora->setTextSize(1, 1);
-            $impresora->text("Oficialía Común de Partes\n");
-            // $impresora->text("\n");
-            $impresora->text("Puebla\n");
-            $impresora->text("\n");
-            $impresora->setTextSize(2, 2);
-            $impresora->text("¡Hola!\n");
-            $impresora->text("Tu turno es:\n");
-            // $impresora->text("\n");
-            $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
-            $impresora->setTextSize(5, 5);
-            $impresora->text($turnoo."\n");
-            $impresora->setTextSize(2, 2);
-            $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
-            $impresora->text("\n");
-            $impresora->setTextSize(1, 1);
-            $impresora->text("\nFecha y hora:\n");
-            // $impresora->setTextSize(2, 2);
-            $impresora->text($fecha);
-            // $impresora->setTextSize(1, 1);
-            
-            $impresora->feed(3);
-            $impresora->cut();
-            $impresora->close();
-
+           
             return response()->json([
                 "status" => "ok",
-                "message" => "Turno generado con éxito. ".$turnoo,
-                // "cita_agendada" => $citaAgendada,
+                "message" => "Turno generado con éxito. ",
+                "turno" => $object,
+            ], 200);
+        }
+    }
+    public function imprimirTurno(Request $request)
+    {
+        try{
+            $turno = Turno::find($request->id);
+            // if($turno){
+                $turnoo = $turno->turno;
+                $sede_id =  $turno->casa_justicia_id;
+                // $sede_id =  2;
+
+    
+                switch($sede_id){
+                    case '1':
+                        $sede = 'Puebla';
+                        $impresora = 'Epson1';
+                        break;
+                    case '2':
+                        $sede = 'Cholula';
+                        $impresora = 'Epson1';
+                        break;
+                    case '3':
+                        $sede = 'Huejotzingo';
+                        $impresora = 'Epson1';
+                        break;
+                    case '4':
+                        $sede = 'Laborales';
+                        $impresora = 'Epson1';
+                        break;    
+    
+                }
+    
+                 $date = Carbon::now();
+                $fecha = $date->toDateTimeString();
+                $logo = EscposImage::load("../public/img/logo.png");
+                $nombreImpresora = $impresora;
+                $connector = new WindowsPrintConnector($nombreImpresora);
+                $impresora = new Printer($connector);       
+                $impresora->setJustification(Printer::JUSTIFY_CENTER);
+                $impresora->bitImageColumnFormat($logo);
+                $impresora->text("\n");
+                $impresora->setTextSize(1, 1);
+                $impresora->text("Oficialía Común de Partes\n");
+                $impresora->text($sede."\n");
+                $impresora->text("\n");
+                $impresora->setTextSize(2, 2);
+                $impresora->text("¡Hola!\n");
+                $impresora->text("Tu turno es:\n");
+                $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
+                $impresora->setTextSize(5, 5);
+                $impresora->text($turnoo."\n");
+                $impresora->setTextSize(2, 2);
+                $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
+                $impresora->text("\n");
+                $impresora->setTextSize(1, 1);
+                $impresora->text("\nFecha y hora:\n");
+                $impresora->text($fecha);
+                $impresora->feed(3);
+                $impresora->cut();
+                $impresora->close();
+    
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Turno impreso con éxito. ",
+                    // "turno" => $object,
+                ], 200);
+            // }
+           
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            $exito = false;
+            return response()->json([
+                "status" => "error",
+                "message" => "Ocurrió un error al imprimir el turno.",
+                "error" => $th->getMessage(),
+                "location" => $th->getFile(),
+                "line" => $th->getLine(),
             ], 200);
         }
     }
