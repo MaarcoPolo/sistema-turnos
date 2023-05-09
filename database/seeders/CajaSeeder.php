@@ -41,28 +41,28 @@ class CajaSeeder extends Seeder
             'nombre' => 'Ventanilla5',
             'status' => 1,
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla6',
             'status' => 1,
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla7',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla8',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla9',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 3,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla10',
@@ -72,27 +72,27 @@ class CajaSeeder extends Seeder
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla11',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla12',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla13',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla14',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
             'nombre' => 'Ventanilla15',
             'casa_justicia_id' => 1,
-            'tipo_turno_id' => 4,
+            'tipo_turno_id' => 3,
         ]);
     }
 }

@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('casa_justicia_id');
-            $table->integer('tipo_atencion');
-            $table->boolean('asignacion'); //bandera
+            $table->unsignedBigInteger('tipo_turno');
+            // $table->integer('tipo_atencion');
+            $table->boolean('asignacion')->default(false); //bandera
             $table->timestamps();
 
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
+            $table->foreign('tipo_turno')->references('id')->on('tipo_turnos');
+
         });
     }
 
