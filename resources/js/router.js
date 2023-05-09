@@ -8,8 +8,15 @@ import Usuarios from './pages/Usuarios.vue'
 import Ventanilla from './pages/Ventanilla.vue'
 
 import KioscoPuebla from './pages/KioscoPuebla.vue'
+import KioscoCholula from './pages/KioscoCholula.vue'
+import KioscoHuejotzingo from './pages/KioscoHuejotzingo.vue'
+import KioscoLaborales from './pages/KioscoLaborales.vue'
 import ImprimirTurnoPuebla from './pages/ImprimirTurnoPuebla.vue'
 import PantallaTurnosPuebla from './pages/PantallaTurnosPuebla.vue'
+import ImprimirTurnoCholula from './pages/ImprimirTurnoCholula.vue'
+import ImprimirTurnoHuejotzingo from './pages/ImprimirTurnoHuejotzingo.vue'
+import ImprimirTurnoLaborales from './pages/ImprimirTurnoLaborales.vue'
+
 
 const routes = [
     {
@@ -55,6 +62,21 @@ const routes = [
         component: KioscoPuebla,
     },
     {
+        path: '/kiosco-cholula',
+        name: 'KioscoCholula',
+        component: KioscoCholula,
+    },
+    {
+        path: '/kiosco-huejotzingo',
+        name: 'KioscoHuejotzingo',
+        component: KioscoHuejotzingo,
+    },
+    {
+        path: '/kiosco-laborales',
+        name: 'KioscoLaborales',
+        component: KioscoLaborales,
+    },
+    {
         path: '/imprimir-turno-puebla',
         name: 'ImprimirTurnoPuebla',
         component: ImprimirTurnoPuebla,
@@ -64,6 +86,21 @@ const routes = [
         name: 'PantallaTurnosPuebla',
         component: PantallaTurnosPuebla,
     },
+    {
+        path: '/imprimir-turno-cholula',
+        name: 'ImprimirTurnoCholula',
+        component: ImprimirTurnoCholula,
+    },
+    {
+        path: '/imprimir-turno-huejotzingo',
+        name: 'ImprimirTurnoHuejotzingo',
+        component: ImprimirTurnoHuejotzingo,
+    },
+    {
+        path: '/imprimir-turno-laborales',
+        name: 'ImprimirTurnoLaborales',
+        component: ImprimirTurnoLaborales,
+    }
 ]
 
 const router = createRouter({

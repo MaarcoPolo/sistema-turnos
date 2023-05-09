@@ -32,3 +32,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::get('/tipos-turnos', [TipoTurnoController::class, 'getTiposTurnos']);
 });
     
+Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
+
+Route::get('/broadcast', function () {
+    broadcast(new NewMessage());
+});

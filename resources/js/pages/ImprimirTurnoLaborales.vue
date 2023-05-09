@@ -53,7 +53,7 @@
     import { defineComponent } from "vue";
 
     export default defineComponent({
-        name: 'imprimir-turno-puebla',
+        name: 'imprimir-turno-laborales',
         data(){
             return{
                 turno:{
@@ -76,7 +76,7 @@
                                 // this.$store.commit('setTurnoGenerado',response.data.turno)
                                 // console.log(this.$store.state.turno.turnoGenerado)
                                 // successSweetAlert(response.message)
-                                this.$router.push('/kiosco-puebla')
+                                this.$router.push('/kiosco-laborales')
                                 
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
@@ -90,7 +90,7 @@
                 // console.log(this.turno)
             },
             volverKiosco() {
-                this.$router.push('/kiosco-puebla')
+                this.$router.push('/kiosco-laborales')
             }
 
         }

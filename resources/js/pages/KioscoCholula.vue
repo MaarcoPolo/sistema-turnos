@@ -2,7 +2,6 @@
     <div class="container-fluid kiosco-body">
         <div class="custom-title-div-normal-2 row justify-content-between">
             <div class="">
-                <!-- <h2>holaaa</h2> -->
                 <p class="custom-title-page-2"></p>
             </div>
         </div>
@@ -41,12 +40,12 @@
     import { errorSweetAlert, successSweetAlert } from "../helpers/sweetAlertGlobals"
 
     export default defineComponent({
-        name: 'kiosco-puebla',
+        name: 'kiosco-cholula',
         data(){
             return{
                 turno:{
                     tipo_turno_id: null,
-                    casa_justicia_id: 1,
+                    casa_justicia_id: 2,
                 }
                     
                 
@@ -64,7 +63,7 @@
                                 this.$store.commit('setTurnoGenerado',response.data.turno)
                                 // console.log(this.$store.state.turno.turnoGenerado)
                                 // successSweetAlert(response.message)
-                                this.$router.push('/imprimir-turno-puebla')
+                                this.$router.push('/imprimir-turno-cholula')
                                 
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
