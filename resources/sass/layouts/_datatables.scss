@@ -1,0 +1,124 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.custom-border-table {
+    box-shadow: .2rem .3rem .4rem v.$gris_g3;
+}
+
+.headers-table {
+    background-color: v.$morado_m2;
+}
+
+.custom-title-table {
+    color: v.$blanco;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+}
+
+.text-loading-data-table {
+    color: v.$gris_g2;
+    font-weight: 700;
+}
+
+.linear-activity {
+    overflow: hidden;
+    width: 90%;
+    height: 4px;
+    background-color: #B3E5FC;
+    margin: 10px auto;
+}
+
+.indeterminate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.indeterminate:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #03A9F4;
+    animation: indeterminate_first 1.5s infinite ease-out;
+}
+
+.indeterminate:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #4FC3F7;
+    animation: indeterminate_second 1.5s infinite ease-in;
+}
+
+@keyframes indeterminate_first {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+@keyframes indeterminate_second {
+    0% {
+        left: -150%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
+
+.custom-data-table {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    border-right: .1rem solid v.$gris_g3;
+}
+
+.custom-text-show-results {
+    color: black;
+    font-size: 1.4rem;
+}
+
+.cursor-paginator {
+    cursor: pointer;
+}
+
+.no-data-text {
+    color: black;
+}
+
+.page-link {
+    color: v.$morado_m2;
+}
+
+.page-link span {
+    color: v.$morado_m2;
+}
+
+.page-item.active .page-link {
+    background-color: v.$morado_m2;
+    border-color: v.$morado_m2;
+}
+
+@media only screen and (max-width: 770px) {
+    .hidden-column {
+        display: none;
+    }
+
+    .hidden-card {
+        height: 200px;
+        width: 200px;
+        margin-left: 100px;
+        margin-bottom: 50px;
+    }
+
+    .ocultar-titulo {
+        border: none!important;
+    }
+}

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
                 <p class="custom-title-page">Usuarios</p>

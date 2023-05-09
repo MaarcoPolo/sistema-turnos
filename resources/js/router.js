@@ -6,6 +6,7 @@ import Home from './pages/Home.vue'
 import Catalogos from './pages/Catalogos.vue'
 import Usuarios from './pages/Usuarios.vue'
 import Ventanilla from './pages/Ventanilla.vue'
+import Cajas from './pages/Cajas.vue'
 
 import KioscoPuebla from './pages/KioscoPuebla.vue'
 import KioscoCholula from './pages/KioscoCholula.vue'
@@ -52,6 +53,14 @@ const routes = [
         path: '/ventanilla',
         name: 'Ventanilla',
         component: Ventanilla,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/cajas',
+        name: 'Cajas',
+        component: Cajas,
         meta: {
             requiresAuth: true
         }

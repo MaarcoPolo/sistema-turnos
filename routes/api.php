@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TurnoController;
+use App\Http\Controllers\CajaController;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\TipoTurnoController;
@@ -30,6 +31,11 @@ Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
 
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::get('/tipos-turnos', [TipoTurnoController::class, 'getTiposTurnos']);
+    
+    Route::get('/cajas', [CajaController::class, 'getCajas']);
+    Route::post('/cajas/crear-caja', [CajaController::class, 'guardarCaja']);
+    Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
+    Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
 });
     
 Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
@@ -37,3 +43,4 @@ Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
 Route::get('/broadcast', function () {
     broadcast(new NewMessage());
 });
+

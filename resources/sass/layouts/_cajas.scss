@@ -1,0 +1,79 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+
+.custom-button {
+    padding: auto;
+    margin: auto;
+    font-size: 1rem;
+    border-radius: 0;
+    border-right: .5rem solid #8c92bc;
+    font-weight: 700;
+}
+
+.principal-div-custom-select {
+    display: flex;
+    width: 100%;
+}
+
+.first-div-custom-select {
+    position: relative;
+    background-color: #8c92bc;
+    height: 4rem;
+    width: 13%;
+}
+
+.second-div-custom-select {
+    width: 87%;
+}
+
+.first-div-custom-select img {
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    top: 10%;
+    left: 15%;
+}
+
+.custom-input {
+    height: 4rem;
+    width: 100%;
+    font-size: 1.4rem;
+    background-color: #f6f6f6;
+}
+//modal
+.custom-subtitle p {
+    background-color: v.$morado_m2;
+    width: 40rem;
+    margin: auto;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.div-custom-input-caja label {
+    font-weight: 600;
+}
+
+.div-custom-input-caja input {
+    height: 4rem;
+    width: 100%;
+    font-size: 1.4rem;
+    text-align: center;
+    background-color: v.$gris_g5;
+    border: .1rem solid v.$gris_g3;
+}
+
+.div-custom-input-caja textarea {
+    width: 100%;
+    font-size: 1.4rem;
+    text-align: left;
+    background-color: v.$gris_g5;
+    border: .1rem solid v.$gris_g3;
+}
+.text-validation-red {
+    font-size: 15px!important;
+    color: red;
+    text-align: left;
+}
