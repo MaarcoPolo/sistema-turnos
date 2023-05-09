@@ -192,7 +192,7 @@ class UserSeeder extends Seeder
             'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
-            'nombre' => 'Ventanilla5',
+            'nombre' => 'Ventanilla15',
             'email' => 'example1@example.com',
             'password' => 'password',
             'username' => 'ventanilla15',

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Turno;
 use Carbon\Carbon;
 use App\Models\Contador;
+use App\Models\Asignacion;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
@@ -25,16 +26,46 @@ class TurnoController extends Controller
         // ], 200);
 
         $exito = false;
-
         DB::beginTransaction();
         try{
+            $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
+                                    ->where('tipo_turno',$request->tipo_turno_id)
+                                    ->where('asignacion',0)
+                                    ->first();
+            if($asignacion)
+            {
+                $asignacion->asignacion = true;
+                $asignacion->save();
+                DB::commit();
+                $user = $asignacion->user_id;
+            }else{
+                $asignaciones = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
+                                    ->where('tipo_turno',$request->tipo_turno_id)
+                                    // ->where('asignacion',1)
+                                    ->get();
+                foreach($asignaciones as $asignacion){
+                        $asignacion->asignacion = false;
+                        $asignacion->save();
+                        DB::commit();
+                }
+
+                $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
+                ->where('tipo_turno',$request->tipo_turno_id)
+                ->where('asignacion',0)
+                ->first();
+
+                $asignacion->asignacion = true;
+                $asignacion->save();
+                DB::commit();
+                $user = $asignacion->user_id;
+            }
                         
             $turno = new Turno;
             $turno->tipo_turno_id = $request->tipo_turno_id;
             $turno->casa_justicia_id = $request->casa_justicia_id;
             $turno->turno = '';
             $turno->prioridad_id = 1;
-            $turno->user_id = 1;
+            $turno->user_id = $user;
             $turno->save();
 
             $sede = $turno->casa_justicia_id;
