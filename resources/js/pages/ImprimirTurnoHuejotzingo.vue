@@ -50,7 +50,9 @@
 </template>
 
 <script>
-    import { defineComponent } from "vue";
+    import { defineComponent } from "vue"
+    import { errorSweetAlert, successSweetAlert } from "../helpers/sweetAlertGlobals"
+
 
     export default defineComponent({
         name: 'imprimir-turno-huejotzingo',

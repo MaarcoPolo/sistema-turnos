@@ -14,36 +14,6 @@ class AsignacionesSeeder extends Seeder
     public function run(): void
     {
         DB::table('asignaciones')->insert([
-            'user_id' => 1,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 1,
-        ]);
-        DB::table('asignaciones')->insert([
-            'user_id' => 2,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 2,
-        ]);
-        DB::table('asignaciones')->insert([
-            'user_id' => 3,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 3,
-        ]);
-        DB::table('asignaciones')->insert([
-            'user_id' => 4,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 4,
-        ]);
-        DB::table('asignaciones')->insert([
-            'user_id' => 5,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 5,
-        ]);
-        DB::table('asignaciones')->insert([
-            'user_id' => 6,
-            'casa_justicia_id' => 1,
-            'tipo_turno' => 6,
-        ]);
-        DB::table('asignaciones')->insert([
             'user_id' => 7,
             'casa_justicia_id' => 1,
             'tipo_turno' => 1,
@@ -85,6 +55,36 @@ class AsignacionesSeeder extends Seeder
         ]);
         DB::table('asignaciones')->insert([
             'user_id' => 15,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 3,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 16,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 4,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 17,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 5,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 18,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 6,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 19,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 20,
+            'casa_justicia_id' => 1,
+            'tipo_turno' => 2,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 21,
             'casa_justicia_id' => 1,
             'tipo_turno' => 3,
         ]);

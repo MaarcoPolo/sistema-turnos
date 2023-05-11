@@ -27,7 +27,6 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('login', 'login');
 });
 
-Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
 
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::get('/tipos-turnos', [TipoTurnoController::class, 'getTiposTurnos']);
@@ -38,7 +37,13 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
 });
     
+Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
 Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
+Route::post('/atender-turno', [TurnoController::class, 'atenderTurno']);
+
+Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
+
+
 
 Route::get('/broadcast', function () {
     broadcast(new NewMessage());
