@@ -496,7 +496,7 @@ class TurnoController extends Controller
             if($obtenerturnos->count()>0){
                
                     $array = array();
-                    $object = new \stdClass();
+                   $object = new \stdClass();
                     $object->turno = '';
                     array_push($array, $object);
 
