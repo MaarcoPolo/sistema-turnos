@@ -23,4 +23,9 @@ class Turno extends Model
     {
         return $this->belongsTo(prioridad::class, 'prioridad_id');
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

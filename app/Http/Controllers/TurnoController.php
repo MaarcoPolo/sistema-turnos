@@ -349,7 +349,10 @@ class TurnoController extends Controller
                      
                             
             if($turno_atencion){
+                $date = Carbon::now();
                 $turno_atencion->en_atencion = 2;
+                $turno_atencion->fecha_atencion_fin = $date->toDateString();
+                $turno_atencion->hora_atencion_fin = $date->toTimeString();
                 $turno_atencion->save();
                 DB::commit();
 
@@ -361,7 +364,10 @@ class TurnoController extends Controller
 
                 if($atender)
                 {
+                    $date = Carbon::now();
                     $atender->en_atencion = 1;
+                    $atender->fecha_atencion_inicio = $date->toDateString();
+                    $atender->hora_atencion_inicio = $date->toTimeString();
                     $atender->save();
                     DB::commit();
                     $object = new \stdClass();
@@ -419,7 +425,10 @@ class TurnoController extends Controller
 
                 if($atender)
                 {
+                    $date = Carbon::now();
                     $atender->en_atencion = 1;
+                    $atender->fecha_atencion_inicio = $date->toDateString();
+                    $atender->hora_atencion_inicio = $date->toTimeString();
                     $atender->save();
                     DB::commit();
 
@@ -541,6 +550,78 @@ class TurnoController extends Controller
 
            
         } catch (\Throwable $th) {
+            DB::rollback();
+            $exito = false;
+            return response()->json([
+                "status" => "error",
+                "message" => "Ocurrió un error al actualizar el turnooooo.",
+                "error" => $th->getMessage(),
+                "location" => $th->getFile(),
+                "line" => $th->getLine(),
+            ], 200);
+        }
+
+    }
+
+    // public function turnosPantalla(Request $request)
+    public function turnosPantalla()
+    {
+        DB::beginTransaction();
+        try{
+            $turnos = Turno::where('casa_justicia_id', 1)
+                                    // ->where('user_id', $request->id)
+                                    ->where('en_atencion', 1)
+                                    ->orderBy('fecha_atencion_inicio', 'DESC')
+                                    ->orderBy('hora_atencion_inicio', 'DESC')
+                                    ->limit(6)
+                                    ->get(); 
+
+                if($turnos->count()>0){
+                    $cont =0;  
+                    $array_turnos = array();              
+                    foreach($turnos as $turno){
+                        $object = new \stdClass();
+                        // $object->posicion = $cont;
+                        $object->turno = $turno->turno;
+                        $object->caja = $turno->usuario->caja_id;
+                        array_push($array_turnos, $object);
+                        $cont++;
+                    }
+                    for($i = $cont; $i < 6; $i++)
+                    {
+                        $object = new \stdClass();
+                        $object->caja = '';
+                        $object->turno = '';
+                        array_push($array_turnos, $object);
+                    }
+
+                    return response()->json([
+                        "status" => "ok",
+                        "message" => "Turnos",
+                        "turnos" => $array_turnos
+                    ], 200);
+                }else{
+                    $cont =0;  
+                    $array_turnos = array();
+                    for($i = $cont; $i < 6; $i++)
+                    {
+                        $object = new \stdClass();
+                        $object->caja = '';
+                        $object->turno = '';
+                        array_push($array_turnos, $object);
+                    }
+
+                    return response()->json([
+                        "status" => "no-data",
+                        "message" => "No hay turnos",
+                        "turnos" => $array_turnos
+                    ], 200);
+
+                }
+
+                   
+
+        }catch (\Throwable $th) {
             DB::rollback();
             $exito = false;
             return response()->json([
