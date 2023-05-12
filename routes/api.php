@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
 Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
 Route::post('/atender-turno', [TurnoController::class, 'atenderTurno']);
+Route::post('/turnos-pantalla', [TurnoController::class, 'turnosPantalla']);
 
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 
