@@ -389,7 +389,7 @@ class TurnoController extends Controller
                     for($i = $cont; $i < 7; $i++)
                     {
                         $object = new \stdClass();;
-                        $object->turno = '';
+                        $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
 
@@ -403,7 +403,7 @@ class TurnoController extends Controller
                     for($i = $cont; $i < 7; $i++)
                     {
                         $object = new \stdClass();;
-                        $object->turno = '';
+                        $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
                     return response()->json([
@@ -453,7 +453,7 @@ class TurnoController extends Controller
                     {
                         $object = new \stdClass();
                         // $object->posicion = $cont;
-                        $object->turno = '';
+                        $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
                     return response()->json([
@@ -468,7 +468,7 @@ class TurnoController extends Controller
                     {
                         $object = new \stdClass();
                         // $object->posicion = $cont;
-                        $object->turno = '';
+                        $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
                     return response()->json([
@@ -506,7 +506,7 @@ class TurnoController extends Controller
                
                     $array = array();
                    $object = new \stdClass();
-                    $object->turno = '';
+                    $object->turno = '--';
                     array_push($array, $object);
 
                     $cont=1;             
@@ -519,7 +519,7 @@ class TurnoController extends Controller
                     for($i = $cont; $i < 7; $i++)
                     {
                         $object = new \stdClass();
-                        $object->turno = '';
+                        $object->turno = '--';
                         array_push($array, $object);
                     }
     
@@ -537,7 +537,7 @@ class TurnoController extends Controller
                 for($i = $cont; $i < 7; $i++)
                 {
                     $object = new \stdClass();
-                    $object->turno = ' ';
+                    $object->turno = '--';
                     array_push($array, $object);
                 }
                 return response()->json([
@@ -563,12 +563,11 @@ class TurnoController extends Controller
 
     }
 
-    // public function turnosPantalla(Request $request)
-    public function turnosPantalla()
+    public function turnosPantalla(Request $request)
     {
         DB::beginTransaction();
         try{
-            $turnos = Turno::where('casa_justicia_id', 1)
+            $turnos = Turno::where('casa_justicia_id', $request->casa_justicia_id)
                                     // ->where('user_id', $request->id)
                                     ->where('en_atencion', 1)
                                     ->orderBy('fecha_atencion_inicio', 'DESC')
@@ -590,8 +589,9 @@ class TurnoController extends Controller
                     for($i = $cont; $i < 6; $i++)
                     {
                         $object = new \stdClass();
-                        $object->caja = '';
-                        $object->turno = '';
+                        $object->turno = '--';
+                        $object->caja = '--';
+                        
                         array_push($array_turnos, $object);
                     }
 
@@ -606,8 +606,8 @@ class TurnoController extends Controller
                     for($i = $cont; $i < 6; $i++)
                     {
                         $object = new \stdClass();
-                        $object->caja = '';
-                        $object->turno = '';
+                        $object->caja = "--";
+                        $object->turno = "--";
                         array_push($array_turnos, $object);
                     }
 

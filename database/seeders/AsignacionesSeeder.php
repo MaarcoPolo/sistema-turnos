@@ -88,6 +88,79 @@ class AsignacionesSeeder extends Seeder
             'casa_justicia_id' => 1,
             'tipo_turno' => 3,
         ]);
+        // Cholula
+        DB::table('asignaciones')->insert([
+            'user_id' => 22,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 23,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 5,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 24,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 6,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 25,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 26,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 5,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 27,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 6,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 28,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 29,
+            'casa_justicia_id' => 2,
+            'tipo_turno' => 5,
+        ]);
+        // Huejotzingo
+        DB::table('asignaciones')->insert([
+            'user_id' => 30,
+            'casa_justicia_id' => 3,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 31,
+            'casa_justicia_id' => 3,
+            'tipo_turno' => 5,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 32,
+            'casa_justicia_id' => 3,
+            'tipo_turno' => 1,
+        ]);
+        // Laborales
+        DB::table('asignaciones')->insert([
+            'user_id' => 33,
+            'casa_justicia_id' => 4,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 34,
+            'casa_justicia_id' => 4,
+            'tipo_turno' => 1,
+        ]);
+        DB::table('asignaciones')->insert([
+            'user_id' => 35,
+            'casa_justicia_id' => 4,
+            'tipo_turno' => 1,
+        ]);
         
     }
 }

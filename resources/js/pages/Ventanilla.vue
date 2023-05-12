@@ -17,7 +17,7 @@
                         <p>Turno en Atención</p>
                     </div>
                     <div class="card-turno-body-2">
-                        <p>{{turnos[0].turno}}</p>
+                        <p>{{ turnos[0].turno }}</p>
                     </div>
                 </div>
             </div>

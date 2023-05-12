@@ -2,6 +2,7 @@ export default {
     state: {
         turnoGenerado: null,
         turnos:[],
+        turnosPantalla:[],
         // obtenerturnos:[]
     },
     getters:{
@@ -11,9 +12,9 @@ export default {
         getAtencionTurnos(state){
             return state.turnos
         },
-        // getObtenerTurnos(state){
-        //     return state.obtenerturnos
-        // }
+        getTurnosPantalla(state){
+            return state.turnosPantalla
+        }
 
     },
     mutations:{
@@ -23,9 +24,9 @@ export default {
         setAtencionTurnos(state, payload){
             state.turnos = payload
         },
-        // setObtenerTurnos(state, payload){
-        //     state.obtenerturnos = payload
-        // }
+        setTurnosPantalla(state, payload){
+            state.turnosPantalla = payload
+        }
     }
 
 }

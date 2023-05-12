@@ -47,17 +47,15 @@
                 turno:{
                     tipo_turno_id: null,
                     casa_justicia_id: 1,
-                }
-                    
-                
-                
+                }   
             }
         },
         methods: {
            async generarTurno(turno) {
-                this.turno.tipo_turno_id = turno;
+               
                 // console.log(this.turno)
                 try {
+                    this.turno.tipo_turno_id = turno;
                         let response = await axios.post('/api/generar-turno', this.turno)
                         if (response.status === 200) {
                             if (response.data.status === "ok") {
