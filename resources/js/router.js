@@ -14,6 +14,9 @@ import KioscoHuejotzingo from './pages/KioscoHuejotzingo.vue'
 import KioscoLaborales from './pages/KioscoLaborales.vue'
 import ImprimirTurnoPuebla from './pages/ImprimirTurnoPuebla.vue'
 import PantallaTurnosPuebla from './pages/PantallaTurnosPuebla.vue'
+import PantallaTurnosCholula from './pages/PantallaTurnosCholula.vue'
+import PantallaTurnosHuejotzingo from './pages/PantallaTurnosHuejotzingo.vue'
+import PantallaTurnosLaborales from './pages/PantallaTurnosLaborales.vue'
 import ImprimirTurnoCholula from './pages/ImprimirTurnoCholula.vue'
 import ImprimirTurnoHuejotzingo from './pages/ImprimirTurnoHuejotzingo.vue'
 import ImprimirTurnoLaborales from './pages/ImprimirTurnoLaborales.vue'
@@ -89,6 +92,21 @@ const routes = [
         path: '/imprimir-turno-puebla',
         name: 'ImprimirTurnoPuebla',
         component: ImprimirTurnoPuebla,
+    },
+    {
+        path: '/pantalla-turnos-cholula',
+        name: 'PantallaTurnosCholula',
+        component: PantallaTurnosCholula,
+    },
+    {
+        path: '/pantalla-turnos-huejotzingo',
+        name: 'PantallaTurnosHuejotzingo',
+        component: PantallaTurnosHuejotzingo,
+    },
+    {
+        path: '/pantalla-turnos-laborales',
+        name: 'PantallaTurnosLaborales',
+        component: PantallaTurnosLaborales,
     },
     {
         path: '/pantalla-turnos-puebla',

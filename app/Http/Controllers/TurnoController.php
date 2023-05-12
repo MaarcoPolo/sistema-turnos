@@ -567,13 +567,14 @@ class TurnoController extends Controller
     {
         DB::beginTransaction();
         try{
+           
             $turnos = Turno::where('casa_justicia_id', $request->casa_justicia_id)
-                                    // ->where('user_id', $request->id)
-                                    ->where('en_atencion', 1)
-                                    ->orderBy('fecha_atencion_inicio', 'DESC')
-                                    ->orderBy('hora_atencion_inicio', 'DESC')
-                                    ->limit(6)
-                                    ->get(); 
+                                // ->where('user_id', $request->id)
+                                ->where('en_atencion', '>=' ,1)
+                                ->orderBy('fecha_atencion_inicio', 'DESC')
+                                ->orderBy('hora_atencion_inicio', 'DESC')
+                                ->limit(11)
+                                ->get(); 
 
                 if($turnos->count()>0){
                     $cont =0;  
@@ -586,7 +587,7 @@ class TurnoController extends Controller
                         array_push($array_turnos, $object);
                         $cont++;
                     }
-                    for($i = $cont; $i < 6; $i++)
+                    for($i = $cont; $i < 11; $i++)
                     {
                         $object = new \stdClass();
                         $object->turno = '--';
@@ -603,7 +604,7 @@ class TurnoController extends Controller
                 }else{
                     $cont =0;  
                     $array_turnos = array();
-                    for($i = $cont; $i < 6; $i++)
+                    for($i = $cont; $i < 11; $i++)
                     {
                         $object = new \stdClass();
                         $object->caja = "--";

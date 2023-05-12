@@ -140,12 +140,12 @@
 
 
     export default defineComponent({
-        name: 'pantalla-turnos-puebla',
+        name: 'pantalla-turnos-cholula',
       
         data(){
             return{
                 turno:{
-                    casa_justicia_id: 1,
+                    casa_justicia_id: 2,
                 }   
             }
         },
