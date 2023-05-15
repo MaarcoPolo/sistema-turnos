@@ -8,29 +8,57 @@ use Illuminate\Support\Facades\DB;
 
 class CajaController extends Controller
 {
-    public function getCajas(){
+    public function getCajas(Request $request)
+    {
         try {
-            
-            $cajas = Caja::where('status', 1)->get();
+            if($request->tipo == 2){
+                // $sede = $request->sede;
+                $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+                $array_cajas = array();
+                $cont = 1;
+                foreach ($cajas as $caja) {
+                    $objectCaja = new \stdClass();
+                    $objectCaja->id = $caja->id;
+                    $objectCaja->num_registro = $cont;
+                    $objectCaja->nombre = $caja->nombre;
+                    // $objectArea->estatus = $area->estatus;
+                    
+                    array_push($array_cajas, $objectCaja);
+                    $cont++;
+                }
+    
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Ventanillas obtenidas con éxito",
+                    "cajas" => $array_cajas
+                ], 200);
 
-            $array_cajas = array();
-            $cont = 1;
-            foreach ($cajas as $caja) {
-                $objectCaja = new \stdClass();
-                $objectCaja->id = $caja->id;
-                $objectCaja->num_registro = $cont;
-                $objectCaja->nombre = $caja->nombre;
-                // $objectArea->estatus = $area->estatus;
-                
-                array_push($array_cajas, $objectCaja);
-                $cont++;
+
+            }else{
+                $cajas = Caja::where('status', 1)->get();
+
+                $array_cajas = array();
+                $cont = 1;
+                foreach ($cajas as $caja) {
+                    $objectCaja = new \stdClass();
+                    $objectCaja->id = $caja->id;
+                    $objectCaja->num_registro = $cont;
+                    $objectCaja->nombre = $caja->nombre;
+                    // $objectArea->estatus = $area->estatus;
+                    
+                    array_push($array_cajas, $objectCaja);
+                    $cont++;
+                }
+    
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Ventanillas obtenidas con éxito",
+                    "cajas" => $array_cajas
+                ], 200);
+
             }
-
-            return response()->json([
-                "status" => "ok",
-                "message" => "Ventanillas obtenidas con éxito",
-                "cajas" => $array_cajas
-            ], 200);
+            
+           
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "error",

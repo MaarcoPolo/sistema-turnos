@@ -67,6 +67,25 @@
     -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
 }
 
+.card-tipo-turno-h {
+    margin: auto;
+    width: 65%;
+    height: auto;
+
+    box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+}
+.card-tipo-turno-l {
+    margin: auto;
+    width: 100%;
+    height: auto;
+
+    box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(84,83,83,0.75);
+}
+
 .card-tipo-turno-titulo {
     background-color: v.$morado_m2;
     border-bottom: .3rem solid v.$verde_v2;

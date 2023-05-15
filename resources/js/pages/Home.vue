@@ -12,69 +12,167 @@
                         <img class="icono-administrar-ventanillas" src="../../../public/icons/turno.png" alt="">
                         <p>Total de turnos por atender</p>
                     </div>
+                    <!-- SUPERADMINISTRADOR /ADMINISTRADOR PUEBLA-->
+                    <template v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 1">
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Turno</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>1</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Sala</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>0</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Interno</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>1</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Demanda</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>A. Rápida</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>1</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>O. Familiar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- ADMINISTRADOR CHOLULA -->
+                    <template v-if="user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 2">
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Turno</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>1</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Demanda</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>0</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>O. Familiar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- ADMINISTRADOR HUEJOTZINGO -->
+                    <template v-if="user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 3">
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-6 col-12 mt-6">
+                                <div class="card-tipo-turno-h">
+                                    <div class="card-tipo-turno-body">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Turno</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mt-6">
+                                <div class="card-tipo-turno-h">
+                                    <div class="card-tipo-turno-body">
+                                        <p>1</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Demanda</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- ADMINISTRADOR LABORALES -->
+                    <template v-if="user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 4">
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6"></div>
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-4 col-12 mt-6"></div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno-l">
+                                    <div class="card-tipo-turno-body">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Turno</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6"></div>
+                        </div>
+                    </template>
                     <div class="row justify-content-between mt-6">
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>2</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>Turno</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>1</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>Sala</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>0</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>Interno</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-between mt-6">
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>1</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>Demanda</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>2</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>A. Rápida</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12 mt-6">
-                            <div class="card-tipo-turno">
-                                <div class="card-tipo-turno-body">
-                                    <p>1</p>
-                                </div>
-                                <div class="card-tipo-turno-titulo">
-                                    <p>O. Familiar</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="col-md-4 col-12 mt-6"></div>
+                        <div class="col-md-4 col-12 mt-6"></div>
+                        <div class="col-md-4 col-12 mt-6"></div>
+                        <div class="col-md-4 col-12 mt-6"></div>
                     </div>
                 </div>
             </div>

@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr v-else v-for="caja in datosPaginados" :key="caja.id">
                                     <td class="custom-data-table">
-                                        {{caja.id}}
+                                        {{caja.num_registro}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
                                         {{caja.nombre}}
@@ -288,6 +288,11 @@
                     id:null,
                     nombre:'',
                   
+                },
+                usuario:{
+                    tipo: null,
+                    sede: null,
+
                 }
 
             }
@@ -412,7 +417,9 @@
             async getCajas() {
                 this.loading = true
                 try {
-                    let response = await axios.get('/api/cajas')
+                    this.usuario.tipo = this.user.user.tipo_usuario_id
+                    this.usuario.sede = this.user.user.casa_justicia_id
+                    let response = await axios.post('/api/cajas', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setCajas', response.data.cajas)
