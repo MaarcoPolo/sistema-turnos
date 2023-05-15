@@ -627,12 +627,78 @@ class TurnoController extends Controller
             $exito = false;
             return response()->json([
                 "status" => "error",
-                "message" => "Ocurrió un error al actualizar el turnooooo.",
+                "message" => "Ocurrió un error al actualizar el turno.",
                 "error" => $th->getMessage(),
                 "location" => $th->getFile(),
                 "line" => $th->getLine(),
             ], 200);
         }
 
+    }
+
+    public function turnosPendientes(Request $request)
+    {
+        try{
+            $turnos = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 1)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+            $salas = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 2)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+            $internos = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 3)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+            $rapidos = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 4)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+            $demandas = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 5)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+            $familiares = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 6)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
+
+                        $object = new \stdClass();
+                        $object->turnos = $turnos;
+                        $object->salas = $salas;
+                        $object->internos = $internos;
+                        $object->rapidos = $rapidos;
+                        $object->demandas = $demandas;
+                        $object->familiares = $familiares;
+
+                        return response()->json([
+                            "status" => "ok",
+                            "message" => "turnos obtenidos con éxito",
+                            "pendientes" => $object
+                        ], 200);
+
+        }catch (\Throwable $th) {
+            DB::rollback();
+            $exito = false;
+            return response()->json([
+                "status" => "error",
+                "message" => "Ocurrió un error al obtener los turnos pendientes.",
+                "error" => $th->getMessage(),
+                "location" => $th->getFile(),
+                "line" => $th->getLine(),
+            ], 200);
+        }
     }
 }

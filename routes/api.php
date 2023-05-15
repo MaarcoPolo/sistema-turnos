@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/cajas', [CajaController::class, 'getCajas']);
     Route::post('/cajas/crear-caja', [CajaController::class, 'guardarCaja']);
     Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
+    Route::post('/cajas/actualizar-tipo-caja', [CajaController::class, 'actualizarTipoCaja']);
     Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
 });
     
@@ -41,6 +42,8 @@ Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
 Route::post('/imprimir-turno', [TurnoController::class, 'imprimirTurno']);
 Route::post('/atender-turno', [TurnoController::class, 'atenderTurno']);
 Route::post('/turnos-pantalla', [TurnoController::class, 'turnosPantalla']);
+Route::post('/turnos-pendientes', [TurnoController::class, 'turnosPendientes']);
+
 
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 

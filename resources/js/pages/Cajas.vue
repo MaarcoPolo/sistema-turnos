@@ -182,10 +182,30 @@
                         <div class="col-12">
                             <div class="div-custom-input-caja">
                                 <label for="input_nombre">Nombre de la Caja:</label>
-                                <input id="input_nombre" type="text" class="form-control" v-model="v$.form.nombre.$model">
+                                <input id="input_nombre" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.form.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="select_nombre">Tipo de Caja:</label>
+                                <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.form.tipo.$model">
+                                    <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                </select>
+                                <p class="text-validation-red" v-if="v$.form.tipo.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div v-if="user.user.tipo_usuario_id == 1" class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="select_nombre">Casa de Justicia:</label>
+                                <select name="select_casa_justicia" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
+                                    <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                </select>
+                                <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                       
+                            
                     </div>
                     <div class="text-center mb-4 mt-6">
                         <v-btn
@@ -223,7 +243,7 @@
                         <div class="col-12">
                             <div class="div-custom-input-caja">
                                 <label for="input_nombre">Nombre:</label>
-                                <textarea id="input_input_nombre" rows="4" class="form-control" v-model="v$.editar.nombre.$model"></textarea>
+                                <input id="input_input_nombre" rows="4" class="form-control" v-model="v$.editar.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.editar.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
@@ -281,6 +301,8 @@
                 form: {
                     id:null,
                     nombre:'',
+                    tipo:null,
+                    sede:null,
                     // descripcion:'',
                     // fecha_oficio:new Date().toJSON().slice(0,10),
                 },
@@ -307,6 +329,12 @@
                     form: {
                         nombre: {
                             required
+                        },
+                        tipo: {
+                            required
+                        }, 
+                        sede: {
+                            required
                         }
                     },
                     editar: {
@@ -318,6 +346,8 @@
         },
     created(){
         this.getCajas()
+        this.getCatalogoTiposTurnos()
+           
     },
     computed: {
         pages() {
@@ -335,7 +365,10 @@
         },
         currentRoute() {
             return this.$route.name
-        }
+        },
+        tiposVentanillas() {
+                return this.$store.getters.getCatalogoTiposTurnos
+            },
     },
     watch: {
         buscar: function () {
@@ -354,7 +387,7 @@
         },
     },
     methods: {
-        logout() {
+            logout() {
                 this.$store.dispatch('logout')
             },
             totalPaginas() {
@@ -414,6 +447,22 @@
             abrirModalNuevaCaja(){
                 this.dialogNuevaCaja = true
             },
+            async getCatalogoTiposTurnos() {
+                try {
+                    let response = await axios.get('/api/tipos-turnos')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
+                }
+            },
             async getCajas() {
                 this.loading = true
                 try {
@@ -442,13 +491,16 @@
                 this.form.nombre =''
             },
             abrirModalEditarCaja(caja){
-                console.log(caja)
+                // console.log(caja)
                 this.dialogEditarCaja=true 
                 this.editar.id = caja.id
                 this.editar.nombre = caja.nombre
 
             },
             async guardarNuevaCaja() {
+                 if(this.user.user.tipo_usuario_id == 2){
+                                    this.form.sede = this.user.user.casa_justicia_id
+                    }
                 const isFormCorrect = await this.v$.form.$validate()              
                 if (!isFormCorrect) return
                 Swal.fire({
@@ -543,6 +595,7 @@
                   showLoaderOnConfirm: true,
                   preConfirm: async () => {
                       try {
+                         this.loading= true
                           let response = await axios.post('/api/cajas/eliminar-caja', caja)
                           return response
                       } catch (error) {
@@ -556,6 +609,7 @@
                           if (result.value.data.status === "ok") {
                               successSweetAlert(result.value.data.message)
                               this.$store.commit('setCajas', result.value.data.cajas)
+                              this.loading = false
                               this.getDataPagina(1)
                           } else {
                               errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
@@ -565,7 +619,7 @@
                       }
                   }
               })
-               
+              
             }
            
         }

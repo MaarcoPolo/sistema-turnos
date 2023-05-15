@@ -14,153 +14,153 @@ class CajaSeeder extends Seeder
     public function run(): void
     {
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla1',
+            'nombre' => 'Ventanilla 1',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla2',
+            'nombre' => 'Ventanilla 2',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla3',
+            'nombre' => 'Ventanilla 3',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 3,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla4',
+            'nombre' => 'Ventanilla 4',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 4,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla5',
+            'nombre' => 'Ventanilla 5',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla6',
+            'nombre' => 'Ventanilla 6',
             'status' => 1,
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla7',
+            'nombre' => 'Ventanilla 7',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla8',
+            'nombre' => 'Ventanilla 8',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla9',
+            'nombre' => 'Ventanilla 9',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 3,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla10',
+            'nombre' => 'Ventanilla 10',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 4,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla11',
+            'nombre' => 'Ventanilla 11',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla12',
+            'nombre' => 'Ventanilla 12',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla13',
+            'nombre' => 'Ventanilla 13',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla14',
+            'nombre' => 'Ventanilla 14',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 2,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla15',
+            'nombre' => 'Ventanilla 15',
             'casa_justicia_id' => 1,
             'tipo_turno_id' => 3,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla1',
+            'nombre' => 'Ventanilla 1',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla2',
+            'nombre' => 'Ventanilla 2',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla3',
+            'nombre' => 'Ventanilla 3',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla4',
+            'nombre' => 'Ventanilla 4',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla5',
+            'nombre' => 'Ventanilla 5',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla6',
+            'nombre' => 'Ventanilla 6',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 6,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla7',
+            'nombre' => 'Ventanilla 7',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla8',
+            'nombre' => 'Ventanilla 8',
             'casa_justicia_id' => 2,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla1',
+            'nombre' => 'Ventanilla 1',
             'casa_justicia_id' => 3,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla2',
+            'nombre' => 'Ventanilla 2',
             'casa_justicia_id' => 3,
             'tipo_turno_id' => 5,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla3',
+            'nombre' => 'Ventanilla 3',
             'casa_justicia_id' => 3,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla1',
+            'nombre' => 'Ventanilla 1',
             'casa_justicia_id' => 4,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla2',
+            'nombre' => 'Ventanilla 2',
             'casa_justicia_id' => 4,
             'tipo_turno_id' => 1,
         ]);
         DB::table('cajas')->insert([
-            'nombre' => 'Ventanilla3',
+            'nombre' => 'Ventanilla 3',
             'casa_justicia_id' => 4,
             'tipo_turno_id' => 1,
         ]);

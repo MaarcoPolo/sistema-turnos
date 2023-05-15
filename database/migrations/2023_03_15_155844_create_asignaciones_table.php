@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('asignaciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->unsignedBigInteger('casa_justicia_id');
             $table->unsignedBigInteger('tipo_turno');
-            // $table->integer('tipo_atencion');
+            // $table->foreignId('caja_id')->constrained();
             $table->boolean('asignacion')->default(false); //bandera
             $table->timestamps();
 
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
             $table->foreign('tipo_turno')->references('id')->on('tipo_turnos');
+           
 
         });
     }

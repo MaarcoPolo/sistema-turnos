@@ -18,7 +18,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>2</p>
+                                        <p>{{turnos}}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -28,7 +28,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>1</p>
+                                        <p>{{ salas }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Sala</p>
@@ -38,7 +38,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>0</p>
+                                        <p>{{ internos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Interno</p>
@@ -50,7 +50,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>1</p>
+                                        <p>{{ demandas }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Demanda</p>
@@ -60,7 +60,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>2</p>
+                                        <p>{{ rapidos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>A. Rápida</p>
@@ -70,7 +70,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>1</p>
+                                        <p>{{ familiares }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>O. Familiar</p>
@@ -89,7 +89,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>2</p>
+                                        <p>{{ turnos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -99,7 +99,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>1</p>
+                                        <p>{{ demandas }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Demanda</p>
@@ -109,7 +109,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>0</p>
+                                        <p>{{ familiares }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>O. Familiar</p>
@@ -128,7 +128,7 @@
                             <div class="col-md-6 col-12 mt-6">
                                 <div class="card-tipo-turno-h">
                                     <div class="card-tipo-turno-body">
-                                        <p>2</p>
+                                        <p>{{ turnos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -138,7 +138,7 @@
                             <div class="col-md-6 col-12 mt-6">
                                 <div class="card-tipo-turno-h">
                                     <div class="card-tipo-turno-body">
-                                        <p>1</p>
+                                        <p>{{ demandas }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Demanda</p>
@@ -158,7 +158,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno-l">
                                     <div class="card-tipo-turno-body">
-                                        <p>2</p>
+                                        <p>{{ turnos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -233,7 +233,7 @@
                             </table>
                         </div>
                         <div>
-                            <template v-if="ventanillas && ventanillas.length > 0">
+                            <template v-if="cajas && cajas.length > 0">
                                 <div class="row justify-content-between container m-auto">
                                     <div class="m-auto">
                                         <p class="text-results-ventanillas mt-2">
@@ -242,7 +242,7 @@
                                             -
                                             <span>{{to}}</span>
                                             de
-                                            <span>{{ventanillas.length}}</span>
+                                            <span>{{cajas.length}}</span>
                                             resultados
                                         </p>
                                     </div>
@@ -367,77 +367,31 @@
                 
                 modalCambiarTipoVentanilla: false,
                 form_ventanilla: {
+                    id: null,
                     nombre: '',
                     tipo_ventanilla: '',
                 },
+                usuario:{
+                    tipo: null,
+                    sede: null,
 
-                ventanillas: [
-                    {
-                        id: 1,
-                        nombre: 'Ventanilla 1',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 2,
-                        nombre: 'Ventanilla 2',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 3,
-                        nombre: 'Ventanilla 3',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 4,
-                        nombre: 'Ventanilla 4',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 5,
-                        nombre: 'Ventanilla 5',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 6,
-                        nombre: 'Ventanilla 6',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 7,
-                        nombre: 'Ventanilla 7',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 8,
-                        nombre: 'Ventanilla 8',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 9,
-                        nombre: 'Ventanilla 9',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 10,
-                        nombre: 'Ventanilla 10',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 11,
-                        nombre: 'Ventanilla 11',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                    {
-                        id: 12,
-                        nombre: 'Ventanilla 12',
-                        tipo_ventanilla: 'Atención Rápida',
-                    },
-                ],
+                },
+                turnos: 0,
+                salas: 0,
+                internos: 0,
+                rapidos: 0,
+                demandas: 0,
+                familiares: 0,
+
+
+             
             }
         },
         created() {
-            this.mostrar = true
+            this.getTurnosPendientes()
+            this.getCajas()
             this.getCatalogoTiposTurnos()
+           
         },
         computed: {
             pages() {
@@ -453,9 +407,13 @@
             currentRoute() {
                 return this.$route.name
             },
+            cajas() {
+                return this.$store.getters.getCajas
+            },
             tiposVentanillas() {
                 return this.$store.getters.getCatalogoTiposTurnos
-            }
+            },
+           
         },
         watch: {
             buscar: function () {
@@ -479,6 +437,56 @@
             },
         },
         methods: {
+            async getTurnosPendientes() {
+                // this.loading = true
+                try {
+                    // this.usuario.tipo = this.user.user.tipo_usuario_id
+                    this.usuario.sede = this.user.user.casa_justicia_id
+                    let response = await axios.post('/api/turnos-pendientes', this.usuario)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.turnos = response.data.pendientes.turnos
+                            this.salas = response.data.pendientes.salas
+                            this.internos = response.data.pendientes.internos
+                            this.rapidos = response.data.pendientes.rapidos
+                            this.demandas = response.data.pendientes.demandas
+                            this.familiares = response.data.pendientes.familiares
+                            // this.$store.commit('setCajas', response.data.cajas)
+                            // this.oficios = response.data.oficios
+                            // this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener los turnos pendientes')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener los turnos pendientes')
+                }
+                // this.loading = false
+            },
+            async getCajas() {
+                this.loading = true
+                try {
+                    this.usuario.tipo = this.user.user.tipo_usuario_id
+                    this.usuario.sede = this.user.user.casa_justicia_id
+                    let response = await axios.post('/api/cajas', this.usuario)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCajas', response.data.cajas)
+                            // this.oficios = response.data.oficios
+                            this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las Ventanillas')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las Ventanillas')
+                }
+                this.loading = false
+            },
             async getCatalogoTiposTurnos() {
                 try {
                     let response = await axios.get('/api/tipos-turnos')
@@ -495,23 +503,63 @@
                     errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
                 }
             },
+           
             abrirModalCambiarTipoVentanilla(ventanilla) {
+                this.form_ventanilla.id = ventanilla.id
                 this.form_ventanilla.nombre = ventanilla.nombre
+                this.form_ventanilla.tipo_ventanilla = ventanilla.tipo_id
                 this.modalCambiarTipoVentanilla = true
             },
             cerrarModalCambiarTipoVentanilla() {
                 this.modalCambiarTipoVentanilla = false
             },
-            guardarCambiosVentanilla() {
-
-            },
+            async guardarCambiosVentanilla() {
+                // const isFormCorrect = await this.v$.editar.$validate()              
+                // if (!isFormCorrect) return
+                // console.log(this.form_ventanilla)
+                    Swal.fire({
+                        title: '¿Guardar cambios?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085D6',
+                        cancelButtonColor: '#D33',
+                        confirmButtonText: 'Si, guardar',
+                        cancelButtonText: 'Cancelar',
+                        showLoaderOnConfirm: true,
+                        preConfirm: async () => {
+                            try {
+                                let response = await axios.post('/api/cajas/actualizar-tipo-caja', this.form_ventanilla)
+                                return response
+                            } catch (error) {
+                                errorSweetAlert('Ocurrió un error al actualizar el tipo de Ventanilla.')
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            if (result.value.status === 200) {
+                                if (result.value.data.status === "ok") {
+                                    successSweetAlert(result.value.data.message)
+                                    this.$store.commit('setCajas', result.value.data.cajas)
+                                    this.cerrarModalCambiarTipoVentanilla()
+                                    this.getDataPagina(1)
+                                }else {
+                                    errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
+                                }
+                            } else {
+                                errorSweetAlert('Ocurrió un error al actualizar el tipo de Ventanilla.')
+                            }
+                        }
+                    })
+              
+           },
 
 
 
 
 
             totalPaginas() {
-                return Math.ceil(this.ventanillas.length / this.elementosPorPagina)
+                return Math.ceil(this.cajas.length / this.elementosPorPagina)
             },
             getDataPagina(noPagina) {
                 this.paginaActual = noPagina
@@ -521,8 +569,8 @@
                 let fin = (noPagina * this.elementosPorPagina)
 
                 for (let index = ini; index < fin; index++) {
-                    if (this.ventanillas[index]) {
-                        this.datosPaginados.push(this.ventanillas[index])
+                    if (this.cajas[index]) {
+                        this.datosPaginados.push(this.cajas[index])
                     }
                 }
 
@@ -531,7 +579,7 @@
                 if (noPagina < this.totalPaginas()) {
                     this.to = fin
                 } else {
-                    this.to = this.ventanillas.length
+                    this.to = this.cajas.length
                 }
             },
             getFirstPage() {
