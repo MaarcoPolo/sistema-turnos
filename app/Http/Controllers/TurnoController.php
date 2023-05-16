@@ -26,6 +26,7 @@ class TurnoController extends Controller
             $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
                                     ->where('tipo_turno',$request->tipo_turno_id)
                                     ->where('asignacion',0)
+                                    ->where('status',1)
                                     ->first();
             if($asignacion)
             {
@@ -36,7 +37,7 @@ class TurnoController extends Controller
             }else{
                 $asignaciones = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
                                     ->where('tipo_turno',$request->tipo_turno_id)
-                                    // ->where('asignacion',1)
+                                    ->where('status',1)
                                     ->get();
                 foreach($asignaciones as $asignacion){
                         $asignacion->asignacion = false;

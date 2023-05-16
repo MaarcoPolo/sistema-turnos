@@ -189,6 +189,7 @@
                                     <tr>
                                         <th class="title-table-ventanillas">Ventanilla</th>
                                         <th class="title-table-ventanillas">Tipo Ventanilla</th>
+                                        <th v-if="user.user.tipo_usuario_id ==1" class="title-table-ventanillas">Casa de Justicia</th>
                                         <th class="title-table-ventanillas">Acciones</th>
                                     </tr>
                                 </thead>
@@ -207,6 +208,9 @@
                                         </td>
                                         <td class="data-table-ventanillas">
                                             {{ventanilla.tipo_ventanilla}}
+                                        </td>
+                                        <td v-if="user.user.tipo_usuario_id ==1" class="data-table-ventanillas">
+                                            {{ventanilla.sede}}
                                         </td>
                                         <td>
                                             <div class="text-center row justify-content-center">

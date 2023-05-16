@@ -50,7 +50,7 @@
                                 <tr>
                                     <th class="custom-title-table">Id</th>
                                     <th class="custom-title-table">Nombre</th>
-                                    <!-- <th class="custom-title-table">Tipo de Ventanilla</th> -->
+                                    <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Casa de Justicia</th>
                                     <th class="custom-title-table">Acciones</th>
                                 </tr>
                             </thead>
@@ -69,6 +69,9 @@
                                     </td>
                                     <td class="custom-data-table text-uppercase">
                                         {{caja.nombre}}
+                                    </td>
+                                    <td v-if="user.user.tipo_usuario_id ==1" class="custom-data-table text-uppercase">
+                                        {{caja.sede}}
                                     </td>
                                     <td>
                                         <div class="text-center row justify-content-center">

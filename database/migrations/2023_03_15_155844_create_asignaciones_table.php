@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained();
             $table->unsignedBigInteger('casa_justicia_id');
             $table->unsignedBigInteger('tipo_turno');
-            // $table->foreignId('caja_id')->constrained();
             $table->boolean('asignacion')->default(false); //bandera
+            $table->boolean('status')->default(true);
             $table->timestamps();
 
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');

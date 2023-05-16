@@ -190,7 +190,6 @@ class CajaController extends Controller
         try {
             $caja = Caja::find($request->id);
             $caja->status = false;
-            // $oficio->status = false;
             $caja->save();
 
 
@@ -224,6 +223,11 @@ class CajaController extends Controller
             ], 200);
         }
         if ($exito) {
+            $asignacion = Asignacion::find($request->id);
+            $asignacion->status = false;
+            $asignacion->save();
+            DB::commit();
+
             return response()->json([
                 "status" => "ok",
                 "message" => "Ventanilla eliminada con exito.",
