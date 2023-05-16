@@ -18,4 +18,9 @@ class Caja extends Model
     {
         return $this->belongsTo(tipoTurno::class, 'tipo_turno_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

@@ -12,6 +12,15 @@
                         <img class="icono-administrar-ventanillas" src="../../../public/icons/turno.png" alt="">
                         <p>Total de turnos por atender</p>
                     </div>
+                    <div v-if="user.user.tipo_usuario_id == 1" class="col-6 p-2">
+                        <div class="div-custom-input-caja">
+                            <label for="select_nombre">Casa de Justicia:</label>
+                            <select v-model="sede" name="select_casa_justicia" class="form-control minimal custom-select text-uppercase">
+                                <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                            </select>
+                            <!-- <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p> -->
+                        </div>
+                    </div>
                     <!-- SUPERADMINISTRADOR /ADMINISTRADOR PUEBLA-->
                     <template v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 1">
                         <div class="row justify-content-between mt-6">
@@ -189,7 +198,7 @@
                                     <tr>
                                         <th class="title-table-ventanillas">Ventanilla</th>
                                         <th class="title-table-ventanillas">Tipo Ventanilla</th>
-                                        <th v-if="user.user.tipo_usuario_id ==1" class="title-table-ventanillas">Casa de Justicia</th>
+                                        <th v-if="user.user.tipo_usuario_id == 1" class="title-table-ventanillas">Casa de Justicia</th>
                                         <th class="title-table-ventanillas">Acciones</th>
                                     </tr>
                                 </thead>
@@ -209,7 +218,7 @@
                                         <td class="data-table-ventanillas">
                                             {{ventanilla.tipo_ventanilla}}
                                         </td>
-                                        <td v-if="user.user.tipo_usuario_id ==1" class="data-table-ventanillas">
+                                        <td v-if="user.user.tipo_usuario_id == 1" class="data-table-ventanillas">
                                             {{ventanilla.sede}}
                                         </td>
                                         <td>
@@ -386,6 +395,7 @@
                 rapidos: 0,
                 demandas: 0,
                 familiares: 0,
+                sede: null,
 
 
              
@@ -395,6 +405,7 @@
             this.getTurnosPendientes()
             this.getCajas()
             this.getCatalogoTiposTurnos()
+            this.getCasasJusticia()
            
         },
         computed: {
@@ -417,9 +428,17 @@
             tiposVentanillas() {
                 return this.$store.getters.getCatalogoTiposTurnos
             },
+            sedes() {
+                return this.$store.getters.getCasasJusticia
+            },
            
         },
         watch: {
+            'sede': function () {
+                this.usuario.sede = this.sede
+                // console.log(this.usuario)
+                this.getTurnosPendientes()
+            },
             buscar: function () {
                 // if (!this.buscar.length == 0) {
                 //     this.datosPaginados = this.ventanillas.filter(item => {
@@ -442,10 +461,13 @@
         },
         methods: {
             async getTurnosPendientes() {
-                // this.loading = true
+               
                 try {
+                    if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                    }
                     // this.usuario.tipo = this.user.user.tipo_usuario_id
-                    this.usuario.sede = this.user.user.casa_justicia_id
+                    
                     let response = await axios.post('/api/turnos-pendientes', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
@@ -455,9 +477,7 @@
                             this.rapidos = response.data.pendientes.rapidos
                             this.demandas = response.data.pendientes.demandas
                             this.familiares = response.data.pendientes.familiares
-                            // this.$store.commit('setCajas', response.data.cajas)
-                            // this.oficios = response.data.oficios
-                            // this.mostrar = true
+                          
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -467,7 +487,23 @@
                 } catch (error) {
                     errorSweetAlert('Ocurrió un error al obtener los turnos pendientes')
                 }
-                // this.loading = false
+                
+            },
+            async getCasasJusticia() {
+                try {
+                    let response = await axios.get('/api/casas-justicia')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                }
             },
             async getCajas() {
                 this.loading = true
@@ -478,7 +514,6 @@
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setCajas', response.data.cajas)
-                            // this.oficios = response.data.oficios
                             this.mostrar = true
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
@@ -557,11 +592,6 @@
                     })
               
            },
-
-
-
-
-
             totalPaginas() {
                 return Math.ceil(this.cajas.length / this.elementosPorPagina)
             },

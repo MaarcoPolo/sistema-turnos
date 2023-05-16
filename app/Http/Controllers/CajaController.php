@@ -14,7 +14,9 @@ class CajaController extends Controller
         try {
             if($request->tipo == 2){
                 // $sede = $request->sede;
-                $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+                $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
+
                 $array_cajas = array();
                 $cont = 1;
                 foreach ($cajas as $caja) {
@@ -22,6 +24,11 @@ class CajaController extends Controller
                     $objectCaja->id = $caja->id;
                     $objectCaja->num_registro = $cont;
                     $objectCaja->nombre = $caja->nombre;
+                    if($caja->status== 1){
+                        $objectCaja->estatus = 'Activa'; 
+                    }else{
+                        $objectCaja->estatus = 'Desactivada';
+                    }
                     $objectCaja->sede = $caja->casaJusticia->nombre;
                     $objectCaja->tipo_id = $caja->tipo_turno_id;
                     $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
@@ -39,7 +46,9 @@ class CajaController extends Controller
 
 
             }else{
-                $cajas = Caja::where('status', 1)->get();
+                // $cajas = Caja::where('status', 1)->get();
+                $cajas = Caja::all();
+
 
                 $array_cajas = array();
                 $cont = 1;
@@ -87,7 +96,15 @@ class CajaController extends Controller
             $caja->tipo_turno_id = $request->tipo;
             $caja->save();
 
-            $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+            if($request->tipo_usuario == 1){
+                // $cajas = Caja::where('status', 1)->get();
+                $cajas = Caja::all();
+
+            }else{
+                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+                $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
+            }
+           
 
             $array_cajas = array();
             $cont = 1;
@@ -96,6 +113,11 @@ class CajaController extends Controller
                 $objectCaja->id = $caja->id;
                 $objectCaja->num_registro = $cont;
                 $objectCaja->nombre = $caja->nombre;
+                if($caja->status== 1){
+                    $objectCaja->estatus = 'Activa'; 
+                }else{
+                    $objectCaja->estatus = 'Desactivada';
+                }
                 $objectCaja->sede = $caja->casaJusticia->nombre;
                 $objectCaja->tipo_id = $caja->tipo_turno_id;
                 $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
@@ -117,12 +139,12 @@ class CajaController extends Controller
             ], 200);
         }
         if ($exito) {
-            $asignacion = new Asignacion;
-            $asignacion->casa_justicia_id = $request->sede;
-            $asignacion->tipo_turno = $request->tipo;
-            $asignacion->save();
+            // $asignacion = new Asignacion;
+            // $asignacion->casa_justicia_id = $request->sede;
+            // $asignacion->tipo_turno = $request->tipo;
+            // $asignacion->save();
 
-            DB::commit();
+            // DB::commit();
 
             return response()->json([
                 "status" => "ok",
@@ -142,11 +164,13 @@ class CajaController extends Controller
         try {
             $caja = Caja::find ($request->id);
             $caja->nombre = $request->nombre;
-            
             $caja->save();
 
-            $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
-
+            if($request->tipo_usuario == 1){
+                $cajas = Caja::where('status', 1)->get();
+            }else{
+                $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+            }
             $array_cajas = array();
             $cont = 1;
             foreach ($cajas as $caja) {
@@ -192,8 +216,22 @@ class CajaController extends Controller
             $caja->status = false;
             $caja->save();
 
+            $id = $caja->user->asignacion->id;
+            
+            // return response()->json([
+            //     "status" => "ok",
+            //     "message" => $id,
+            //     // "cajas" => $array_cajas,
+            // ], 200);
 
-            $cajas = Caja::where('status', 1)->where('casa_justicia_id', $caja->casa_justicia_id)->get();
+
+            if($request->tipo_usuario == 1){
+                // $cajas = Caja::where('status', 1)->get();
+                $cajas = Caja::all();
+            }else{
+                $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();
+                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $caja->casa_justicia_id)->get();
+            }
 
             $array_cajas = array();
             $cont = 1;
@@ -202,6 +240,11 @@ class CajaController extends Controller
                 $objectCaja->id = $caja->id;
                 $objectCaja->num_registro = $cont;
                 $objectCaja->nombre = $caja->nombre;
+                if($caja->status== 1){
+                    $objectCaja->estatus = 'Activa'; 
+                }else{
+                    $objectCaja->estatus = 'Desactivada';
+                }
                 $objectCaja->sede = $caja->casaJusticia->nombre;
                 $objectCaja->tipo_id = $caja->tipo_turno_id;
                 $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
@@ -223,16 +266,28 @@ class CajaController extends Controller
             ], 200);
         }
         if ($exito) {
-            $asignacion = Asignacion::find($request->id);
-            $asignacion->status = false;
-            $asignacion->save();
-            DB::commit();
+            $asignacion = Asignacion::find($id);
+            if($asignacion != null){
+                $asignacion->status = false;
+                $asignacion->save();
+                DB::commit();
 
-            return response()->json([
-                "status" => "ok",
-                "message" => "Ventanilla eliminada con exito.",
-                "cajas" => $array_cajas,
-            ], 200);
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Ventanilla eliminada con exito.",
+                    "cajas" => $array_cajas,
+                ], 200);
+            }else{
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Ventanilla eliminada con exito.",
+                    "cajas" => $array_cajas,
+                ], 200);
+
+            }
+           
+
+           
         }
     }
     public function actualizarTipoCaja(Request $request)

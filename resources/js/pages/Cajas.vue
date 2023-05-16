@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
-                <p class="custom-title-page">Cajas</p>
+                <p class="custom-title-page">Ventanillas</p>
             </div>
         </div>
         <div class="container mt-6">
@@ -19,7 +19,7 @@
                                 color="#c4f45d"
                                 @click="abrirModalNuevaCaja()"
                                 >
-                                Nueva caja
+                                Nueva ventanilla
                             </v-btn>
                         </div>
                     </div>
@@ -51,6 +51,7 @@
                                     <th class="custom-title-table">Id</th>
                                     <th class="custom-title-table">Nombre</th>
                                     <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Casa de Justicia</th>
+                                    <th class="custom-title-table">Estatus</th>
                                     <th class="custom-title-table">Acciones</th>
                                 </tr>
                             </thead>
@@ -72,6 +73,9 @@
                                     </td>
                                     <td v-if="user.user.tipo_usuario_id ==1" class="custom-data-table text-uppercase">
                                         {{caja.sede}}
+                                    </td>
+                                    <td class="custom-data-table text-uppercase">
+                                        {{caja.estatus}}
                                     </td>
                                     <td>
                                         <div class="text-center row justify-content-center">
@@ -95,14 +99,14 @@
                                                     @click="eliminarCaja(caja)"
                                                     class="ml-1"
                                                     >
-                                                    mdi-trash-can
+                                                    mdi-account-off
                                                 </v-icon>
     
                                                 <v-tooltip
                                                     activator="parent"
                                                     location="bottom"
                                                     >
-                                                    <span style="font-size: 15px;">Eliminar Ventanilla</span>
+                                                    <span style="font-size: 15px;">Desactivar Ventanilla</span>
                                                 </v-tooltip>
                                             </div>
                                         </div>
@@ -178,20 +182,20 @@
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Nueva Caja</p>
+                            <p>Nueva Ventanilla</p>
                         </div>
                     </div>
                     <div class="row justify-content-between mt-5">
                         <div class="col-12">
                             <div class="div-custom-input-caja">
-                                <label for="input_nombre">Nombre de la Caja:</label>
+                                <label for="input_nombre">Nombre de la Ventanilla:</label>
                                 <input id="input_nombre" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.form.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
                         <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="select_nombre">Tipo de Caja:</label>
+                                <label for="select_nombre">Tipo de Ventanilla:</label>
                                 <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.form.tipo.$model">
                                     <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
@@ -237,7 +241,7 @@
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Editar Caja</p>
+                            <p>Editar Ventanilla</p>
                         </div>
                     </div>
                     <div class="">
@@ -246,7 +250,7 @@
                         <div class="col-12">
                             <div class="div-custom-input-caja">
                                 <label for="input_nombre">Nombre:</label>
-                                <input id="input_input_nombre" rows="4" class="form-control" v-model="v$.editar.nombre.$model">
+                                <input id="input_input_nombre" autocomplete="off"  class="form-control" v-model="v$.editar.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.editar.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
@@ -306,12 +310,15 @@
                     nombre:'',
                     tipo:null,
                     sede:null,
+                    tipo_usuario:null
                     // descripcion:'',
                     // fecha_oficio:new Date().toJSON().slice(0,10),
                 },
                 editar: {
                     id:null,
                     nombre:'',
+                    sede:null,
+                    tipo_usuario:null
                   
                 },
                 usuario:{
@@ -524,7 +531,9 @@
             async guardarNuevaCaja() {
                  if(this.user.user.tipo_usuario_id == 2){
                                     this.form.sede = this.user.user.casa_justicia_id
+                                    
                     }
+                    this.form.tipo_usuario = this.user.user.tipo_usuario_id
                 const isFormCorrect = await this.v$.form.$validate()              
                 if (!isFormCorrect) return
                 Swal.fire({
@@ -582,6 +591,9 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
+                                this.loading = true
+                                this.editar.sede = this.user.user.casa_justicia_id
+                                this.editar.tipo_usuario = this.user.user.tipo_usuario_id
                                 let response = await axios.post('/api/cajas/actualizar-caja', this.editar)
                                 return response
                             } catch (error) {
@@ -596,6 +608,7 @@
                                     successSweetAlert(result.value.data.message)
                                     this.$store.commit('setCajas', result.value.data.cajas)
                                     this.cerrarModalNuevaCaja()
+                                    this.loading = false
                                     this.getDataPagina(1)
                                 }else {
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
@@ -609,7 +622,7 @@
            },
            async eliminarCaja(caja) {
                 Swal.fire({
-                  title: '¿Eliminar Ventanilla?',
+                  title: '¿Desactivar Ventanilla?',
                   icon: 'question',
                   showCancelButton: true,
                   confirmButtonColor: '#3085D6',
@@ -620,6 +633,8 @@
                   preConfirm: async () => {
                       try {
                          this.loading= true
+                          caja.tipo_usuario = this.user.user.tipo_usuario_id
+                        //  console.log(caja)
                           let response = await axios.post('/api/cajas/eliminar-caja', caja)
                           return response
                       } catch (error) {
