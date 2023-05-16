@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class TipoTurnoController extends Controller
 {
-    public function getTiposTurnos(){
+    public function getTiposTurnos()
+    {
         try {
             
             $tipos_turnos = TipoTurno::where('status', 1)->get();

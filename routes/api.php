@@ -7,6 +7,8 @@ use App\Http\Controllers\CajaController;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\TipoTurnoController;
+use App\Http\Controllers\CasaJusticiaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,8 @@ Route::post('/turnos-pendientes', [TurnoController::class, 'turnosPendientes']);
 
 
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
+
+Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);
 
 
 

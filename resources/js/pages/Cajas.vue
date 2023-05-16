@@ -202,7 +202,7 @@
                             <div class="div-custom-input-caja">
                                 <label for="select_nombre">Casa de Justicia:</label>
                                 <select name="select_casa_justicia" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
-                                    <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
                                 <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p>
                             </div>
@@ -350,6 +350,7 @@
     created(){
         this.getCajas()
         this.getCatalogoTiposTurnos()
+        this.getCasasJusticia()
            
     },
     computed: {
@@ -371,7 +372,11 @@
         },
         tiposVentanillas() {
                 return this.$store.getters.getCatalogoTiposTurnos
+        },
+        sedes() {
+                return this.$store.getters.getCasasJusticia
             },
+
     },
     watch: {
         buscar: function () {
@@ -464,6 +469,22 @@
                     }
                 } catch (error) {
                     errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
+                }
+            },
+            async getCasasJusticia() {
+                try {
+                    let response = await axios.get('/api/casas-justicia')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
                 }
             },
             async getCajas() {
