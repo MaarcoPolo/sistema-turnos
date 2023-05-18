@@ -8,6 +8,12 @@ Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '.*');
 
+// Route::get('/broadcast', function () {
+//     broadcast(new NewMessage());
+// });
+
 Route::get('/broadcast', function () {
-    broadcast(new NewMessage());
+    // return Hello::dispatch();
+    Hello::dispatch();
+    return 'sent';
 });
