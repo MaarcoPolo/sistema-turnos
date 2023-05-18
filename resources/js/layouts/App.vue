@@ -87,6 +87,11 @@
                 }
             )
         },
+        mounted() {
+            window.Echo.channel('public').listen('Hello', (e) => {
+                console.log(e)
+            })
+        },
         computed: {
             user() {
                 return this.$store.getters.user
