@@ -152,6 +152,13 @@
         created(){
             this.turnosPantalla()
         },
+        mounted() {
+            Echo.channel('turnosCholula').listen('LlamarTurnoCholula', (e) => {
+                // console.log(e)
+                this.turnosPantalla()
+                
+            })
+        },
         computed:{
             turnos(){
                 return this.$store.getters.getTurnosPantalla

@@ -168,11 +168,7 @@
             this.turnosPantalla()
         },
         mounted() {
-            // var audio = new Audio('../../../public/ringtones-super-mario-bros.mp3'); // path to file
-            // audio.play();
-            // console.log(document.getElementById('startbtn'))
-            // document.getElementById('startbtn').click()
-            Echo.channel('generico').listen('NewMessage', (e) => {
+            Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
                 // console.log(e)
                 // var audio = new Audio(require('../../../public/ringtones-super-mario-bros.mp3')); // path to file
                 // audio.play();

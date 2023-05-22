@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Turno;
 use Carbon\Carbon;
-use App\Events\NewMessage;
+use App\Events\LlamarTurnoPuebla;
+use App\Events\LlamarTurnoCholula;
+use App\Events\LlamarTurnoHuejotzingo;
+use App\Events\LlamarTurnoLaborales;
+
 use App\Models\Contador;
 use App\Models\Asignacion;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -395,7 +399,17 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
-                    NewMessage::dispatch('hola 1');
+                    
+                    if($request->sede_id == 1){
+                        LlamarTurnoPuebla::dispatch('hola 1');
+                    }elseif($request->sede_id == 2){
+                        LlamarTurnoCholula::dispatch('hola 2');
+                    }elseif($request->sede_id == 3){
+                        LlamarTurnoHuejotzingo::dispatch('hola 3');
+                    }elseif($request->sede_id == 4){
+                        LlamarTurnoLaborales::dispatch('hola 4');
+                    }
+                   
                     return response()->json([
                         "status" => "ok",
                         "message" => "Turnos obtenidas con éxito",
@@ -409,7 +423,16 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
-                    NewMessage::dispatch('hola 2');
+
+                    if($request->sede_id == 1){
+                        LlamarTurnoPuebla::dispatch('hola 1');
+                    }elseif($request->sede_id == 2){
+                        LlamarTurnoCholula::dispatch('hola 2');
+                    }elseif($request->sede_id == 3){
+                        LlamarTurnoHuejotzingo::dispatch('hola 3');
+                    }elseif($request->sede_id == 4){
+                        LlamarTurnoLaborales::dispatch('hola 4');
+                    }
                     return response()->json([
                         "status" => "no-data",
                         "message" => "No hay turnos",
@@ -460,7 +483,16 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
-                    NewMessage::dispatch('hola 3');
+
+                    if($request->sede_id == 1){
+                        LlamarTurnoPuebla::dispatch('hola 1');
+                    }elseif($request->sede_id == 2){
+                        LlamarTurnoCholula::dispatch('hola 2');
+                    }elseif($request->sede_id == 3){
+                        LlamarTurnoHuejotzingo::dispatch('hola 3');
+                    }elseif($request->sede_id == 4){
+                        LlamarTurnoLaborales::dispatch('hola 4');
+                    }
                     return response()->json([
                         "status" => "ok",
                         "message" => "Turnos obtenidas con éxito",
@@ -476,7 +508,16 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
-                    NewMessage::dispatch($array_turnos);
+
+                    if($request->sede_id == 1){
+                        LlamarTurnoPuebla::dispatch('hola 1');
+                    }elseif($request->sede_id == 2){
+                        LlamarTurnoCholula::dispatch('hola 2');
+                    }elseif($request->sede_id == 3){
+                        LlamarTurnoHuejotzingo::dispatch('hola 3');
+                    }elseif($request->sede_id == 4){
+                        LlamarTurnoLaborales::dispatch('hola 4');
+                    }
                     return response()->json([
                         "status" => "no-data",
                         "message" => "No hay turnos",

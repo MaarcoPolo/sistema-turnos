@@ -69,16 +69,15 @@ Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia'
 //     broadcast(new NewMessage());
 // });
 
-Route::get('/broadcast', function () {
-    // return Hello::dispatch();
-    Hello::dispatch();
-    return 'sent';
-});
+// Route::get('/broadcast', function () {
+//     // return Hello::dispatch();
+//     Hello::dispatch();
+//     return 'sent';
+// });
 
-Route::get('/broadcast-private', function () {
-    $user = User::find(1);
-    // return Hello::dispatch();
-    PrivateTest::dispatch($user);
-    return 'sent ' . $user->nombre;
-});
-
+// Route::get('/broadcast-private', function () {
+//     $user = User::find(1);
+//     // return Hello::dispatch();
+//     PrivateTest::dispatch($user);
+//     return 'sent ' . $user->nombre;
+// });
