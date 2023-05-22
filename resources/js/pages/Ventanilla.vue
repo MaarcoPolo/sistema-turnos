@@ -76,6 +76,26 @@
         created(){
             this.cargarTurnos()
         },
+        mounted() {
+            if(this.user.user.casa_justicia_id == 1)
+            {
+                Echo.channel('ventanillasPuebla').listen('CargarTurnosPuebla', (e) => {
+                // console.log(e)
+                // this.cargarTurnos()
+                
+                })
+            }
+            if(this.user.user.casa_justicia_id == 4)
+            {
+                Echo.channel('ventanillasLaborales').listen('CargarTurnosLaborales', (e) => {
+                // console.log(e)
+                // this.cargarTurnos()
+                
+                })
+            }
+           
+            this.cargarTurnos() 
+        },
         computed: {
             user() {
                 return this.$store.getters.user

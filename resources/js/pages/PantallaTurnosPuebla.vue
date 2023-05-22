@@ -186,7 +186,7 @@
                 // document.getElementById('music').muted = false
                 // document.getElementById('music').play()
                 document.getElementById("music").play().then(() => {
-                    console.log("hola kevin")
+                    // console.log("hola kevin")
                 });
                 // document.getElementById('startbtn').click()
             },
