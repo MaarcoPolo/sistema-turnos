@@ -109,7 +109,6 @@
                                     this.$store.commit('setAtencionTurnos',response.data.turnos)
                                     warningSweetAlert(response.data.message)
                                 
-                                
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
                             }
