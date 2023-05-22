@@ -68,7 +68,7 @@
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[5].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[6].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
@@ -87,7 +87,7 @@
                             <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div class="mb-4">
@@ -105,7 +105,7 @@
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[5].caja : '--'}}</p>
                             </div>
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[6].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
@@ -119,15 +119,15 @@
                             </div>
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : '--'}}</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-12 mt-4">
-                        <video width="100%" height="90%" controls loop autoplay>
-                            <source src="../../../public/video/video-pantalla.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    <video class="tag-video" controls loop muted autoplay>
+                        <source src="../../../public/video/video-pantalla.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
