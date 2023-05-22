@@ -620,7 +620,7 @@ class TurnoController extends Controller
                                 ->where('en_atencion', '>=' ,1)
                                 ->orderBy('fecha_atencion_inicio', 'DESC')
                                 ->orderBy('hora_atencion_inicio', 'DESC')
-                                ->limit(11)
+                                ->limit(6)
                                 ->get(); 
 
                 if($turnos->count()>0){
@@ -634,7 +634,7 @@ class TurnoController extends Controller
                         array_push($array_turnos, $object);
                         $cont++;
                     }
-                    for($i = $cont; $i < 11; $i++)
+                    for($i = $cont; $i < 6; $i++)
                     {
                         $object = new \stdClass();
                         $object->turno = '--';
@@ -651,7 +651,7 @@ class TurnoController extends Controller
                 }else{
                     $cont =0;  
                     $array_turnos = array();
-                    for($i = $cont; $i < 11; $i++)
+                    for($i = $cont; $i < 6; $i++)
                     {
                         $object = new \stdClass();
                         $object->caja = "--";
