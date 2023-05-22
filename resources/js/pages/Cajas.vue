@@ -634,9 +634,9 @@
                   showLoaderOnConfirm: true,
                   preConfirm: async () => {
                       try {
-                         this.loading= true
+                          this.loading= true
                           caja.tipo_usuario = this.user.user.tipo_usuario_id
-                        //  console.log(caja)
+                          //  console.log(caja)
                           let response = await axios.post('/api/cajas/eliminar-caja', caja)
                           return response
                       } catch (error) {
