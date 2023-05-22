@@ -14,32 +14,32 @@ class NewMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    // public $message;
+     public $message;
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($message)
     {
-        // $this->message = $message;
+        $this->message = $message;
     }
 
-    public function broadcastWith()
-    {
-        return [
-            'newMessage' => 'there'
-        ];
-    }
+    // public function broadcastWith()
+    // {
+    //     return [
+    //         'newMessage' => 'Estoy aqui'
+    //     ];
+    // }
 
     /**
      * Get the channels the event should broadcast on.
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
     {
         // return [
         //     new PrivateChannel('channel-name'),
         // ];
-        return new Channel('channel');
+        return new Channel('generico');
     }
 }

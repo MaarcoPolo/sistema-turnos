@@ -14,7 +14,7 @@
                     </div>
                     <div v-if="user.user.tipo_usuario_id == 1" class="col-6 p-2">
                         <div class="div-custom-input-caja">
-                            <label for="select_nombre">Casa de Justicia:</label>
+                            <label for="select_nombre">Sede:</label>
                             <select v-model="sede" name="select_casa_justicia" class="form-control minimal custom-select text-uppercase">
                                 <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                             </select>
@@ -198,7 +198,7 @@
                                     <tr>
                                         <th class="title-table-ventanillas">Ventanilla</th>
                                         <th class="title-table-ventanillas">Tipo Ventanilla</th>
-                                        <th v-if="user.user.tipo_usuario_id == 1" class="title-table-ventanillas">Casa de Justicia</th>
+                                        <th v-if="user.user.tipo_usuario_id == 1" class="title-table-ventanillas">Sede </th>
                                         <th class="title-table-ventanillas">Acciones</th>
                                     </tr>
                                 </thead>

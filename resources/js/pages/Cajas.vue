@@ -50,7 +50,7 @@
                                 <tr>
                                     <th class="custom-title-table">Id</th>
                                     <th class="custom-title-table">Nombre</th>
-                                    <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Casa de Justicia</th>
+                                    <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Sede</th>
                                     <th class="custom-title-table">Estatus</th>
                                     <th class="custom-title-table">Acciones</th>
                                 </tr>
@@ -80,7 +80,7 @@
                                     <td>
                                         <div class="text-center row justify-content-center">
                                             <div>
-                                                <v-icon
+                                                <v-icon 
                                                     @click="abrirModalEditarCaja(caja)"
                                                     class="mr-1"
                                                     >
@@ -98,6 +98,7 @@
                                                 <v-icon
                                                     @click="eliminarCaja(caja)"
                                                     class="ml-1"
+                                                    
                                                     >
                                                     mdi-account-off
                                                 </v-icon>
@@ -105,6 +106,7 @@
                                                 <v-tooltip
                                                     activator="parent"
                                                     location="bottom"
+                                                    
                                                     >
                                                     <span style="font-size: 15px;">Desactivar Ventanilla</span>
                                                 </v-tooltip>
@@ -204,7 +206,7 @@
                         </div>
                         <div v-if="user.user.tipo_usuario_id == 1" class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="select_nombre">Casa de Justicia:</label>
+                                <label for="select_nombre">Sede:</label>
                                 <select name="select_casa_justicia" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
                                     <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
