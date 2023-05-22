@@ -8,6 +8,7 @@ const store = createStore({
         contRecaptcha: 0,
         showRecaptcha: false,
         cajas:[],
+        usuarios:[],
     },
 
     getters: {
@@ -23,6 +24,9 @@ const store = createStore({
         },
         getCajas(state){
             return state.cajas
+        },
+        getUsuarios(state){
+            return state.usuarios
         }
     },
     mutations: {
@@ -37,6 +41,9 @@ const store = createStore({
         },
         setCajas(state, payload) {
             state.cajas = payload
+        },
+        setUsuarios(state, payload) {
+            state.usuarios = payload
         }
     },
     actions: {

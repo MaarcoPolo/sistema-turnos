@@ -77,3 +77,15 @@
     color: red;
     text-align: left;
 }
+
+.div-custom-select-audiencia label {
+    font-weight: 600;
+}
+
+.custom-select {
+    height: 4rem;
+    font-size: 1.4rem;
+    background-color: v.$gris_g5;
+    cursor: pointer;
+    border: .1rem solid v.$gris_g3;
+}

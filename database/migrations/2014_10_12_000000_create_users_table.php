@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('username');
-            $table->string('tipo_usuario');
+            $table->string('tipo_usuario')->nullable();
             $table->unsignedBigInteger('casa_justicia_id');
             $table->unsignedBigInteger('caja_id')->nullable();
             $table->rememberToken();

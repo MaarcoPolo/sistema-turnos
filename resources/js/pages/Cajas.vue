@@ -534,7 +534,7 @@
                   showLoaderOnConfirm: true,
                   preConfirm: async () => {
                       try {
-                          let response = await axios.post('/api/cajass/eliminar-caja', caja)
+                          let response = await axios.post('/api/cajas/eliminar-caja', caja)
                           return response
                       } catch (error) {
                           errorSweetAlert('Ocurrió un error al eliminar esta Ventanilla.')

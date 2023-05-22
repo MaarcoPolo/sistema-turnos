@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 
 use App\Http\Controllers\TurnoController;
 use App\Http\Controllers\CajaController;
+use App\Http\Controllers\TipoUsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,10 @@ Route::get('/cajas', [CajaController::class, 'getCajas']);
 
 Route::post('/cajas/crear-caja', [CajaController::class, 'guardarCaja']);
 Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
-Route::post('/cajass/eliminar-caja', [CajaController::class, 'eliminarCaja']);
+Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
+
+Route::get('/usuarios', [TipoUsuarioController::class, 'getUsuarios']);
+
+Route::post('/usuarios/crear-usuario', [TipoUsuarioController::class, 'guardarUsuario']);
+Route::post('/usuarios/actualizar-usuario', [TipoUsuarioController::class, 'actualizarUsuario']);
+Route::post('/usuarios/eliminar-usuario', [TipoUsuarioController::class, 'eliminarUsuario']);
