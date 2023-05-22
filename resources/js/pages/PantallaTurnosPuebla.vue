@@ -130,13 +130,25 @@
                     </video>
                 </div>
             </div>
+
+            <button id="startbtn" @click="reproducir()">Start</button>
+            <audio controls id="music" autoplay>
+                <!-- <source src="horse.ogg" type="audio/ogg"> -->
+                <source src="../../../public/video/timbre.mp3">
+                Your browser does not support the audio element.
+            </audio>
         </div>
+        <!-- <audio controls id="music" src="../../../public/video/ringtones-super-mario-bros.mp3"></audio> -->
+        <!-- <audio controls id="music" src="https://opengameart.org/sites/default/files/audio_preview/swing_0.mp3.ogg"   ></audio> -->
+
+        <!-- <audio src='../../../public/ringtones-super-mario-bros.mp3' type="audio/ogg" ></audio> -->
     </div>
 </template>
 
 <script>
     import { defineComponent } from "vue"
     import { errorSweetAlert, successSweetAlert, warningSweetAlert } from "../helpers/sweetAlertGlobals"
+    // import sound from '../../../public/ringtones-super-mario-bros.mp3'
 
 
     export default defineComponent({
@@ -150,11 +162,20 @@
             }
         },
         created(){
+            // console.log(document.getElementById('startbtn'))
+            // this.reproducir()
+            // document.getElementById('startbtn')
             this.turnosPantalla()
         },
         mounted() {
+            // var audio = new Audio('../../../public/ringtones-super-mario-bros.mp3'); // path to file
+            // audio.play();
+            // console.log(document.getElementById('startbtn'))
+            // document.getElementById('startbtn').click()
             Echo.channel('generico').listen('NewMessage', (e) => {
                 // console.log(e)
+                // var audio = new Audio(require('../../../public/ringtones-super-mario-bros.mp3')); // path to file
+                // audio.play();
                 this.turnosPantalla()
                 
             })
@@ -165,15 +186,27 @@
             },
         },
         methods:{
+            reproducir() {
+                // document.getElementById('music').muted = false
+                // document.getElementById('music').play()
+                document.getElementById("music").play().then(() => {
+                    console.log("hola kevin")
+                });
+                // document.getElementById('startbtn').click()
+            },
             async turnosPantalla() {
                 try {
                     let response = await axios.post('/api/turnos-pantalla', this.turno)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setTurnosPantalla', response.data.turnos)
+                            this.reproducir()
+                            // var audio = new Audio('../../../public/ringtones-super-mario-bros.mp3');
+                            // audio.play();
                             // this.turnos = response.data.turnos
                         }else if(response.data.status === "no-data"){
                                     this.$store.commit('setTurnosPantalla',response.data.turnos)
+                                    
                                     // warningSweetAlert(response.data.message)
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
