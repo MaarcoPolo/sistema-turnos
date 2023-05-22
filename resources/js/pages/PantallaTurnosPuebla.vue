@@ -153,7 +153,7 @@
             this.turnosPantalla()
         },
         mounted() {
-            Echo.channel('generico').listen('NewMessage', (e) => {
+            Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
                 // console.log(e)
                 this.turnosPantalla()
                 
