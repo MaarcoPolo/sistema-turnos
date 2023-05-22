@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Turno;
 use Carbon\Carbon;
+use App\Events\NewMessage;
 use App\Models\Contador;
 use App\Models\Asignacion;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -48,6 +49,7 @@ class TurnoController extends Controller
                 $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
                 ->where('tipo_turno',$request->tipo_turno_id)
                 ->where('asignacion',0)
+                ->where('status',1)
                 ->first();
 
                 $asignacion->asignacion = true;
@@ -393,7 +395,7 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
-
+                    NewMessage::dispatch('hola 1');
                     return response()->json([
                         "status" => "ok",
                         "message" => "Turnos obtenidas con éxito",
@@ -407,6 +409,7 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
+                    NewMessage::dispatch('hola 2');
                     return response()->json([
                         "status" => "no-data",
                         "message" => "No hay turnos",
@@ -457,6 +460,7 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
+                    NewMessage::dispatch('hola 3');
                     return response()->json([
                         "status" => "ok",
                         "message" => "Turnos obtenidas con éxito",
@@ -472,6 +476,7 @@ class TurnoController extends Controller
                         $object->turno = '--';
                         array_push($array_turnos, $object);
                     }
+                    NewMessage::dispatch($array_turnos);
                     return response()->json([
                         "status" => "no-data",
                         "message" => "No hay turnos",

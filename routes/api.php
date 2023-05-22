@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CajaController;
-use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\TipoTurnoController;
 use App\Http\Controllers\CasaJusticiaController;
 
+
+
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,11 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
     Route::post('/cajas/actualizar-tipo-caja', [CajaController::class, 'actualizarTipoCaja']);
     Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
+
+    Route::get('/usuarios', [UserController::class, 'getUsuarios']);
+    Route::post('/usuarios/crear-usuario', [UserController::class, 'guardarUsuario']);
+    Route::post('/usuarios/actualizar-usuario', [UserController::class, 'actualizarUsuario']);
+    Route::post('/usuarios/eliminar-usuario', [UserController::class, 'eliminarUsuario']);
 });
     
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
@@ -54,15 +61,6 @@ Route::post('/turnos-pantalla', [TurnoController::class, 'turnosPantalla']);
 Route::post('/turnos-pendientes', [TurnoController::class, 'turnosPendientes']);
 
 
-Route::post('/cajas/crear-caja', [CajaController::class, 'guardarCaja']);
-Route::post('/cajas/actualizar-caja', [CajaController::class, 'actualizarCaja']);
-Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
-
-Route::get('/usuarios', [TipoUsuarioController::class, 'getUsuarios']);
-
-Route::post('/usuarios/crear-usuario', [TipoUsuarioController::class, 'guardarUsuario']);
-Route::post('/usuarios/actualizar-usuario', [TipoUsuarioController::class, 'actualizarUsuario']);
-Route::post('/usuarios/eliminar-usuario', [TipoUsuarioController::class, 'eliminarUsuario']);
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 
 Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);

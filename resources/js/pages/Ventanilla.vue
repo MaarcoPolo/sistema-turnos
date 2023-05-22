@@ -17,7 +17,7 @@
                         <p>Turno en Atención</p>
                     </div>
                     <div class="card-turno-body-2">
-                        <p>{{ turnos[0].turno }}</p>
+                        <p>{{ turnos.length > 0 ? turnos[0].turno : '--'}}</p>
                     </div>
                 </div>
             </div>
@@ -29,24 +29,24 @@
                     <div class="card-turno-body-turnos row justify-content-between">
                         <div class="col-6 columna-turnos columna-turnos-left mb-2">
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[1].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[1].turno : '--'}}</p>
                             </div>
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[2].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[2].turno : '--'}}</p>
                             </div>
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[3].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[3].turno : '--'}}</p>
                             </div>
                         </div>
                         <div class="col-6 columna-turnos columna-turnos-right mb-2">
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[4].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[4].turno : '--'}}</p>
                             </div>
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[5].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[5].turno : '--'}}</p>
                             </div>
                             <div class="turno-siguiente mb-4">
-                                <p>{{turnos[6].turno }}</p>
+                                <p>{{turnos.length > 0 ? turnos[6].turno : '--'}}</p>
                             </div>
                         </div>
                     </div>

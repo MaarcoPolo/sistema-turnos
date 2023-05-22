@@ -15,7 +15,7 @@
                             <p>Turno</p>
                         </div>
                         <div class="card-turno-body-3">
-                            <p class="card-numero-turno">{{ turnos.length > 0 ? turnos[0].turno : ''}}</p>
+                            <p class="card-numero-turno">{{ turnos.length > 0 ? turnos[0].turno : '--'}}</p>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             <p>Ventanilla </p>
                         </div>
                         <div class="card-turno-body-3">
-                            <p class="card-ventanilla-turno">{{ turnos.length > 0 ? turnos[0].caja : ''}}</p>
+                            <p class="card-ventanilla-turno">{{ turnos.length > 0 ? turnos[0].caja : '--'}}</p>
                         </div>
                     </div>
                 </div>
@@ -49,76 +49,76 @@
                     <div class="card-turno-3 row justify-content-between">
                         <div class="col-6 card-pantalla-tabla-columna-turnos">
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[1].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[1].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[2].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[2].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[3].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[3].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[4].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[4].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[5].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[5].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[6].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[6].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[7].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[7].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[8].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[8].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : ''}}</p>
+                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[1].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[1].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[2].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[2].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[3].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[3].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[4].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[4].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[5].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[5].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[6].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[6].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[7].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[7].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[8].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[8].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : ''}}</p>
+                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : '--'}}</p>
                             </div>
                         </div>
                     </div>
@@ -151,6 +151,13 @@
         },
         created(){
             this.turnosPantalla()
+        },
+        mounted() {
+            Echo.channel('generico').listen('NewMessage', (e) => {
+                // console.log(e)
+                this.turnosPantalla()
+                
+            })
         },
         computed:{
             turnos(){
