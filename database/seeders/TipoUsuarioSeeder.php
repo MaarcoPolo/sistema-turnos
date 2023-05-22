@@ -20,7 +20,7 @@ class TipoUsuarioSeeder extends Seeder
             'nombre' => 'Administrador',
         ]);
         DB::table('tipo_usuarios')->insert([
-            'nombre' => 'Capturista',
+            'nombre' => 'Ventanilla',
         ]);
     }
 }

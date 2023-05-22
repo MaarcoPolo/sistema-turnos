@@ -52,5 +52,8 @@ class User extends Authenticatable
         return $this->belongsTo(Caja::class, 'caja_id');
     }
 
-    
+    public function asignacion()
+    {
+        return $this->hasOne(Asignacion::class, 'id');
+    }    
 }

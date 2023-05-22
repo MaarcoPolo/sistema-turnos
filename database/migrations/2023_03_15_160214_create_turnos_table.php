@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('fecha_registro')->nullable();;
             $table->time('hora_registro')->nullable();;
             $table->unsignedBigInteger('prioridad_id');
+            $table->integer('en_atencion')->default(0);
             $table->date('fecha_atencion_inicio')->nullable();
             $table->time('hora_atencion_inicio')->nullable();
             $table->date('fecha_atencion_fin')->nullable();

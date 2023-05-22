@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             ContadorSeeder::class,
             CajaSeeder::class,
             UserSeeder::class,
-            TurnoSeeder::class,
+            AsignacionesSeeder::class,
+            // TurnoSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

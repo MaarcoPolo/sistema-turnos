@@ -1,6 +1,8 @@
 import { createStore } from 'vuex'
 import { errorSweetAlert } from './../helpers/sweetAlertGlobals'
 import router from '../router'
+import catalogos from '../store/catalogos'
+import turno from '../store/turno'
 
 const store = createStore({
     state: {
@@ -53,7 +55,11 @@ const store = createStore({
                 if (response.status === 200) {
                     if (response.data.status === "ok") {
                         commit('setUserData', response.data.session)
-                        router.push({name: 'Home'})
+                        if (response.data.session.user.tipo_usuario_id == 3) {
+                            router.push({name: 'Ventanilla'})
+                        } else {
+                            router.push({name: 'Home'})
+                        }
                         this.state.contRecaptcha = 0
                         this.state.showRecaptcha = true
                     } else {
@@ -76,7 +82,8 @@ const store = createStore({
         }
     },
     modules: {
-        
+        catalogos,
+        turno,
     }
 })
 

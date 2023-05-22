@@ -38,6 +38,51 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'nombre' => 'AdminPuebla',
+            'email' => 'admin_puebla@example.com',
+            'username' => 'adminpuebla',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 1,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminCholula',
+            'email' => 'admin_cholula@example.com',
+            'username' => 'admincholula',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 2,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminHuejotzingo',
+            'email' => 'admin_huejotzingo@example.com',
+            'username' => 'adminhuejotzingo',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 3,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'AdminLaborales',
+            'email' => 'admin_laborales@example.com',
+            'username' => 'adminlaborales',
+            'password' => 'password',
+            'tipo_usuario' => 'administrador',
+            'casa_justicia_id' => 4,
+            'tipo_usuario_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+        ]);
+// ventanillas puebla
+        DB::table('users')->insert([
             'nombre' => 'Ventanilla1',
             'email' => 'example1@example.com',
             'password' => 'password',
@@ -46,7 +91,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 1,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla2',
@@ -57,7 +102,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 2,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla3',
@@ -68,7 +113,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 3,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla4',
@@ -79,7 +124,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 4,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla5',
@@ -90,7 +135,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 5,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla6',
@@ -101,7 +146,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 6,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla7',
@@ -112,7 +157,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 7,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla8',
@@ -123,7 +168,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 8,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla9',
@@ -134,7 +179,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 9,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla10',
@@ -145,7 +190,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 10,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla11',
@@ -156,7 +201,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 11,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla12',
@@ -167,7 +212,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 12,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla13',
@@ -178,7 +223,7 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 13,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
             'nombre' => 'Ventanilla14',
@@ -189,10 +234,10 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 14,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
         ]);
         DB::table('users')->insert([
-            'nombre' => 'Ventanilla5',
+            'nombre' => 'Ventanilla15',
             'email' => 'example1@example.com',
             'password' => 'password',
             'username' => 'ventanilla15',
@@ -200,7 +245,164 @@ class UserSeeder extends Seeder
             'casa_justicia_id' => 1,
             'caja_id' => 15,
             'status' => 1,
-            'tipo_usuario_id' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        // Ventanillas Cholula
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla1',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla1cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 1,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla2',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla2cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 2,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla3',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla3cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 3,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla4',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla4cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 4,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla5',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla5cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 5,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla6',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla6cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 6,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla7',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla7cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 7,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla8',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla8cho',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 2,
+            'caja_id' => 8,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        // Ventanillas Huejotzingo
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla1',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla1hue',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 3,
+            'caja_id' => 1,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla2',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla2hue',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 3,
+            'caja_id' => 2,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla3',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla3hue',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 3,
+            'caja_id' => 3,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        // Ventanillas Laborales
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla1',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla1lab',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 4,
+            'caja_id' => 1,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla2',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla2lab',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 4,
+            'caja_id' => 2,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
+        ]);
+        DB::table('users')->insert([
+            'nombre' => 'Ventanilla3',
+            'email' => 'example1@example.com',
+            'password' => 'password',
+            'username' => 'ventanilla3lab',
+            'tipo_usuario' => 'ventanilla',
+            'casa_justicia_id' => 4,
+            'caja_id' => 3,
+            'status' => 1,
+            'tipo_usuario_id' => 3,
         ]);
     }
 }

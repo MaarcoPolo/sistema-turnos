@@ -6,6 +6,7 @@
 
         <title>Turnos Oficialia</title>
 
+        {{--  <meta name="csrf-token" content="{{ csrf_token() }}" />  --}}
         <link rel="shortcut icon" type="image/png" href="{{ asset('/icons/favicon.ico') }}">
         <link rel="shortcut icon" sizes="192x192" href="{{ asset('/icons/favicon.ico') }}">
 
@@ -31,5 +32,11 @@
         <div id="app"></div>
         
         @vite('resources/js/app.js')
+        {{--  <script src="{{ asset('resources/js/app.js') }}"></script>  --}}
+        {{--  <script>
+            echo.channel('home').listen('NewMessage', (e)=> {
+                console.log(e.message)
+            })
+        </script>  --}}
     </body>
 </html>
