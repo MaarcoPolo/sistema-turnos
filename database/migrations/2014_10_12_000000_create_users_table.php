@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('username');
             $table->string('tipo_usuario')->nullable();
-            $table->unsignedBigInteger('casa_justicia_id');
+            $table->unsignedBigInteger('casa_justicia_id')->nullable();
             $table->unsignedBigInteger('caja_id')->nullable();
             $table->rememberToken();
             $table->boolean('status')->default(1);
-            $table->foreignId('tipo_usuario_id')->constrained();
+            $table->foreignId('tipo_usuario_id')->nullable();
             $table->timestamps();
 
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');

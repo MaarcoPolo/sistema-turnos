@@ -13,7 +13,9 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\TipoTurnoController;
 use App\Http\Controllers\CasaJusticiaController;
 
-use App\Http\Controllers\TipoUsuarioController;
+
+
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,10 +48,10 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/cajas/actualizar-tipo-caja', [CajaController::class, 'actualizarTipoCaja']);
     Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
 
-    Route::get('/usuarios', [TipoUsuarioController::class, 'getUsuarios']);
-    Route::post('/usuarios/crear-usuario', [TipoUsuarioController::class, 'guardarUsuario']);
-    Route::post('/usuarios/actualizar-usuario', [TipoUsuarioController::class, 'actualizarUsuario']);
-    Route::post('/usuarios/eliminar-usuario', [TipoUsuarioController::class, 'eliminarUsuario']);
+    Route::get('/usuarios', [UserController::class, 'getUsuarios']);
+    Route::post('/usuarios/crear-usuario', [UserController::class, 'guardarUsuario']);
+    Route::post('/usuarios/actualizar-usuario', [UserController::class, 'actualizarUsuario']);
+    Route::post('/usuarios/eliminar-usuario', [UserController::class, 'eliminarUsuario']);
 });
     
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
