@@ -265,6 +265,85 @@
                     </v-card-text>
                 </v-card>
         </v-dialog>
+        <!-- INICIO MODAL PARA EDITAR DATOS DEL USUARIO -->
+        <v-dialog v-model="dialogEditarUsuario" max-width="100rem" persistent>
+            <v-card>
+                <v-card-title class="text-center">
+                    <h3 class="mt-2 custom-dialog-title">Editar Usuario</h3>
+                </v-card-title>
+                <v-card-text>
+                    <div class="text-center my-8 custom-border">
+                        <div class="custom-subtitle">
+                            <p>Datos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row justify-content-between">
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_nombre">Nombre:</label>
+                                    <input id="input_nombre" type="text" class="form-control" v-model="v$.usuario.nombre.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.nombre.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_apellidoP">Apellido paterno:</label>
+                                    <input id="input_apellidoP" type="text" class="form-control" v-model="v$.usuario.apellido_paterno.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_apellidoM">Apellido materno:</label>
+                                    <input id="input_apellidoM" type="text" class="form-control" v-model="v$.usuario.apellido_materno.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between mt-4">
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_email">Correo:</label>
+                                    <input id="input_email" type="text" class="form-control" v-model="v$.usuario.email.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_username">Nombre de usuario:</label>
+                                    <input id="input_username" type="text" class="form-control" v-model="v$.usuario.username.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.username.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_pass">Contraseña:</label>
+                                    <input id="input_pass" type="text" class="form-control" v-model="v$.usuario.password.$model">
+                                    <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    <div class="text-center mb-4 mt-6">
+                        <v-btn
+                            class="custom-button mr-2"
+                            color="#c4f45d"
+                            @click="guardarCambiosEditarUsuario()"
+                            >
+                            Guardar
+                        </v-btn>
+                        <v-btn
+                            class="custom-button ml-2"
+                            color="#6a73a0"
+                            @click="CancelarEditarUsuario()"
+                            >
+                            Cancelar
+                        </v-btn>
+                    </div>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -288,10 +367,10 @@
                     apellido_materno:'',
                     email:'',
                     password:'',
-                    tipo_usuario_id: null,
-                    username:'',
-                    area_id:'',
-                    numero:'',
+                    // tipo_usuario_id: null,
+                    // username:'',
+                    // area_id:'',
+                    // numero:'',
                 },
                 loading: false,
                 elementosPorPagina: 10,
@@ -463,13 +542,21 @@
             cerrarModalNuevoUsuario(){
                 this.dialogNuevoUsuario = false
                 this.dialogEditarUsuario = false
-                this.form.nombre =''
+                this.usuario.nombre =''
             },
             abrirModalEditarUsuario(usuario){
                 console.log(usuario)
                 this.dialogEditarUsuario=true 
-                this.editar.id = caja.id
-                this.editar.nombre = caja.nombre
+                this.dialogEditarUsuario = true
+                this.usuario.id = usuario.id
+                this.usuario.nombre = usuario.nombre
+                this.usuario.apellido_materno = usuario.apellido_materno
+                this.usuario.apellido_paterno = usuario.apellido_paterno
+                this.usuario.email = usuario.email
+                this.usuario.password = usuario.password
+                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+                // this.usuario.area_id = usuario.area_id
+                this.usuario.username = usuario.username
 
             },
             async guardarNuevoUsuario() {
@@ -487,7 +574,7 @@
                     preConfirm: async () => {
                         try {
                                 this.loading = true
-                                let response = await axios.post('/api/usuarios/crear-usuario', this.form)
+                                let response = await axios.post('/api/usuarios/crear-usuario', this.usuario)
                                 return response
                             } catch (error) {
                                 errorSweetAlert('Ocurrió un error al guardar el Usuario.')
@@ -516,8 +603,38 @@
                         }
                     })
             },
+                // Abrir modal de editar usuario ya con los datos cargados
+                EditarUsuario(usuario) {
+                this.dialogEditarUsuario = true
+                this.usuario.id = usuario.id
+                this.usuario.nombre = usuario.nombre
+                this.usuario.apellido_materno = usuario.apellido_materno
+                this.usuario.apellido_paterno = usuario.apellido_paterno
+                this.usuario.email = usuario.email
+                this.usuario.password = usuario.password
+                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+                // this.usuario.area_id = usuario.area_id
+                this.usuario.username = usuario.username
+                // this.usuario.email_confirm = usuario.email
+                // this.usuario.password_confirm = usuario.password
+                // this.usuario.numero = usuario.numero
+            },
+            // boton para cerrar el modal
+            CancelarEditarUsuario() {
+                this.dialogEditarUsuario = false
+                this.usuario.id = '',
+                this.usuario.nombre = '',
+                this.usuario.apellido_paterno = ''
+                this.usuario.apellido_materno = ''
+                this.usuario.email = ''
+                // this.usuario.tipo_usuario_id = ''
+                this.usuario.username = ''
+                this.usuario.password = ''        
+                // this.usuario.area_id = ''  
+                // this.usuario.numero = ''    
+            },
             async guardarCambiosEditarUsuario() {
-                const isFormCorrect = await this.v$.editar.$validate()              
+                const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
                     Swal.fire({
                         title: '¿Guardar cambios?',
@@ -530,10 +647,10 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
-                                let response = await axios.post('/api/usuarios/actualizar-usuario', this.editar)
+                                let response = await axios.post('/api/usuarios/actualizar-usuario', this.usuario)
                                 return response
                             } catch (error) {
-                                errorSweetAlert('Ocurrió un error al actualizar el Usuario.')
+                                errorSweetAlert('Ocurrió un error al actualizar los datos del usuario.')
                             }
                         },
                         allowOutsideClick: () => !Swal.isLoading()
@@ -543,18 +660,17 @@
                                 if (result.value.data.status === "ok") {
                                     successSweetAlert(result.value.data.message)
                                     this.$store.commit('setUsuarios', result.value.data.usuarios)
-                                    this.cerrarModalNuevoUsuario()
+                                    this.CancelarEditarUsuario()
                                     this.getDataPagina(1)
-                                }else {
+                                } else {
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                 }
                             } else {
-                                errorSweetAlert('Ocurrió un error al actualizar los datos del Usuario.')
+                                errorSweetAlert('Ocurrió un error al actualizar los datos del usuario.')
                             }
                         }
                     })
-              
-           },
+            },
            async eliminarUsuario(usuario) {
                 Swal.fire({
                   title: '¿Eliminar Usuario?',
