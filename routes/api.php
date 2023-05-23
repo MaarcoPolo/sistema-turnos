@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/cajas/actualizar-tipo-caja', [CajaController::class, 'actualizarTipoCaja']);
     Route::post('/cajas/eliminar-caja', [CajaController::class, 'eliminarCaja']);
 
-    Route::get('/usuarios', [UserController::class, 'getUsuarios']);
+    Route::post('/usuarios', [UserController::class, 'getUsuarios']);
     Route::post('/usuarios/crear-usuario', [UserController::class, 'guardarUsuario']);
     Route::post('/usuarios/actualizar-usuario', [UserController::class, 'actualizarUsuario']);
     Route::post('/usuarios/eliminar-usuario', [UserController::class, 'eliminarUsuario']);

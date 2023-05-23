@@ -66,7 +66,7 @@
                             </tr>
                             <tr v-else v-for="usuario in datosPaginados" :key="usuario.id">
                                 <td class="custom-data-table">
-                                    {{usuario.id}}
+                                    {{usuario.numero_registro}}
                                 </td>
                                 <td class="custom-data-table text-uppercase">
                                     {{usuario.nombre}}
@@ -190,15 +190,15 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoP">Apellido paterno:</label>
-                                    <input id="input_apellidoP" type="text" class="form-control" v-model="v$.usuario.apellido_paterno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoP" type="text" class="form-control" v-model="usuario.apellido_paterno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoM">Apellido materno:</label>
-                                    <input id="input_apellidoM" type="text" class="form-control" v-model="v$.usuario.apellido_materno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoM" type="text" class="form-control" v-model="usuario.apellido_materno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
@@ -206,8 +206,8 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_email">Correo:</label>
-                                    <input id="input_email" type="text" class="form-control" v-model="v$.usuario.email.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p>
+                                    <input id="input_email" type="text" class="form-control" v-model="usuario.email">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
@@ -225,6 +225,19 @@
                                 </div>
                             </div>
                           
+                        </div>
+                        <div class="row justify-content-between mt-4">
+                            <div class="col-md-4 col-12"></div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_nombre">Ventanilla:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.password.$model">
+                                        <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12"></div>
                         </div>
                         <!-- <div class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12">
@@ -289,15 +302,15 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoP">Apellido paterno:</label>
-                                    <input id="input_apellidoP" type="text" class="form-control" v-model="v$.usuario.apellido_paterno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoP" type="text" class="form-control" v-model="usuario.apellido_paterno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoM">Apellido materno:</label>
-                                    <input id="input_apellidoM" type="text" class="form-control" v-model="v$.usuario.apellido_materno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoM" type="text" class="form-control" v-model="usuario.apellido_materno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
@@ -305,8 +318,8 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_email">Correo:</label>
-                                    <input id="input_email" type="text" class="form-control" v-model="v$.usuario.email.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p>
+                                    <input id="input_email" type="text" class="form-control" v-model="usuario.email">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
@@ -367,7 +380,9 @@
                     apellido_materno:'',
                     email:'',
                     password:'',
-                    // tipo_usuario_id: null,
+                    sede: null,
+                    tipo_usuario: null
+                    //  tipo_usuario_id: 3,
                     // username:'',
                     // area_id:'',
                     // numero:'',
@@ -395,16 +410,16 @@
                         nombre: {
                             required
                         },
-                        apellido_paterno: {
-                            required
-                        },
-                        apellido_materno: {
-                            required
-                        },
-                        email: {
-                            required, 
-                            email
-                        },
+                        // apellido_paterno: {
+                        //     required
+                        // },
+                        // apellido_materno: {
+                        //     required
+                        // },
+                        // email: {
+                        //     required, 
+                        //     email
+                        // },
                         password: {
                             required
                         },
@@ -431,6 +446,9 @@
             first = Math.max(first, 1)
             first = Math.min(first, this.totalPaginas() - numShown + 1)
             return [...Array(numShown)].map((k, i) => i + first)
+        },
+        tiposVentanillas() {
+                return this.$store.getters.getCatalogoTiposTurnos
         },
         usuarios() {
                 return this.$store.getters.getUsuarios
@@ -522,7 +540,9 @@
             async getUsuarios() {
                 this.loading = true
                 try {
-                    let response = await axios.get('/api/usuarios')
+                    this.usuario.sede = this.user.user.casa_justicia_id
+                    this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    let response = await axios.post('/api/usuarios', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setUsuarios', response.data.usuarios)
@@ -560,6 +580,9 @@
 
             },
             async guardarNuevoUsuario() {
+                if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
                 Swal.fire({

@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function getUsuarios(){
+    public function getUsuarios(Request $request){
         try {
+            if($request->tipo_usuario == 1){
+                $usuarios = User::where('status', 1)
+                                ->where('tipo_usuario_id','!=', 1)
+                                ->get();
+            }else{
+                $usuarios = User::where('status', 1)
+                                ->where('tipo_usuario_id','!=', 1)
+                                ->where('casa_justicia_id', $request->sede)
+                                ->get();
+            }
             // $usuarios = User::all();
-            $usuarios = User::where('status', 1)->get();
+           
 
             $array_usuarios = array();
             $cont = 1;
@@ -65,8 +75,8 @@ class UserController extends Controller
             $usuario->email = $request->email;
             $usuario->username = $request->username;
             $usuario->password = $request->password;
-            // $usuario->tipo_usuario_id = $request->tipo_usuario_id;
-            // $usuario->area_id = $request->area_id;
+            $usuario->tipo_usuario = 'ventanilla';
+            $usuario->casa_justicia_id = $request->sede;
             // $usuario->numero = $request->numero;
 
             $usuario->save();
