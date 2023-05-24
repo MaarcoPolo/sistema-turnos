@@ -1,7 +1,8 @@
 export default{
     store: {
         tiposTurnos: [],
-        casasJusticia:[]
+        casasJusticia:[],
+        ventanillas:[]
     },
     getters:{
         getCatalogoTiposTurnos(state) {
@@ -10,6 +11,9 @@ export default{
         getCasasJusticia(state) {
             return state.casasJusticia
         },
+        getVentanillasDisponibles(state) {
+            return state.ventanillas
+        },
     },
     mutations:{
         setCatalogoTiposTurnos(state, payload) {
@@ -17,6 +21,9 @@ export default{
         },
         setCasasJusticia(state, payload) {
             state.casasJusticia = payload
+        },
+        getVentanillasDisponibles(state, payload) {
+            state.ventanillas = payload
         },
     }
 }

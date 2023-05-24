@@ -213,14 +213,14 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_username">Nombre de usuario:</label>
-                                    <input id="input_username" type="text" class="form-control" v-model="v$.usuario.username.$model">
+                                    <input id="input_username" type="text" autocomplete="off" class="form-control" v-model="v$.usuario.username.$model">
                                     <p class="text-validation-red" v-if="v$.usuario.username.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_pass">Contraseña:</label>
-                                    <input id="input_pass" type="text" class="form-control" v-model="v$.usuario.password.$model">
+                                    <input id="input_pass" type="text" autocomplete="off" class="form-control" v-model="v$.usuario.password.$model">
                                     <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
@@ -230,9 +230,9 @@
                             <div class="col-md-4 col-12"></div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Ventanilla:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.password.$model">
-                                        <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    <label for="select_nombre">Ventanillas disponibles:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
                                 </div>
@@ -381,8 +381,8 @@
                     email:'',
                     password:'',
                     sede: null,
-                    tipo_usuario: null
-                    //  tipo_usuario_id: 3,
+                    tipo_usuario: null,
+                     caja_id: null,
                     // username:'',
                     // area_id:'',
                     // numero:'',
@@ -438,6 +438,7 @@
         },
         created() {
             this.getUsuarios()
+            this.ventanillasDisponibles()
         },
         computed: {
         pages() {
@@ -447,8 +448,8 @@
             first = Math.min(first, this.totalPaginas() - numShown + 1)
             return [...Array(numShown)].map((k, i) => i + first)
         },
-        tiposVentanillas() {
-                return this.$store.getters.getCatalogoTiposTurnos
+        ventanillas() {
+                return this.$store.getters.getVentanillasDisponibles
         },
         usuarios() {
                 return this.$store.getters.getUsuarios
@@ -559,10 +560,36 @@
                 }
                 this.loading = false
             },
+            async ventanillasDisponibles() {
+                // this.loading = true
+                try {
+                    this.usuario.sede = this.user.user.casa_justicia_id
+                    // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    let response = await axios.post('/api/cajas-disponibles', this.usuario)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('getVentanillasDisponibles', response.data.ventanillas)
+                            
+                            // this.oficios = response.data.oficios
+                            // this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las ventanillas')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las ventanillas')
+                }
+                // this.loading = false
+            },
             cerrarModalNuevoUsuario(){
                 this.dialogNuevoUsuario = false
                 this.dialogEditarUsuario = false
                 this.usuario.nombre =''
+                this.usuario.username = ''
+                this.usuario.password = ''
+                
             },
             abrirModalEditarUsuario(usuario){
                 console.log(usuario)
@@ -582,6 +609,7 @@
             async guardarNuevoUsuario() {
                 if(this.user.user.tipo_usuario_id == 2){
                         this.usuario.sede = this.user.user.casa_justicia_id
+                        this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
                 }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
@@ -610,6 +638,7 @@
                                 if (result.value.data.status === "ok") {
                                     successSweetAlert(result.value.data.message)
                                     this.$store.commit('setUsuarios', result.value.data.usuarios)
+                                    this.ventanillasDisponibles()
                                     this.loading = false
                                     this.cerrarModalNuevoUsuario()
                                     this.getDataPagina(1)
@@ -706,6 +735,8 @@
                   showLoaderOnConfirm: true,
                   preConfirm: async () => {
                       try {
+                            usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                            usuario.sede = this.user.user.casa_justicia_id
                           let response = await axios.post('/api/usuarios/eliminar-usuario', usuario)
                           return response
                       } catch (error) {
