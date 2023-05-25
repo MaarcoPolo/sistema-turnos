@@ -7,6 +7,7 @@
 
 .content {
     grid-area: content;
+    min-height: 79vh;
 }
 
 .sidebar {
@@ -14,18 +15,24 @@
     background-color: v.$morado_m2;
 }
 
+.footer {
+    grid-area: footer;
+}
+
 .wrapper {
     display: grid;
     grid-template-areas: 
         "header"
         "sidebar"
-        "content";
+        "content"
+        "footer";
 
     @include m.tablet {
         grid-template-columns: 1fr 5fr;
         grid-template-areas:
             "header header"
-            "sidebar content";
+            "sidebar content"
+            "footer footer";
     }
 }
 
@@ -41,6 +48,22 @@
                 "header header"
                 "content content";
         }
+}
+
+.footer-first-line {
+    border-bottom: .5rem solid v.$verde_v2;
+}
+
+.footer-content {
+    height: 4rem;
+    background-color: v.$gris_g6;
+}
+
+.footer-content p {
+    color: v.$blanco;
+    text-align: center;
+    margin: auto;
+    padding-top: .8rem;
 }
 
 /* ================ INICIO HEADER ================ */
@@ -82,7 +105,8 @@
 .custom-image-header {
     margin: auto;
     width: auto;
-    height: 12rem;
+    // height: 12rem;
+    height: 10.6rem;
 }
 
 .custom-border-header-1 {
@@ -112,6 +136,7 @@
 
     @include m.desktop {
         font-size: 3rem;
+        margin: 0;
     }
 }
 
@@ -125,6 +150,10 @@
     height: 100%;
     width: 16.6%;
     background-color: v.$morado_m2;
+}
+
+.sidebar {
+    position: relative;
 }
 
 .custom-ul {
@@ -143,9 +172,10 @@
     position: inline;
 
     @include m.tablet {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
+        width: 100%;
     }
 }
 

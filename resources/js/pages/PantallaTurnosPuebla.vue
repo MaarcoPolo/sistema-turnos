@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid imprimir-turno-body">
         <div class="custom-title-div-normal-2 row justify-content-between">
-            <div class="">
+            <!-- <div class="">
                 <p class="custom-title-page-2"></p>
-            </div>
+            </div> -->
         </div>
         <div class="container-fluid">
             <div class="row justify-content-between mt-12">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-1 col-12"></div>
             </div>
-            <div class="row justify-content-between mt-12">
+            <div class="row justify-content-between mt-12 mb-8">
                 <div class="col-md-5 col-12 mt-4">
                     <div class="card-turno-3 row justify-content-between">
                         <div class="col-6 p-0">
@@ -131,24 +131,18 @@
                 </div>
             </div>
 
-            <button id="startbtn" @click="reproducir()">Start</button>
-            <audio controls id="music" autoplay>
-                <!-- <source src="horse.ogg" type="audio/ogg"> -->
+            <button id="startbtn" @click="reproducir()" style="display: none;">Start</button>
+            <audio controls id="music" autoplay style="display: none;">
                 <source src="../../../public/video/timbre.mp3">
                 Your browser does not support the audio element.
             </audio>
         </div>
-        <!-- <audio controls id="music" src="../../../public/video/ringtones-super-mario-bros.mp3"></audio> -->
-        <!-- <audio controls id="music" src="https://opengameart.org/sites/default/files/audio_preview/swing_0.mp3.ogg"   ></audio> -->
-
-        <!-- <audio src='../../../public/ringtones-super-mario-bros.mp3' type="audio/ogg" ></audio> -->
     </div>
 </template>
 
 <script>
     import { defineComponent } from "vue"
     import { errorSweetAlert, successSweetAlert, warningSweetAlert } from "../helpers/sweetAlertGlobals"
-    // import sound from '../../../public/ringtones-super-mario-bros.mp3'
 
 
     export default defineComponent({
@@ -158,22 +152,15 @@
             return{
                 turno:{
                     casa_justicia_id: 1,
-                }   
+                },
             }
         },
         created(){
-            // console.log(document.getElementById('startbtn'))
-            // this.reproducir()
-            // document.getElementById('startbtn')
-            this.turnosPantalla()
+            this.auxTurnosPantalla()
         },
         mounted() {
             Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
-                // console.log(e)
-                // var audio = new Audio(require('../../../public/ringtones-super-mario-bros.mp3')); // path to file
-                // audio.play();
                 this.turnosPantalla()
-                
             })
         },
         computed:{
@@ -183,27 +170,16 @@
         },
         methods:{
             reproducir() {
-                // document.getElementById('music').muted = false
-                // document.getElementById('music').play()
-                document.getElementById("music").play().then(() => {
-                    console.log("hola kevin")
-                });
-                // document.getElementById('startbtn').click()
+                document.getElementById("music").play()
             },
-            async turnosPantalla() {
+            async auxTurnosPantalla() {
                 try {
                     let response = await axios.post('/api/turnos-pantalla', this.turno)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setTurnosPantalla', response.data.turnos)
-                            this.reproducir()
-                            // var audio = new Audio('../../../public/ringtones-super-mario-bros.mp3');
-                            // audio.play();
-                            // this.turnos = response.data.turnos
                         }else if(response.data.status === "no-data"){
-                                    this.$store.commit('setTurnosPantalla',response.data.turnos)
-                                    
-                                    // warningSweetAlert(response.data.message)
+                            this.$store.commit('setTurnosPantalla',response.data.turnos)
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -214,8 +190,25 @@
                     errorSweetAlert('Ocurrió un error al obtener los turnos.')
                 }
             },
-
+            async turnosPantalla() {
+                try {
+                    let response = await axios.post('/api/turnos-pantalla', this.turno)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setTurnosPantalla', response.data.turnos)
+                            this.reproducir()
+                        }else if(response.data.status === "no-data"){
+                            this.$store.commit('setTurnosPantalla',response.data.turnos)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener los turnos.')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener los turnos.')
+                }
+            },
         }
-
     })
 </script>

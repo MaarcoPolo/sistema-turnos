@@ -32,11 +32,5 @@
         <div id="app"></div>
         
         @vite('resources/js/app.js')
-        {{--  <script src="{{ asset('resources/js/app.js') }}"></script>  --}}
-        {{--  <script>
-            echo.channel('home').listen('NewMessage', (e)=> {
-                console.log(e.message)
-            })
-        </script>  --}}
     </body>
 </html>
