@@ -214,7 +214,7 @@ class CajaController extends Controller
 
             if($request->tipo_usuario == 1){
                 // $cajas = Caja::where('status', 1)->get();
-                $cajas = all();
+                $cajas = Caja::all();
             }else{
                 // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
                 $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
@@ -268,15 +268,15 @@ class CajaController extends Controller
             $caja = Caja::find($request->id);
             $caja->status = false;
             $caja->save();
-
+//////////////////////////////
             $id = $caja->user->asignacion;
             if($id){
                 $id->status = false;
                 $id->save();
                 //  QUITAR CAJA ASIGNADA
-                $usuario = User::find($id->user_id);
-                $usuario->caja_id = null;
-                $usuario->save();
+                // $usuario = User::find($id->user_id);
+                // $usuario->caja_id = 0;
+                // $usuario->save();
 
             }
            
@@ -347,7 +347,7 @@ class CajaController extends Controller
      /////////////////////////////////////////////////////////////////       
 
 
-            $cajas = Caja::where('status', 1)->where('casa_justicia_id', $caja->casa_justicia_id)->get();
+            $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();
                 $array_cajas = array();
                 $cont = 1;
                 foreach ($cajas as $caja) {

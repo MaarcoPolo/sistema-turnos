@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
                 <p class="custom-title-page">Usuarios</p>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <div class="container mt-16">
         <!-- INICIO BOTON NUEVA CAJA -->
         <div class="row justify-content-between">
@@ -51,7 +51,7 @@
                             <tr>
                                 <th class="custom-title-table">Id</th>
                                 <th class="custom-title-table">Nombre</th>
-                                <!-- <th class="custom-title-table">Tipo de Ventanilla</th> -->
+                                <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Sede</th>
                                 <th class="custom-title-table">Acciones</th>
                             </tr>
                         </thead>
@@ -71,6 +71,9 @@
                                 <td class="custom-data-table text-uppercase">
                                     {{usuario.nombre}}
                                 </td>
+                                <td v-if="user.user.tipo_usuario_id ==1" class="custom-data-table text-uppercase">
+                                        {{usuario.sede}}
+                                    </td>
                                 <td>
                                     <div class="text-center row justify-content-center">
                                         <div>
@@ -226,7 +229,7 @@
                             </div>
                           
                         </div>
-                        <div class="row justify-content-between mt-4">
+                        <div v-if="user.user.tipo_usuario_id == 2" class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12"></div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
@@ -238,6 +241,36 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-12"></div>
+                        </div>
+                        <div v-if="user.user.tipo_usuario_id == 1" class="row justify-content-between mt-4">
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_nombre">Tipo de usuario:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario.$model">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.num">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.tipo_usuario.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_nombre">Sede:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.num">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_nombre">Ventanillas disponibles:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            
                         </div>
                         <!-- <div class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12">
@@ -338,6 +371,24 @@
                             </div>
                           
                         </div>
+                        <div class="row justify-content-between mt-4">
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_pass">Ventanilla asignada:</label>
+                                    <input id="input_pass" disabled autocomplete="off" type="text" class="form-control" v-model="usuario.ventanilla">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.ventanilla.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_nombre">Ventanillas disponibles:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                        </div>
                     <div class="text-center mb-4 mt-6">
                         <v-btn
                             class="custom-button mr-2"
@@ -357,6 +408,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+    </div>
     </div>
 </template>
 
@@ -382,7 +434,8 @@
                     password:'',
                     sede: null,
                     tipo_usuario: null,
-                     caja_id: null,
+                    caja_id: null,
+                    ventanilla: '',
                     // username:'',
                     // area_id:'',
                     // numero:'',
@@ -410,12 +463,12 @@
                         nombre: {
                             required
                         },
-                        // apellido_paterno: {
-                        //     required
-                        // },
-                        // apellido_materno: {
-                        //     required
-                        // },
+                        tipo_usuario: {
+                            required
+                        },
+                        sede: {
+                            required
+                        },
                         // email: {
                         //     required, 
                         //     email
@@ -592,19 +645,21 @@
                 
             },
             abrirModalEditarUsuario(usuario){
-                console.log(usuario)
+                // console.log(usuario)
                 this.dialogEditarUsuario=true 
-                this.dialogEditarUsuario = true
+                // this.dialogEditarUsuario = true
+                // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                // this.usuario.sede = this.user.user.casa_justicia_id
                 this.usuario.id = usuario.id
                 this.usuario.nombre = usuario.nombre
                 this.usuario.apellido_materno = usuario.apellido_materno
                 this.usuario.apellido_paterno = usuario.apellido_paterno
                 this.usuario.email = usuario.email
                 this.usuario.password = usuario.password
-                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+                this.usuario.ventanilla = usuario.ventanilla
                 // this.usuario.area_id = usuario.area_id
                 this.usuario.username = usuario.username
-
+                // this.ventanillasDisponibles()
             },
             async guardarNuevoUsuario() {
                 if(this.user.user.tipo_usuario_id == 2){
@@ -656,26 +711,26 @@
                     })
             },
                 // Abrir modal de editar usuario ya con los datos cargados
-                EditarUsuario(usuario) {
-                this.dialogEditarUsuario = true
-                this.usuario.id = usuario.id
-                this.usuario.nombre = usuario.nombre
-                this.usuario.apellido_materno = usuario.apellido_materno
-                this.usuario.apellido_paterno = usuario.apellido_paterno
-                this.usuario.email = usuario.email
-                this.usuario.password = usuario.password
-                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
-                // this.usuario.area_id = usuario.area_id
-                this.usuario.username = usuario.username
-                // this.usuario.email_confirm = usuario.email
-                // this.usuario.password_confirm = usuario.password
-                // this.usuario.numero = usuario.numero
-            },
+            //     EditarUsuario(usuario) {
+            //     this.dialogEditarUsuario = true
+            //     this.usuario.id = usuario.id
+            //     this.usuario.nombre = usuario.nombre
+            //     this.usuario.apellido_materno = usuario.apellido_materno
+            //     this.usuario.apellido_paterno = usuario.apellido_paterno
+            //     this.usuario.email = usuario.email
+            //     this.usuario.password = usuario.password
+            //     // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+            //     this.usuario.ventanilla = usuario.ventanilla
+            //     this.usuario.username = usuario.username
+            //     // this.usuario.email_confirm = usuario.email
+            //     // this.usuario.password_confirm = usuario.password
+            //     // this.usuario.numero = usuario.numero
+            // },
             // boton para cerrar el modal
             CancelarEditarUsuario() {
                 this.dialogEditarUsuario = false
-                this.usuario.id = '',
-                this.usuario.nombre = '',
+                this.usuario.id = ''
+                this.usuario.nombre = ''
                 this.usuario.apellido_paterno = ''
                 this.usuario.apellido_materno = ''
                 this.usuario.email = ''
@@ -683,7 +738,8 @@
                 this.usuario.username = ''
                 this.usuario.password = ''        
                 // this.usuario.area_id = ''  
-                // this.usuario.numero = ''    
+                // this.usuario.numero = '' 
+                this.ventanillasDisponibles()   
             },
             async guardarCambiosEditarUsuario() {
                 const isFormCorrect = await this.v$.usuario.$validate()              
@@ -699,6 +755,8 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
+                                // usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                                // usuario.sede = this.user.user.casa_justicia_id
                                 let response = await axios.post('/api/usuarios/actualizar-usuario', this.usuario)
                                 return response
                             } catch (error) {

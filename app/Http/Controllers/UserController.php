@@ -38,7 +38,7 @@ class UserController extends Controller
                 $objectUsuario->apellido_materno = $usuario->apellido_materno;
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
-                $objectUsuario->numero = $usuario->numero;
+                $objectUsuario->sede = $usuario->casaJusticia->nombre;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;
@@ -76,6 +76,15 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
+            //superadmin
+            if($request->tipo_usuario == 1){
+                return response()->json([
+                    "status" => "ok",
+                    "message" => "Nuevo Usuario guardado con exito.......... sin datos",
+                    // "usuarios" => $array_usuarios
+                ], 200);
+
+            }
             //ADMIN
             $usuario = new User;
             $usuario->nombre = $request->nombre;
@@ -96,11 +105,23 @@ class UserController extends Controller
             $caja->status = true;
             $caja->save();
 
-            $asignacion = new Asignacion;
-            $asignacion->user_id = $usuario->id;
-            $asignacion->casa_justicia_id = $request->sede;
-            $asignacion->tipo_turno = $caja->tipo_turno_id;
-            $asignacion->save();
+            $id2 = $caja->user->asignacion;
+            if($id2)
+            {
+                $id2->user_id = $usuario->id;
+                $id2->status = true;
+                $id2->save();
+            
+            }else{
+
+                $asignacion = new Asignacion;
+                $asignacion->user_id = $usuario->id;
+                $asignacion->casa_justicia_id = $request->sede;
+                $asignacion->tipo_turno = $caja->tipo_turno_id;
+                $asignacion->save();
+            }
+
+            
             }
             
             if($request->tipo_usuario == 1){
@@ -128,8 +149,13 @@ class UserController extends Controller
                 $objectUsuario->apellido_materno = $usuario->apellido_materno;
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
-                $objectUsuario->numero = $usuario->numero;
+                $objectUsuario->sede = $usuario->casaJusticia->nombre;
                 $objectUsuario->email = $usuario->email;
+                if($usuario->caja){
+                    $objectUsuario->ventanilla = $usuario->caja->nombre;
+                }else{
+                    $objectUsuario->ventanilla = 'SIN VENTANILLA';
+                }
                 // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
                 // $objectUsuario->area_id = $usuario->area_id;
@@ -178,10 +204,86 @@ class UserController extends Controller
             $usuario->username = $request->username;
             $usuario->password = $request->password;
             // $usuario->numero = $request->numero;
-            $usuario->save();
+            if($request->caja_id)
+            {
+                $caja_anterior = $usuario->caja_id;
+                if($caja_anterior){
+                    $usuario->caja_id = $request->caja_id;
+                    $caja = Caja::find($caja_anterior);
+                    $caja->status = false;
+                    $caja->save();
 
+                    $id = $caja->user->asignacion;
+                    $id->user_id = null;
+                    $id->status = false;
+                    $id->save();
+
+                    $nuevacaja = Caja::find($request->caja_id);
+                    $nuevacaja->status = true;
+                    $nuevacaja->save();
+    
+                    $id2 = $nuevacaja->user->asignacion;
+                    if($id2)
+                    {
+                        $id2->user_id = $request->id;
+                        $id2->status = true;
+                        $id2->save();
+                    }else{
+                        $asignacion = new Asignacion;
+                        $asignacion->user_id = $request->id;
+                        $asignacion->casa_justicia_id = $request->sede;
+                        $asignacion->tipo_turno = $nuevacaja->tipo_turno_id;
+                        $asignacion->save();
+                    }
+                }else{
+                    $usuario->caja_id = $request->caja_id;
+                    $nuevacaja = Caja::find($request->caja_id);
+                    $nuevacaja->status = true;
+                    $nuevacaja->save();
+    
+                    $id2 = $nuevacaja->user->asignacion;
+                    if($id2)
+                    {
+                        $id2->user_id = $request->id;
+                        $id2->status = true;
+                        $id2->save();
+                    }else{
+                        $asignacion = new Asignacion;
+                        $asignacion->user_id = $request->id;
+                        $asignacion->casa_justicia_id = $request->sede;
+                        $asignacion->tipo_turno = $nuevacaja->tipo_turno_id;
+                        $asignacion->save();
+                    }
+
+                }
+                
+                
+
+                // $asignacion = Asignacion::where('user_id' , $request->id)->where('status' , 1)->get();
+                // $asignacion->status = false;
+                // $asignacion->save();
+               
+
+               
+                
+                
+                }
             
-            $usuarios = User::where('status', 1)->get();
+            $usuario->save();
+            
+
+            if($request->tipo_usuario == 1){
+                $usuarios = User::where('status', 1)
+                                ->where('tipo_usuario_id','!=', 1)
+                                ->get();
+            }else{
+                $usuarios = User::where('status', 1)
+                                ->where('tipo_usuario_id','!=', 1)
+                                ->where('casa_justicia_id', $request->sede)
+                                ->get();
+            }
+            
+            // $usuarios = User::where('status', 1)->get();
 
             $array_usuarios = array();
             $cont = 1;
@@ -195,8 +297,13 @@ class UserController extends Controller
                 $objectUsuario->apellido_materno = $usuario->apellido_materno;
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
-                // $objectUsuario->numero = $usuario->numero;
+                $objectUsuario->sede = $usuario->casaJusticia->nombre;
                 $objectUsuario->email = $usuario->email;
+                if($usuario->caja){
+                    $objectUsuario->ventanilla = $usuario->caja->nombre;
+                }else{
+                    $objectUsuario->ventanilla = 'SIN VENTANILLA';
+                }
                 // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
                 // $objectUsuario->area_id = $usuario->area_id;
@@ -275,7 +382,7 @@ class UserController extends Controller
                 $objectUsuario->apellido_materno = $usuario->apellido_materno;
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
-                $objectUsuario->numero = $usuario->numero;
+                $objectUsuario->sede = $usuario->casaJusticia->nombre;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;
