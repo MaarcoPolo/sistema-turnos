@@ -1,7 +1,8 @@
 <template>
     <div :style="btnStyles" class="m-auto custom-boton-catalogo">
         <div>
-            <img class="m-auto" :style="imgStyles" :src="'../../../icons/'+nombre_icon" alt="">
+            <!-- <img class="m-auto" :style="imgStyles" :src="'../../../icons/'+nombre_icon" alt=""> -->
+            <img class="m-auto" :style="imgStyles" :src="imageSrc" alt="">
         </div>
         <p class="mt-2 custom-text-boton-catalogo">{{nombre_catalogo}}</p>
     </div>
@@ -21,19 +22,19 @@
             },
             height: {
                 type: String,
-                default: 5,
+                default: '5',
             },
             width: {
                 type: String,
-                default: 5,
+                default: '5',
             },
             heightBtn: {
                 type: String,
-                default: 12,
+                default: '12',
             },
             widthBtn: {
                 type: String,
-                default: 12,
+                default: '12',
             },
         },
         computed: {
@@ -49,6 +50,9 @@
                     "width": `${this.widthBtn}rem`,
                 }
             },
+            imageSrc() {
+                return new URL(`../../../public/icons/${this.nombre_icon}`, import.meta.url).href
+            }
         }
     }
 </script>
