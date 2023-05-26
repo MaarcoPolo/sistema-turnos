@@ -255,7 +255,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla1cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 1,
+            'caja_id' => 16,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -266,7 +266,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla2cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 2,
+            'caja_id' => 17,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -277,7 +277,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla3cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 3,
+            'caja_id' => 18,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -288,7 +288,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla4cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 4,
+            'caja_id' => 19,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -299,7 +299,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla5cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 5,
+            'caja_id' => 20,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -310,7 +310,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla6cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 6,
+            'caja_id' => 21,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -321,7 +321,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla7cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 7,
+            'caja_id' => 22,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -332,7 +332,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla8cho',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 2,
-            'caja_id' => 8,
+            'caja_id' => 23,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -344,7 +344,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla1hue',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 3,
-            'caja_id' => 1,
+            'caja_id' => 24,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -355,7 +355,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla2hue',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 3,
-            'caja_id' => 2,
+            'caja_id' => 25,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -366,7 +366,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla3hue',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 3,
-            'caja_id' => 3,
+            'caja_id' => 26,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -378,7 +378,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla1lab',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 4,
-            'caja_id' => 1,
+            'caja_id' => 27,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -389,7 +389,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla2lab',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 4,
-            'caja_id' => 2,
+            'caja_id' => 28,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);
@@ -400,7 +400,7 @@ class UserSeeder extends Seeder
             'username' => 'ventanilla3lab',
             'tipo_usuario' => 'ventanilla',
             'casa_justicia_id' => 4,
-            'caja_id' => 3,
+            'caja_id' => 29,
             'status' => 1,
             'tipo_usuario_id' => 3,
         ]);

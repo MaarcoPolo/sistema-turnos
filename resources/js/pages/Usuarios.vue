@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
                 <p class="custom-title-page">Usuarios</p>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     <div class="container mt-16">
         <!-- INICIO BOTON NUEVA CAJA -->
         <div class="row justify-content-between">
@@ -51,7 +51,7 @@
                             <tr>
                                 <th class="custom-title-table">Id</th>
                                 <th class="custom-title-table">Nombre</th>
-                                <!-- <th class="custom-title-table">Tipo de Ventanilla</th> -->
+                                <th v-if="user.user.tipo_usuario_id == 1" class="custom-title-table">Sede</th>
                                 <th class="custom-title-table">Acciones</th>
                             </tr>
                         </thead>
@@ -66,11 +66,14 @@
                             </tr>
                             <tr v-else v-for="usuario in datosPaginados" :key="usuario.id">
                                 <td class="custom-data-table">
-                                    {{usuario.id}}
+                                    {{usuario.numero_registro}}
                                 </td>
                                 <td class="custom-data-table text-uppercase">
                                     {{usuario.nombre}}
                                 </td>
+                                <td v-if="user.user.tipo_usuario_id == 1" class="custom-data-table text-uppercase">
+                                        {{usuario.sede}}
+                                    </td>
                                 <td>
                                     <div class="text-center row justify-content-center">
                                         <div>
@@ -190,15 +193,15 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoP">Apellido paterno:</label>
-                                    <input id="input_apellidoP" type="text" class="form-control" v-model="v$.usuario.apellido_paterno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoP" type="text" class="form-control" v-model="usuario.apellido_paterno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoM">Apellido materno:</label>
-                                    <input id="input_apellidoM" type="text" class="form-control" v-model="v$.usuario.apellido_materno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoM" type="text" class="form-control" v-model="usuario.apellido_materno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
@@ -206,25 +209,68 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_email">Correo:</label>
-                                    <input id="input_email" type="text" class="form-control" v-model="v$.usuario.email.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p>
+                                    <input id="input_email" type="text" class="form-control" v-model="usuario.email">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_username">Nombre de usuario:</label>
-                                    <input id="input_username" type="text" class="form-control" v-model="v$.usuario.username.$model">
+                                    <input id="input_username" type="text" autocomplete="off" class="form-control" v-model="v$.usuario.username.$model">
                                     <p class="text-validation-red" v-if="v$.usuario.username.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_pass">Contraseña:</label>
-                                    <input id="input_pass" type="text" class="form-control" v-model="v$.usuario.password.$model">
+                                    <input id="input_pass" type="text" autocomplete="off" class="form-control" v-model="v$.usuario.password.$model">
                                     <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
                           
+                        </div>
+                        <div v-if="user.user.tipo_usuario_id == 2" class="row justify-content-between mt-4">
+                            <div class="col-md-4 col-12"></div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_ventanilla">Ventanillas disponibles:</label>
+                                    <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12"></div>
+                        </div>
+                        <div v-if="user.user.tipo_usuario_id == 1" class="row justify-content-between mt-4">
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_tipo_usuario">Tipo de usuario:</label>
+                                    <select id="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario_id.$model">
+                                        <option  v-for="item in tipoUsuarios" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.tipo_usuario_id.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_sede">Sede:</label>
+                                    <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
+                                        <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_ventanilla">Ventanillas disponibles:</label>
+                                    <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            
                         </div>
                         <!-- <div class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12">
@@ -289,15 +335,15 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoP">Apellido paterno:</label>
-                                    <input id="input_apellidoP" type="text" class="form-control" v-model="v$.usuario.apellido_paterno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoP" type="text" class="form-control" v-model="usuario.apellido_paterno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoM">Apellido materno:</label>
-                                    <input id="input_apellidoM" type="text" class="form-control" v-model="v$.usuario.apellido_materno.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p>
+                                    <input id="input_apellidoM" type="text" class="form-control" v-model="usuario.apellido_materno">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
@@ -305,8 +351,8 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_email">Correo:</label>
-                                    <input id="input_email" type="text" class="form-control" v-model="v$.usuario.email.$model">
-                                    <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p>
+                                    <input id="input_email" type="text" class="form-control" v-model="usuario.email">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
@@ -324,6 +370,24 @@
                                 </div>
                             </div>
                           
+                        </div>
+                        <div class="row justify-content-between mt-4">
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="input_ventanilla">Ventanilla asignada:</label>
+                                    <input id="input_ventanilla" disabled autocomplete="off" type="text" class="form-control" v-model="usuario.ventanilla">
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.ventanilla.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_disponible">Ventanillas disponibles:</label>
+                                    <select id="select_disponible" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
+                                </div>
+                            </div>
                         </div>
                     <div class="text-center mb-4 mt-6">
                         <v-btn
@@ -344,6 +408,7 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+    </div>
     </div>
 </template>
 
@@ -367,11 +432,19 @@
                     apellido_materno:'',
                     email:'',
                     password:'',
-                    // tipo_usuario_id: null,
+                    sede: null,
+                    tipo_usuario: null,
+                    caja_id: null,
+                    ventanilla: '',
+                    tipo_usuario_id: null
                     // username:'',
                     // area_id:'',
                     // numero:'',
                 },
+                v:{
+                    sede: null
+                },
+                
                 loading: false,
                 elementosPorPagina: 10,
                 paginaActual: 1,
@@ -395,16 +468,16 @@
                         nombre: {
                             required
                         },
-                        apellido_paterno: {
+                        tipo_usuario_id: {
                             required
                         },
-                        apellido_materno: {
+                        sede: {
                             required
                         },
-                        email: {
-                            required, 
-                            email
-                        },
+                        // email: {
+                        //     required, 
+                        //     email
+                        // },
                         password: {
                             required
                         },
@@ -423,6 +496,9 @@
         },
         created() {
             this.getUsuarios()
+            this.ventanillasDisponibles()
+            this.getCasasJusticia()
+            this.getTipoUsuarios()
         },
         computed: {
         pages() {
@@ -432,6 +508,9 @@
             first = Math.min(first, this.totalPaginas() - numShown + 1)
             return [...Array(numShown)].map((k, i) => i + first)
         },
+        ventanillas() {
+                return this.$store.getters.getVentanillasDisponibles
+        },
         usuarios() {
                 return this.$store.getters.getUsuarios
         },
@@ -440,13 +519,21 @@
         },
         currentRoute() {
             return this.$route.name
-        }
+        },
+        sedes() {
+                return this.$store.getters.getCasasJusticia
+        },
+        tipoUsuarios() {
+                return this.$store.getters.getTipoUsuarios
+        },
       },
         watch: {
             buscar: function () {
                 if (!this.buscar.length == 0) {
                     this.datosPaginados = this.usuarios.filter(item => {
                         return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
+                        || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
+                    
                     })
                 } else {
                     this.getDataPagina(1)
@@ -456,6 +543,11 @@
                 if (this.mostrar) {
                     this.getDataPagina(1)
                 }
+            },
+            'usuario.sede': function () {
+                this.v.sede = this.usuario.sede
+                // console.log(this.usuario)
+                this.ventanillasDisponibles()
             },
         },
         methods: {
@@ -522,7 +614,14 @@
             async getUsuarios() {
                 this.loading = true
                 try {
-                    let response = await axios.get('/api/usuarios')
+                    if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                        this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    }else{
+                        this.usuario.tipo_usuario = 1
+                    }
+                   
+                    let response = await axios.post('/api/usuarios', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setUsuarios', response.data.usuarios)
@@ -539,27 +638,107 @@
                 }
                 this.loading = false
             },
+            async getTipoUsuarios() {
+                // this.loading = true
+                try {
+                    // this.usuario.tipo = this.user.user.tipo_usuario_id
+                    // this.usuario.sede = this.user.user.casa_justicia_id
+                    let response = await axios.get('/api/tipo-usuarios')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setTipoUsuarios', response.data.tipoUsuarios)
+                            // this.oficios = response.data.oficios
+                            // this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener los tipos de usuarios')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener los tipos de usuarios')
+                }
+                // this.loading = false
+            },
+            async getCasasJusticia() {
+                try {
+                    let response = await axios.get('/api/casas-justicia')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                }
+            },
+            async ventanillasDisponibles() {
+                // this.loading = true
+                try {
+                    if(this.user.user.tipo_usuario_id == 2){
+                        this.v.sede = this.user.user.casa_justicia_id
+                    }
+                    
+                    // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    let response = await axios.post('/api/cajas-disponibles', this.v)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setVentanillasDisponibles', response.data.ventanillas)
+                            
+                            // this.oficios = response.data.oficios
+                            // this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las ventanillas')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las ventanillas')
+                }
+                // this.loading = false
+            },
             cerrarModalNuevoUsuario(){
                 this.dialogNuevoUsuario = false
                 this.dialogEditarUsuario = false
                 this.usuario.nombre =''
+                this.usuario.username = ''
+                this.usuario.password = ''
+                this.usuario.tipo_usuario_id = ''
+                this.usuario.sede = ''
+                this.usuario.caja_id = ''
+                
             },
             abrirModalEditarUsuario(usuario){
-                console.log(usuario)
+                // console.log(usuario)
                 this.dialogEditarUsuario=true 
-                this.dialogEditarUsuario = true
+                // this.dialogEditarUsuario = true
+                // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                // this.usuario.sede = this.user.user.casa_justicia_id
                 this.usuario.id = usuario.id
                 this.usuario.nombre = usuario.nombre
                 this.usuario.apellido_materno = usuario.apellido_materno
                 this.usuario.apellido_paterno = usuario.apellido_paterno
                 this.usuario.email = usuario.email
                 this.usuario.password = usuario.password
-                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+                this.usuario.ventanilla = usuario.ventanilla
                 // this.usuario.area_id = usuario.area_id
                 this.usuario.username = usuario.username
-
+                // this.ventanillasDisponibles()
             },
             async guardarNuevoUsuario() {
+                if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                        this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                        this.usuario.tipo_usuario_id = 3;
+                }else{
+                        this.usuario.tipo_usuario = 1;
+
+                }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
                 Swal.fire({
@@ -587,6 +766,7 @@
                                 if (result.value.data.status === "ok") {
                                     successSweetAlert(result.value.data.message)
                                     this.$store.commit('setUsuarios', result.value.data.usuarios)
+                                    this.ventanillasDisponibles()
                                     this.loading = false
                                     this.cerrarModalNuevoUsuario()
                                     this.getDataPagina(1)
@@ -604,26 +784,26 @@
                     })
             },
                 // Abrir modal de editar usuario ya con los datos cargados
-                EditarUsuario(usuario) {
-                this.dialogEditarUsuario = true
-                this.usuario.id = usuario.id
-                this.usuario.nombre = usuario.nombre
-                this.usuario.apellido_materno = usuario.apellido_materno
-                this.usuario.apellido_paterno = usuario.apellido_paterno
-                this.usuario.email = usuario.email
-                this.usuario.password = usuario.password
-                // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
-                // this.usuario.area_id = usuario.area_id
-                this.usuario.username = usuario.username
-                // this.usuario.email_confirm = usuario.email
-                // this.usuario.password_confirm = usuario.password
-                // this.usuario.numero = usuario.numero
-            },
+            //     EditarUsuario(usuario) {
+            //     this.dialogEditarUsuario = true
+            //     this.usuario.id = usuario.id
+            //     this.usuario.nombre = usuario.nombre
+            //     this.usuario.apellido_materno = usuario.apellido_materno
+            //     this.usuario.apellido_paterno = usuario.apellido_paterno
+            //     this.usuario.email = usuario.email
+            //     this.usuario.password = usuario.password
+            //     // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+            //     this.usuario.ventanilla = usuario.ventanilla
+            //     this.usuario.username = usuario.username
+            //     // this.usuario.email_confirm = usuario.email
+            //     // this.usuario.password_confirm = usuario.password
+            //     // this.usuario.numero = usuario.numero
+            // },
             // boton para cerrar el modal
             CancelarEditarUsuario() {
                 this.dialogEditarUsuario = false
-                this.usuario.id = '',
-                this.usuario.nombre = '',
+                this.usuario.id = ''
+                this.usuario.nombre = ''
                 this.usuario.apellido_paterno = ''
                 this.usuario.apellido_materno = ''
                 this.usuario.email = ''
@@ -631,7 +811,8 @@
                 this.usuario.username = ''
                 this.usuario.password = ''        
                 // this.usuario.area_id = ''  
-                // this.usuario.numero = ''    
+                // this.usuario.numero = '' 
+                this.ventanillasDisponibles()   
             },
             async guardarCambiosEditarUsuario() {
                 const isFormCorrect = await this.v$.usuario.$validate()              
@@ -647,6 +828,8 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
+                                // usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                                // usuario.sede = this.user.user.casa_justicia_id
                                 let response = await axios.post('/api/usuarios/actualizar-usuario', this.usuario)
                                 return response
                             } catch (error) {
@@ -683,6 +866,8 @@
                   showLoaderOnConfirm: true,
                   preConfirm: async () => {
                       try {
+                            usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                            usuario.sede = this.user.user.casa_justicia_id
                           let response = await axios.post('/api/usuarios/eliminar-usuario', usuario)
                           return response
                       } catch (error) {

@@ -158,6 +158,7 @@
                 this.turnosPantalla()
                 
             })
+            
         },
         computed:{
             turnos(){

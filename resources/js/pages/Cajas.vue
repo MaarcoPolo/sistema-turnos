@@ -197,8 +197,8 @@
                         </div>
                         <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="select_nombre">Tipo de Ventanilla:</label>
-                                <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.form.tipo.$model">
+                                <label for="select_tipo_ventanilla">Tipo de Ventanilla:</label>
+                                <select id="select_tipo_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="v$.form.tipo.$model">
                                     <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
                                 <p class="text-validation-red" v-if="v$.form.tipo.$error">*Campo obligatorio</p>
@@ -206,8 +206,8 @@
                         </div>
                         <div v-if="user.user.tipo_usuario_id == 1" class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="select_nombre">Sede:</label>
-                                <select name="select_casa_justicia" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
+                                <label for="select_sede">Sede:</label>
+                                <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
                                     <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
                                 <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p>
@@ -252,7 +252,7 @@
                         <div class="col-12">
                             <div class="div-custom-input-caja">
                                 <label for="input_nombre">Nombre:</label>
-                                <input id="input_input_nombre" autocomplete="off"  class="form-control" v-model="v$.editar.nombre.$model">
+                                <input id="input_nombre" autocomplete="off"  class="form-control" v-model="v$.editar.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.editar.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
@@ -384,7 +384,7 @@
         },
         sedes() {
                 return this.$store.getters.getCasasJusticia
-            },
+        },
 
     },
     watch: {
@@ -392,6 +392,8 @@
             if (!this.buscar.length == 0) {
                 this.datosPaginados = this.cajas.filter(item => {
                     return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.estatus.toLowerCase().includes(this.buscar.toLowerCase())
                 })
             } else {
                 this.getDataPagina(1)
