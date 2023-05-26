@@ -392,6 +392,8 @@
             if (!this.buscar.length == 0) {
                 this.datosPaginados = this.cajas.filter(item => {
                     return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.estatus.toLowerCase().includes(this.buscar.toLowerCase())
                 })
             } else {
                 this.getDataPagina(1)

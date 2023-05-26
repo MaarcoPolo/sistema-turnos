@@ -532,6 +532,8 @@
                 if (!this.buscar.length == 0) {
                     this.datosPaginados = this.usuarios.filter(item => {
                         return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
+                        || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
+                    
                     })
                 } else {
                     this.getDataPagina(1)
@@ -541,6 +543,11 @@
                 if (this.mostrar) {
                     this.getDataPagina(1)
                 }
+            },
+            'usuario.sede': function () {
+                this.v.sede = this.usuario.sede
+                // console.log(this.usuario)
+                this.ventanillasDisponibles()
             },
         },
         methods: {
