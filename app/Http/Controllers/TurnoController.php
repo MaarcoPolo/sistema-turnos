@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Turno;
+use PDF;
 use Carbon\Carbon;
-use App\Events\LlamarTurnoPuebla;
-use App\Events\LlamarTurnoCholula;
-use App\Events\LlamarTurnoHuejotzingo;
-use App\Events\LlamarTurnoLaborales;
-
+use App\Models\Turno;
 use App\Models\Contador;
 use App\Models\Asignacion;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
+use Illuminate\Http\Request;
 use Mike42\Escpos\EscposImage;
-
-
-
+use App\Events\LlamarTurnoPuebla;
+use App\Events\LlamarTurnoCholula;
+use Illuminate\Support\Facades\DB;
+use App\Events\LlamarTurnoLaborales;
+use Illuminate\Support\Facades\View;
+use App\Events\LlamarTurnoHuejotzingo;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class TurnoController extends Controller
 {
@@ -742,6 +740,56 @@ class TurnoController extends Controller
             return response()->json([
                 "status" => "error",
                 "message" => "Ocurrió un error al obtener los turnos pendientes.",
+                "error" => $th->getMessage(),
+                "location" => $th->getFile(),
+                "line" => $th->getLine(),
+            ], 200);
+        }
+    }
+
+    public function generarReporteTiempoReal(Request $request)
+    {
+        try {
+            //Custom Header
+            PDF::setHeaderCallback(function($pdf) {
+                $pdf->SetFont('helvetica', 'B', 11);
+
+                // Header
+                $header_image_file = public_path() . '/img/header_pdf.png';           
+                $pdf->Image($header_image_file, 0,0,0,0);
+            });
+
+            // Custom Footer
+            PDF::setFooterCallback(function($pdf) {
+                $pdf->SetFont('helvetica', 'I', 8);
+
+                // Footer
+                $footer_image_file = public_path() . '/img/footer_pdf.png';
+                $pdf->Image($footer_image_file, 0,280,0,0);
+            });
+
+            $PDF_MARGIN_LEFT = 5;
+            $PDF_MARGIN_TOP = 30;
+            $PDF_MARGIN_RIGHT = 5;
+            $PDF_MARGIN_BOTTOM = 20;
+
+            PDF::SetMargins($PDF_MARGIN_LEFT, $PDF_MARGIN_TOP, $PDF_MARGIN_RIGHT,$PDF_MARGIN_BOTTOM);
+            PDF::SetAutoPageBreak(true, $PDF_MARGIN_BOTTOM);
+            PDF::SetTitle('Reporte');
+            PDF::AddPage('P', 'A4');
+            
+            $view = View::make('pdf.reporte_tiempo_real');
+            $html_content = $view->render();
+
+            PDF::writeHTML($html_content, true, false, true, false, '');
+
+            ob_end_clean();
+    
+            PDF::Output('Reporte_Turnos_Oficialia.pdf', 'I');
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => "error",
+                "message" => "Ocurrió un error al generar el reporte.",
                 "error" => $th->getMessage(),
                 "location" => $th->getFile(),
                 "line" => $th->getLine(),

@@ -177,12 +177,6 @@
                             <div class="col-md-4 col-12 mt-6"></div>
                         </div>
                     </template>
-                    <div class="row justify-content-between mt-6">
-                        <div class="col-md-4 col-12 mt-6"></div>
-                        <div class="col-md-4 col-12 mt-6"></div>
-                        <div class="col-md-4 col-12 mt-6"></div>
-                        <div class="col-md-4 col-12 mt-6"></div>
-                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-12">

@@ -13,26 +13,8 @@
                 <div class="col-md-3 col-12 text-center mt-2">
                     <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Ventanillas" @click="this.$router.push('/cajas')" />
                 </div>
-                <div class="col-md-3 col-12 text-center">
-                    <!-- <BotonCatalogo nombre_icon="materias.png" nombre_catalogo="Materias" @click="this.$router.push('/catalogo-materias')" /> -->
-                </div>
-                <div class="col-md-3 col-12 text-center">
-                    <!-- <BotonCatalogo nombre_icon="salas.png" nombre_catalogo="Salas" @click="this.$router.push('/salas')" /> -->
-                </div>
-            </div>
-            <div class="row justify-content-between mt-10">
-                <!-- <div class="col-md-3 col-12 text-center">
-                    <BotonCatalogo nombre_icon="jueces.png" nombre_catalogo="Jueces" @click="this.$router.push('/jueces')" />
-                </div>
-                <div class="col-md-3 col-12 text-center">
-                    <BotonCatalogo nombre_icon="tipos-audiencias.png" nombre_catalogo="Tipos de Audiencias" @click="this.$router.push('/tipos-audiencias')" />
-                </div>
-                <div class="col-md-3 col-12 text-center">
-                    <BotonCatalogo nombre_icon="logos.png" nombre_catalogo="Logos" @click="this.$router.push('/catalogo-logos')" />
-                </div>
-                <div class="col-md-3 col-12 text-center">
-                    <BotonCatalogo nombre_icon="salas.png" nombre_catalogo="Expedientes" @click="this.$router.push('/catalogo-expedientillo')" />
-                </div> -->
+                <div class="col-md-3 col-12 text-center"></div>
+                <div class="col-md-3 col-12 text-center"></div>
             </div>
         </div>
     </div>

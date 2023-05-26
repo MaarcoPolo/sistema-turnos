@@ -65,7 +65,7 @@ Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 
 Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);
 
-
+Route::post('/reportes/generar-reporte-tiempo-real', [TurnoController::class, 'generarReporteTiempoReal']);
 
 // Route::get('/broadcast', function () {
 //     broadcast(new NewMessage());
