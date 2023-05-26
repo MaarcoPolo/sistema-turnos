@@ -761,6 +761,200 @@ class TurnoController extends Controller
     public function generarReporteTiempoReal(Request $request)
     {
         try {
+            $objectP = new \stdClass();
+            $array_personas = array();
+            $array = array();
+            $inicio = 8;
+            $fin = 9;
+            $date = Carbon::now();
+            $fecha_hoy=$date->toDateString();
+            $fecha = new Carbon('2010-05-16 08:00:00');
+            $hora_inicio = $fecha->toTimeString();
+            $fecha->addHours(1);
+            $hora_fin = $fecha->toTimeString();
+            $suma_turnos= 0;
+            $suma_salas= 0;
+            $suma_internos= 0;
+            $suma_rapidos= 0;
+            $suma_demandas= 0;
+            $suma_familiares= 0;
+           
+            for($i = 1; $i < 8; $i++)
+            {
+                $turnos = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 1)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_turnos = $turnos->count();
+                foreach($turnos as $turno){
+                    $mayor = new Carbon('2010-05-16 '.$turno->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$turno->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_turnos = $suma_turnos + $diferencia;
+
+                }
+                if($total_turnos == 0){
+                    $promedio_turnos = 0;
+                }else{
+                    $promedio_turnos = $suma_turnos/$total_turnos;
+                }
+               
+
+                $salas = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 2)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_salas = $salas->count();
+                foreach($salas as $sala){
+                    $mayor = new Carbon('2010-05-16 '.$sala->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$sala->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_salas = $suma_salas + $diferencia;
+
+                }
+                if($total_salas == 0){
+                    $promedio_salas = 0;
+                }else{
+                    $promedio_salas = $suma_salas/$total_salas;
+                }
+                
+
+                $internos = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 3)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_internos = $internos->count();
+                foreach($internos as $interno){
+                    $mayor = new Carbon('2010-05-16 '.$interno->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$interno->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_internos = $suma_internos + $diferencia;
+
+                }
+                if($total_internos == 0){
+                    $promedio_internos = 0;
+                }else{
+                    $promedio_internos = $suma_internos/$total_internos;
+                }
+
+                $rapidas = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 4)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_rapidas = $rapidas->count();
+                foreach($rapidas as $rapida){
+                    $mayor = new Carbon('2010-05-16 '.$rapida->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$rapida->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_rapidos = $suma_rapidos + $diferencia;
+
+                }
+                if($total_rapidas == 0){
+                    $promedio_rapidos = 0;
+                }else{
+                    $promedio_rapidos = $suma_rapidos/$total_rapidas;
+                }
+
+                $demandas = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 5)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_demandas = $demandas->count();
+                foreach($demandas as $demanda){
+                    $mayor = new Carbon('2010-05-16 '.$demanda->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$demanda->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_demandas = $suma_demandas + $diferencia;
+
+                }
+                if($total_demandas == 0){
+                    $promedio_demandas = 0;
+                }else{
+                    $promedio_demandas = $suma_demandas/$total_demandas;
+                }
+
+                $familiares = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 6)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                $total_familiares = $familiares->count();
+                foreach($familiares as $familiar){
+                    $mayor = new Carbon('2010-05-16 '.$familiar->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$familiar->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_familiares = $suma_familiares + $diferencia;
+
+                }
+                if($total_familiares == 0){
+                    $promedio_familiares = 0;
+                }else{
+                    $promedio_familiares = $suma_familiares/$total_familiares;
+                }
+
+                $total_atendidos = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    // ->where('tipo_turno_id', 3)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', 1)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->count();
+
+
+                
+                $object = new \stdClass();
+                $object->hora = $inicio.' a '.$fin;
+                $object->turno = $promedio_turnos.' min';
+                $object->sala = $promedio_salas.' min';
+                $object->interno = $promedio_internos.' min';
+                $object->demanda = $promedio_demandas.' min';
+                $object->aten_rapida = $promedio_rapidos.' min';
+                $object->o_familiar = $promedio_familiares.' min';
+                array_push($array, $object);
+                
+
+                $objectPersonas = new \stdClass();
+                $objectPersonas->hora = $inicio.' a '.$fin;
+                $objectPersonas->totales = $total_atendidos;
+                array_push($array_personas, $objectPersonas);
+
+                $inicio++;
+                $fin++;
+                $hora_inicio = $fecha->toTimeString();
+                $fecha->addHours(1);
+                $hora_fin = $fecha->toTimeString();
+            }
+            $objectP->estadisticas_horarios = $array;
+            $objectP->personas_atendidas = $array_personas;
+            return response()->json([
+                "status" => "ok",
+                // "message" => $hora_inicio,
+                // "turnos" => $hora_fin,
+                "turnos" => $objectP
+            ], 200);
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
                 $pdf->SetFont('helvetica', 'B', 11);
