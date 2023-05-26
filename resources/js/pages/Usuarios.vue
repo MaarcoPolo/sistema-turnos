@@ -233,8 +233,8 @@
                             <div class="col-md-4 col-12"></div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Ventanillas disponibles:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                    <label for="select_ventanilla">Ventanillas disponibles:</label>
+                                    <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
                                         <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
@@ -246,7 +246,7 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="select_tipo_usuario">Tipo de usuario:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario_id.$model">
+                                    <select id="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario_id.$model">
                                         <option  v-for="item in tipoUsuarios" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <p class="text-validation-red" v-if="v$.usuario.tipo_usuario_id.$error">*Campo obligatorio</p>
@@ -255,7 +255,7 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="select_sede">Sede:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
+                                    <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
                                         <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
@@ -264,7 +264,7 @@
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="select_ventanilla">Ventanillas disponibles:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                    <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
                                         <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
@@ -374,15 +374,15 @@
                         <div class="row justify-content-between mt-4">
                             <div class="col-md-6 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="input_pass">Ventanilla asignada:</label>
-                                    <input id="input_pass" disabled autocomplete="off" type="text" class="form-control" v-model="usuario.ventanilla">
+                                    <label for="input_ventanilla">Ventanilla asignada:</label>
+                                    <input id="input_ventanilla" disabled autocomplete="off" type="text" class="form-control" v-model="usuario.ventanilla">
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.ventanilla.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Ventanillas disponibles:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                    <label for="select_disponible">Ventanillas disponibles:</label>
+                                    <select id="select_disponible" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
                                         <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
@@ -441,6 +441,10 @@
                     // area_id:'',
                     // numero:'',
                 },
+                v:{
+                    sede: null
+                },
+                
                 loading: false,
                 elementosPorPagina: 10,
                 paginaActual: 1,
@@ -669,11 +673,11 @@
                 // this.loading = true
                 try {
                     if(this.user.user.tipo_usuario_id == 2){
-                        this.usuario.sede = this.user.user.casa_justicia_id
+                        this.v.sede = this.user.user.casa_justicia_id
                     }
                     
                     // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
-                    let response = await axios.post('/api/cajas-disponibles', this.usuario)
+                    let response = await axios.post('/api/cajas-disponibles', this.v)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setVentanillasDisponibles', response.data.ventanillas)
@@ -699,7 +703,7 @@
                 this.usuario.password = ''
                 this.usuario.tipo_usuario_id = ''
                 this.usuario.sede = ''
-                this.tipoUsuarios.usuario.ventanilla = ''
+                this.usuario.caja_id = ''
                 
             },
             abrirModalEditarUsuario(usuario){
