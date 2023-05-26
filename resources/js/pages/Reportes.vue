@@ -6,10 +6,19 @@
             </div>
         </div>
         <div class="container mt-8">
-            <div class="row justify-content-between mt-4">
+            <div class="row justify-content-around mt-4">
                 <div class="col-md-3 col-12 text-center mt-2">
-                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Puebla" @click="generarReporte()" />
+                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Puebla" @click="generarReporte(1)" />
                 </div>
+                <div class="col-md-3 col-12 text-center mt-2">
+                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Cholula" @click="generarReporte(2)" />
+                </div>
+                <div class="col-md-3 col-12 text-center mt-2">
+                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Huejotzingo" @click="generarReporte(3)" />
+                </div>
+                <!-- <div class="col-md-3 col-12 text-center mt-2">
+                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Puebla" @click="generarReporte()" />
+                </div> -->
             </div>
         </div>
     </div>
@@ -24,7 +33,7 @@
         data() {
             return {
                 variables_reporte: {
-
+                    id_sede: 1,
                 }
             }
         },
@@ -32,7 +41,8 @@
             BotonCatalogo,
         },
         methods: {
-            async generarReporte() {
+            async generarReporte(id_sede) {
+                this.variables_reporte.id_sede = id_sede
                 try {
                     let response = await axios.post('/api/reportes/generar-reporte-tiempo-real', this.variables_reporte, {
                         responseType: 'arraybuffer'

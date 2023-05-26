@@ -767,7 +767,7 @@ class TurnoController extends Controller
 
                 // Header
                 $header_image_file = public_path() . '/img/header_pdf.png';           
-                $pdf->Image($header_image_file, 0,0,0,0);
+                $pdf->Image($header_image_file, 0,0,210,40);
             });
 
             // Custom Footer
@@ -776,11 +776,14 @@ class TurnoController extends Controller
 
                 // Footer
                 $footer_image_file = public_path() . '/img/footer_pdf.png';
-                $pdf->Image($footer_image_file, 0,280,0,0);
+                $pdf->Image($footer_image_file, 50,268,160,30);
+
+                // $pdf->MultiCell(1, 1, '[LEFT]', 0, 'L', 1, 0, '10', '150', true);
+                // $pdf->MultiCell(1, 1, '[LEFT]', 0, 'L', 1, 0, '10', '150', true);
             });
 
             $PDF_MARGIN_LEFT = 5;
-            $PDF_MARGIN_TOP = 30;
+            $PDF_MARGIN_TOP = 25;
             $PDF_MARGIN_RIGHT = 5;
             $PDF_MARGIN_BOTTOM = 20;
 
