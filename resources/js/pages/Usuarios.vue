@@ -51,7 +51,7 @@
                             <tr>
                                 <th class="custom-title-table">Id</th>
                                 <th class="custom-title-table">Nombre</th>
-                                <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Sede</th>
+                                <th v-if="user.user.tipo_usuario_id == 1" class="custom-title-table">Sede</th>
                                 <th class="custom-title-table">Acciones</th>
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@
                                 <td class="custom-data-table text-uppercase">
                                     {{usuario.nombre}}
                                 </td>
-                                <td v-if="user.user.tipo_usuario_id ==1" class="custom-data-table text-uppercase">
+                                <td v-if="user.user.tipo_usuario_id == 1" class="custom-data-table text-uppercase">
                                         {{usuario.sede}}
                                     </td>
                                 <td>
@@ -245,25 +245,25 @@
                         <div v-if="user.user.tipo_usuario_id == 1" class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Tipo de usuario:</label>
-                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario.$model">
-                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.num">{{item.nombre}}</option>
+                                    <label for="select_tipo_usuario">Tipo de usuario:</label>
+                                    <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario_id.$model">
+                                        <option  v-for="item in tipoUsuarios" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
-                                    <p class="text-validation-red" v-if="v$.usuario.tipo_usuario.$error">*Campo obligatorio</p>
+                                    <p class="text-validation-red" v-if="v$.usuario.tipo_usuario_id.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Sede:</label>
+                                    <label for="select_sede">Sede:</label>
                                     <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
-                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.num">{{item.nombre}}</option>
+                                        <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
-                                    <label for="select_nombre">Ventanillas disponibles:</label>
+                                    <label for="select_ventanilla">Ventanillas disponibles:</label>
                                     <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
                                         <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
@@ -436,6 +436,7 @@
                     tipo_usuario: null,
                     caja_id: null,
                     ventanilla: '',
+                    tipo_usuario_id: null
                     // username:'',
                     // area_id:'',
                     // numero:'',
@@ -463,7 +464,7 @@
                         nombre: {
                             required
                         },
-                        tipo_usuario: {
+                        tipo_usuario_id: {
                             required
                         },
                         sede: {
@@ -492,6 +493,8 @@
         created() {
             this.getUsuarios()
             this.ventanillasDisponibles()
+            this.getCasasJusticia()
+            this.getTipoUsuarios()
         },
         computed: {
         pages() {
@@ -512,7 +515,13 @@
         },
         currentRoute() {
             return this.$route.name
-        }
+        },
+        sedes() {
+                return this.$store.getters.getCasasJusticia
+        },
+        tipoUsuarios() {
+                return this.$store.getters.getTipoUsuarios
+        },
       },
         watch: {
             buscar: function () {
@@ -594,8 +603,13 @@
             async getUsuarios() {
                 this.loading = true
                 try {
-                    this.usuario.sede = this.user.user.casa_justicia_id
-                    this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                        this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                    }else{
+                        this.usuario.tipo_usuario = 1
+                    }
+                   
                     let response = await axios.post('/api/usuarios', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
@@ -613,15 +627,56 @@
                 }
                 this.loading = false
             },
+            async getTipoUsuarios() {
+                // this.loading = true
+                try {
+                    // this.usuario.tipo = this.user.user.tipo_usuario_id
+                    // this.usuario.sede = this.user.user.casa_justicia_id
+                    let response = await axios.get('/api/tipo-usuarios')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setTipoUsuarios', response.data.tipoUsuarios)
+                            // this.oficios = response.data.oficios
+                            // this.mostrar = true
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener los tipos de usuarios')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener los tipos de usuarios')
+                }
+                // this.loading = false
+            },
+            async getCasasJusticia() {
+                try {
+                    let response = await axios.get('/api/casas-justicia')
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                        } else {
+                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                        }
+                    } else {
+                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                    }
+                } catch (error) {
+                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
+                }
+            },
             async ventanillasDisponibles() {
                 // this.loading = true
                 try {
-                    this.usuario.sede = this.user.user.casa_justicia_id
+                    if(this.user.user.tipo_usuario_id == 2){
+                        this.usuario.sede = this.user.user.casa_justicia_id
+                    }
+                    
                     // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
                     let response = await axios.post('/api/cajas-disponibles', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
-                            this.$store.commit('getVentanillasDisponibles', response.data.ventanillas)
+                            this.$store.commit('setVentanillasDisponibles', response.data.ventanillas)
                             
                             // this.oficios = response.data.oficios
                             // this.mostrar = true
@@ -642,6 +697,9 @@
                 this.usuario.nombre =''
                 this.usuario.username = ''
                 this.usuario.password = ''
+                this.usuario.tipo_usuario_id = ''
+                this.usuario.sede = ''
+                this.tipoUsuarios.usuario.ventanilla = ''
                 
             },
             abrirModalEditarUsuario(usuario){
@@ -665,6 +723,10 @@
                 if(this.user.user.tipo_usuario_id == 2){
                         this.usuario.sede = this.user.user.casa_justicia_id
                         this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                        this.usuario.tipo_usuario_id = 3;
+                }else{
+                        this.usuario.tipo_usuario = 1;
+
                 }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return

@@ -11,6 +11,7 @@ use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\TipoTurnoController;
+use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\CasaJusticiaController;
 
 
@@ -65,6 +66,7 @@ Route::post('/turnos-pendientes', [TurnoController::class, 'turnosPendientes']);
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 
 Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);
+Route::get('/tipo-usuarios', [TipoUsuarioController::class, 'getTipoUsuarios']);
 
 
 

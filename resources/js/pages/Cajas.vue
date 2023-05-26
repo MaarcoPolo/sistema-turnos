@@ -384,7 +384,7 @@
         },
         sedes() {
                 return this.$store.getters.getCasasJusticia
-            },
+        },
 
     },
     watch: {
