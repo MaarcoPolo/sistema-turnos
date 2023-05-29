@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use PDF;
 use Carbon\Carbon;
 use App\Models\Turno;
+use App\Events\LlamarTurnoPuebla;
+use App\Events\LlamarTurnoCholula;
+use App\Events\LlamarTurnoHuejotzingo;
+use App\Events\LlamarTurnoLaborales;
+use App\Events\CargarTurnosPuebla;
+use App\Events\CargarTurnosCholula;
+use App\Events\CargarTurnosHuejotzingo;
+use App\Events\CargarTurnosLaborales;
 use App\Models\Contador;
 use App\Models\Asignacion;
 use Mike42\Escpos\Printer;
 use App\Models\CasaJusticia;
 use Illuminate\Http\Request;
 use Mike42\Escpos\EscposImage;
-use App\Events\LlamarTurnoPuebla;
-use App\Events\CargarTurnosPuebla;
-use App\Events\LlamarTurnoCholula;
 use Illuminate\Support\Facades\DB;
-use App\Events\LlamarTurnoLaborales;
 use Illuminate\Support\Facades\View;
-use App\Events\CargarTurnosLaborales;
-use App\Events\LlamarTurnoHuejotzingo;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class TurnoController extends Controller
@@ -62,7 +64,10 @@ class TurnoController extends Controller
                 DB::commit();
                 $user = $asignacion->user_id;
             }
-              
+            $ultimo_turno = Turno::where('casa_justicia_id', $request->casa_justicia_id)
+            ->orderBy('id', 'desc')
+            ->first();
+
             $date = Carbon::now();
             $turno = new Turno;
             $turno->tipo_turno_id = $request->tipo_turno_id;
@@ -89,10 +94,30 @@ class TurnoController extends Controller
             }
             $tipo_turno = $turno->tipo_turno_id; 
             $turnoo = '';
+            $otra = $date->toDateString();
+            if($ultimo_turno){
+                $ultima_fecha = $ultimo_turno->fecha_registro;
+                if($ultima_fecha >= $otra){
+                    $con = Contador::find($request->casa_justicia_id);
+                    $contador = $con->contador;
+                    $id_contador = $con->id;
+                }else{
+                    $con = Contador::find($request->casa_justicia_id);
+                    $con->contador = 1;
+                    $con->save();
+                    $contador = $con->contador;
+                    $id_contador = $con->id;
+                }
 
-            $con = Contador::where('casa_justicia_id',$sede)->first();
-            $contador = $con->contador;
-            $id_contador = $con->id;
+            }else{
+                $con = Contador::find($request->casa_justicia_id);
+                $contador = $con->contador;
+                $id_contador = $con->id;
+
+            }
+            
+            
+           
             
             switch($tipo_turno){
                 case '1':
@@ -259,9 +284,9 @@ class TurnoController extends Controller
             if($request->casa_justicia_id == 1){
                 CargarTurnosPuebla::dispatch();
             }elseif($request->casa_justicia_id == 2){
-                CargarTurnosPuebla::dispatch('hola 2');
+                CargarTurnosCholula::dispatch();
             }elseif($request->casa_justicia_id == 3){
-                CargarTurnosPuebla::dispatch('hola 3');
+                CargarTurnosHuejotzingo::dispatch();
             }elseif($request->casa_justicia_id == 4){
                 CargarTurnosLaborales::dispatch();
             }
@@ -969,6 +994,7 @@ class TurnoController extends Controller
 
             // Objeto principal
             $objectP->distrito_sede = $distrito_sede->nombre;
+            $objectP->distrito_sede_id = $distrito_sede->id;
             $objectP->estadisticas_horarios = $array;
             $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;

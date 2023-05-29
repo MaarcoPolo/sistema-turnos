@@ -3,7 +3,7 @@
         <div class="row justify-content-center mt-8">
             <div class="card-titulo-ventanilla mt-2">
                 <img class="icono-ventanilla" src="../../../public/icons/ventanilla.png" alt="">
-                <p>Ventanilla {{this.user.user.caja_id}}</p>
+                <p>{{this.user.user.nombre}}</p>
             </div>
         </div>
         <div class="row justify-content-center mt-8">
@@ -80,8 +80,24 @@
             if(this.user.user.casa_justicia_id == 1)
             {
                 Echo.channel('ventanillasPuebla').listen('CargarTurnosPuebla', (e) => {
+                // console.log(this.user.user.casa_justicia_id)
+                this.cargarTurnos()
+                
+                })
+            }
+            if(this.user.user.casa_justicia_id == 2)
+            {
+                Echo.channel('ventanillasCholula').listen('CargarTurnosCholula', (e) => {
                 // console.log(e)
-                // this.cargarTurnos()
+                this.cargarTurnos()
+                
+                })
+            }
+            if(this.user.user.casa_justicia_id == 3)
+            {
+                Echo.channel('ventanillasHuejotzingo').listen('CargarTurnosHuejotzingo', (e) => {
+                // console.log(e)
+                this.cargarTurnos()
                 
                 })
             }
@@ -89,12 +105,12 @@
             {
                 Echo.channel('ventanillasLaborales').listen('CargarTurnosLaborales', (e) => {
                 // console.log(e)
-                // this.cargarTurnos()
+                this.cargarTurnos()
                 
                 })
             }
            
-            this.cargarTurnos() 
+            // this.cargarTurnos() 
         },
         computed: {
             user() {
