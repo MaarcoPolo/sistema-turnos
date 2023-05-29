@@ -768,7 +768,7 @@ class TurnoController extends Controller
             $fin = 9;
             $date = Carbon::now();
             $fecha_hoy=$date->toDateString();
-            $fecha = new Carbon('2010-05-16 08:00:00');
+            $fecha = new Carbon($date->toDateString() . '08:00:00');
             $hora_inicio = $fecha->toTimeString();
             $fecha->addHours(1);
             $hora_fin = $fecha->toTimeString();
@@ -778,6 +778,13 @@ class TurnoController extends Controller
             $suma_rapidos= 0;
             $suma_demandas= 0;
             $suma_familiares= 0;
+
+            $suma_turnos_general = 0;
+            $suma_salas_general = 0;
+            $suma_internos_general = 0;
+            $suma_rapidos_general = 0;
+            $suma_demandas_general = 0;
+            $suma_familiares_general = 0;
            
             for($i = 1; $i < 8; $i++)
             {
@@ -790,19 +797,21 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_turnos = $turnos->count();
+
                 foreach($turnos as $turno){
                     $mayor = new Carbon('2010-05-16 '.$turno->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$turno->hora_registro);
                     $diferencia = $mayor->diffInMinutes($menor);
                     $suma_turnos = $suma_turnos + $diferencia;
-
                 }
+
                 if($total_turnos == 0){
                     $promedio_turnos = 0;
                 }else{
                     $promedio_turnos = $suma_turnos/$total_turnos;
                 }
-               
+                
+                $suma_turnos_general = $suma_turnos_general + $promedio_turnos;
 
                 $salas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -813,6 +822,7 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_salas = $salas->count();
+
                 foreach($salas as $sala){
                     $mayor = new Carbon('2010-05-16 '.$sala->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$sala->hora_registro);
@@ -820,12 +830,14 @@ class TurnoController extends Controller
                     $suma_salas = $suma_salas + $diferencia;
 
                 }
+
                 if($total_salas == 0){
                     $promedio_salas = 0;
                 }else{
                     $promedio_salas = $suma_salas/$total_salas;
                 }
                 
+                $suma_salas_general = $suma_salas_general + $promedio_salas;
 
                 $internos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -836,6 +848,7 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_internos = $internos->count();
+
                 foreach($internos as $interno){
                     $mayor = new Carbon('2010-05-16 '.$interno->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$interno->hora_registro);
@@ -843,11 +856,14 @@ class TurnoController extends Controller
                     $suma_internos = $suma_internos + $diferencia;
 
                 }
+
                 if($total_internos == 0){
                     $promedio_internos = 0;
                 }else{
                     $promedio_internos = $suma_internos/$total_internos;
                 }
+
+                $suma_internos_general = $suma_internos_general + $promedio_internos;
 
                 $rapidas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -858,6 +874,7 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_rapidas = $rapidas->count();
+
                 foreach($rapidas as $rapida){
                     $mayor = new Carbon('2010-05-16 '.$rapida->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$rapida->hora_registro);
@@ -865,11 +882,14 @@ class TurnoController extends Controller
                     $suma_rapidos = $suma_rapidos + $diferencia;
 
                 }
+
                 if($total_rapidas == 0){
                     $promedio_rapidos = 0;
                 }else{
                     $promedio_rapidos = $suma_rapidos/$total_rapidas;
                 }
+
+                $suma_rapidos_general = $suma_rapidos_general + $promedio_rapidos;
 
                 $demandas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -880,6 +900,7 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_demandas = $demandas->count();
+
                 foreach($demandas as $demanda){
                     $mayor = new Carbon('2010-05-16 '.$demanda->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$demanda->hora_registro);
@@ -887,11 +908,14 @@ class TurnoController extends Controller
                     $suma_demandas = $suma_demandas + $diferencia;
 
                 }
+
                 if($total_demandas == 0){
                     $promedio_demandas = 0;
                 }else{
                     $promedio_demandas = $suma_demandas/$total_demandas;
                 }
+
+                $suma_demandas_general = $suma_demandas_general + $promedio_demandas;
 
                 $familiares = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -902,6 +926,7 @@ class TurnoController extends Controller
                                     ->get();
 
                 $total_familiares = $familiares->count();
+
                 foreach($familiares as $familiar){
                     $mayor = new Carbon('2010-05-16 '.$familiar->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$familiar->hora_registro);
@@ -909,21 +934,21 @@ class TurnoController extends Controller
                     $suma_familiares = $suma_familiares + $diferencia;
 
                 }
+
                 if($total_familiares == 0){
                     $promedio_familiares = 0;
                 }else{
                     $promedio_familiares = $suma_familiares/$total_familiares;
                 }
 
+                $suma_familiares_general = $suma_familiares_general + $promedio_familiares;
+
                 $total_atendidos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
-                                    // ->where('tipo_turno_id', 3)
                                     ->where('en_atencion', '!=' , 0)
                                     ->where('casa_justicia_id', 1)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->count();
-
-
                 
                 $object = new \stdClass();
                 $object->hora = $inicio.' a '.$fin;
@@ -935,7 +960,6 @@ class TurnoController extends Controller
                 $object->o_familiar = $promedio_familiares.' min';
                 array_push($array, $object);
                 
-
                 $objectPersonas = new \stdClass();
                 $objectPersonas->hora = $inicio.' a '.$fin;
                 $objectPersonas->totales = $total_atendidos;
@@ -947,14 +971,26 @@ class TurnoController extends Controller
                 $fecha->addHours(1);
                 $hora_fin = $fecha->toTimeString();
             }
+
+            $objectTiempoTotales = new \stdClass();
+            $objectTiempoTotales->texto = 'Total';
+            $objectTiempoTotales->turno = $suma_turnos_general;
+            $objectTiempoTotales->salas = $suma_salas_general;
+            $objectTiempoTotales->internos = $suma_internos_general;
+            $objectTiempoTotales->rapidos = $suma_rapidos_general;
+            $objectTiempoTotales->demandas = $suma_demandas_general;
+            $objectTiempoTotales->familiares = $suma_familiares_general;
+
             $objectP->estadisticas_horarios = $array;
+            $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;
-            return response()->json([
-                "status" => "ok",
-                // "message" => $hora_inicio,
-                // "turnos" => $hora_fin,
-                "turnos" => $objectP
-            ], 200);
+
+            // return response()->json([
+            //     "status" => "ok",
+            //     // "message" => $hora_inicio,
+            //     // "turnos" => $hora_fin,
+            //     "turnos" => $objectP,
+            // ], 200);
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
                 $pdf->SetFont('helvetica', 'B', 11);
@@ -986,7 +1022,7 @@ class TurnoController extends Controller
             PDF::SetTitle('Reporte');
             PDF::AddPage('P', 'A4');
             
-            $view = View::make('pdf.reporte_tiempo_real');
+            $view = View::make('pdf.reporte_tiempo_real', compact('objectP'));
             $html_content = $view->render();
 
             PDF::writeHTML($html_content, true, false, true, false, '');

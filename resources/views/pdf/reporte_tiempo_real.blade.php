@@ -106,77 +106,25 @@
             <td colspan="1" class="encabezado_secundario">Atn. rápida</td>
             <td colspan="1" class="encabezado_secundario">O. familiar</td>
         </tr>
-        <tr>
-            <td class="dato_secundario">08 a 09</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">09 a 10</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">10 a 11</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">11 a 12</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">12 a 13</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">13 a 14</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">14 a 15</td>
-            <td class="dato_secundario">0.80 min</td>
-            <td class="dato_secundario">3.99 min</td>
-            <td class="dato_secundario">0 min</td>
-            <td class="dato_secundario">4.23 min</td>
-            <td class="dato_secundario">1.59 min</td>
-            <td class="dato_secundario">1.70 min</td>
-        </tr>
+        @foreach ($objectP->estadisticas_horarios as $estadistica_horario)
+            <tr>
+                <td class="dato_secundario">{{ $estadistica_horario->hora }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->turno }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->sala }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->interno }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->aten_rapida }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->o_familiar }}</td>
+            </tr>
+        @endforeach
         <tr>
             <td class="dato_principal">TOTAL</td>
-            <td class="dato_principal">2 min</td>
-            <td class="dato_principal">3 min</td>
-            <td class="dato_principal">0 min</td>
-            <td class="dato_principal">4 min</td>
-            <td class="dato_principal">1 min</td>
-            <td class="dato_principal">1.70 min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->salas }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->internos }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->rapidos }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }}</td>
         </tr>
     </table><br><br><table>
         <tr>
