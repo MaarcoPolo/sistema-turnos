@@ -19,14 +19,14 @@ use Mike42\Escpos\Printer;
 use App\Models\CasaJusticia;
 use Illuminate\Http\Request;
 use Mike42\Escpos\EscposImage;
-use App\Events\LlamarTurnoPuebla;
-use App\Events\CargarTurnosPuebla;
-use App\Events\LlamarTurnoCholula;
+// use App\Events\LlamarTurnoPuebla;
+// use App\Events\CargarTurnosPuebla;
+// use App\Events\LlamarTurnoCholula;
 use Illuminate\Support\Facades\DB;
-use App\Events\LlamarTurnoLaborales;
+// use App\Events\LlamarTurnoLaborales;
 use Illuminate\Support\Facades\View;
-use App\Events\CargarTurnosLaborales;
-use App\Events\LlamarTurnoHuejotzingo;
+// use App\Events\CargarTurnosLaborales;
+// use App\Events\LlamarTurnoHuejotzingo;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class TurnoController extends Controller
