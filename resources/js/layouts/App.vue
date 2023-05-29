@@ -22,7 +22,7 @@
                 <li class="option-sidebar" :class="currentRoute == 'Home' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2">Inicio</li>
                 <li class="option-sidebar" :class="currentRoute == 'Ventanilla' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/ventanilla') " v-if="user.user.tipo_usuario_id == 3">Ventanilla</li>
                 <li class="option-sidebar" :class="currentRoute == 'Catalogos' || currentRoute == 'Usuarios' || currentRoute == 'Cajas' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/catalogos')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2">Catálogos</li>
-                <li class="option-sidebar" :class="currentRoute == 'Reportes' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/reportes')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2">Reportes</li>
+                <li class="option-sidebar" :class="currentRoute == 'Reportes' ? 'option-sidebar-selected' : 'option-sidebar-unselected'" @click="this.$router.push('/reportes')" v-if="user.user.tipo_usuario_id == 1 || user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id != 4">Reportes</li>
                 <li class="logout_sidebar_button option-sidebar option-sidebar-unselected" @click="logout()">Cerrar Sesión</li>
             </ul>
         </aside>

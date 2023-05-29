@@ -7,13 +7,13 @@
         </div>
         <div class="container mt-8">
             <div class="row justify-content-around mt-4">
-                <div class="col-md-3 col-12 text-center mt-2">
+                <div class="col-md-3 col-12 text-center mt-2" v-if="this.user.user.casa_justicia_id == 1 || this.user.user.tipo_usuario_id == 1">
                     <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Puebla" @click="generarReporte(1)" />
                 </div>
-                <div class="col-md-3 col-12 text-center mt-2">
+                <div class="col-md-3 col-12 text-center mt-2" v-if="this.user.user.casa_justicia_id == 2 || this.user.user.tipo_usuario_id == 1">
                     <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Cholula" @click="generarReporte(2)" />
                 </div>
-                <div class="col-md-3 col-12 text-center mt-2">
+                <div class="col-md-3 col-12 text-center mt-2" v-if="this.user.user.casa_justicia_id == 3 || this.user.user.tipo_usuario_id == 1">
                     <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Huejotzingo" @click="generarReporte(3)" />
                 </div>
                 <!-- <div class="col-md-3 col-12 text-center mt-2">
@@ -39,6 +39,11 @@
         },
         components: {
             BotonCatalogo,
+        },
+        computed:{
+            user() {
+                return this.$store.getters.user
+            },
         },
         methods: {
             async generarReporte(id_sede) {
