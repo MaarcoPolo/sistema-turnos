@@ -10,6 +10,8 @@ use App\Events\LlamarTurnoCholula;
 use App\Events\LlamarTurnoHuejotzingo;
 use App\Events\LlamarTurnoLaborales;
 use App\Events\CargarTurnosPuebla;
+use App\Events\CargarTurnosCholula;
+use App\Events\CargarTurnosHuejotzingo;
 use App\Events\CargarTurnosLaborales;
 use App\Models\Contador;
 use App\Models\Asignacion;
@@ -258,9 +260,9 @@ class TurnoController extends Controller
             if($request->casa_justicia_id == 1){
                 CargarTurnosPuebla::dispatch();
             }elseif($request->casa_justicia_id == 2){
-                CargarTurnosPuebla::dispatch('hola 2');
+                CargarTurnosCholula::dispatch();
             }elseif($request->casa_justicia_id == 3){
-                CargarTurnosPuebla::dispatch('hola 3');
+                CargarTurnosHuejotzingo::dispatch();
             }elseif($request->casa_justicia_id == 4){
                 CargarTurnosLaborales::dispatch();
             }
