@@ -13,23 +13,7 @@
                     <img class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
                 </div>
                 <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-sala.png" alt="" @click="generarTurno(2)">
-                </div>
-            </div>
-            <div class="row justify-content-between">
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-interno.png" alt="" @click="generarTurno(3)">
-                </div>
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/atencion-rapida.png" alt="" @click="generarTurno(4)">
-                </div>
-            </div>
-            <div class="row justify-content-between">
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-demanda.png" alt="" @click="generarTurno(5)">
-                </div>
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/oral-familiar.png" alt="" @click="generarTurno(6)">
+                    <!-- <img class="boton-generar-turno" src="../../../public/img/generar-turno-sala.png" alt="" @click="generarTurno(2)"> -->
                 </div>
             </div>
         </div>

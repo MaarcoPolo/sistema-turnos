@@ -282,26 +282,28 @@ class TurnoController extends Controller
                 $sede_id =  $turno->casa_justicia_id;
                 // $sede_id =  2;
 
+                $sede = $turno->casaJusticia->nombre;
+                $impresora = $turno->casaJusticia->nombre_impresora;
     
-                switch($sede_id){
-                    case '1':
-                        $sede = 'Puebla';
-                        $impresora = 'Epson1';
-                        break;
-                    case '2':
-                        $sede = 'Cholula';
-                        $impresora = 'Epson1';
-                        break;
-                    case '3':
-                        $sede = 'Huejotzingo';
-                        $impresora = 'Epson1';
-                        break;
-                    case '4':
-                        $sede = 'Laborales';
-                        $impresora = 'Epson1';
-                        break;    
+                // switch($sede_id){
+                //     case '1':
+                //         $sede = $turno->casaJusticia->nombre;
+                //         $impresora = $turno->casaJusticia->nombre_impresora;
+                //         break;
+                //     case '2':
+                //         $sede = $turno->casaJusticia->nombre;
+                //         $impresora = $turno->casaJusticia->nombre_impresora;
+                //         break;
+                //     case '3':
+                //         $sede = $turno->casaJusticia->nombre;
+                //         $impresora = $turno->casaJusticia->nombre_impresora;
+                //         break;
+                //     case '4':
+                //         $sede = $turno->casaJusticia->nombre;
+                //         $impresora = $turno->casaJusticia->nombre_impresora;
+                //         break;    
     
-                }
+                // }
     
                 $date = Carbon::now();
                 $fecha = $date->toDateTimeString();

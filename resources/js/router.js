@@ -29,12 +29,21 @@ const routes = [
         name: 'Login',
         component: Login
     },
+
+    // Rutas Administrativas
     {
         path: '/',
         name: 'Home',
         component: Home,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
         }
     },
     {
@@ -43,6 +52,13 @@ const routes = [
         component: Catalogos,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
         }
     },
     {
@@ -51,6 +67,13 @@ const routes = [
         component: Usuarios,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
         }
     },
     {
@@ -59,6 +82,13 @@ const routes = [
         component: Ventanilla,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 2) {
+                next()
+            } else {
+                next({name: 'Home'})
+            }
         }
     },
     {
@@ -67,6 +97,13 @@ const routes = [
         component: Cajas,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
         }
     },
     {
@@ -75,8 +112,17 @@ const routes = [
         component: Reportes,
         meta: {
             requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
         }
     },
+
+    // Rutas públicas
     {
         path: '/kiosco-puebla',
         name: 'KioscoPuebla',

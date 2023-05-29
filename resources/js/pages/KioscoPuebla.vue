@@ -2,15 +2,16 @@
     <div class="container-fluid kiosco-body">
         <div class="custom-title-div-normal-2 row justify-content-between">
             <div class="">
-                <!-- <h2>holaaa</h2> -->
                 <p class="custom-title-page-2"></p>
             </div>
         </div>
         <div class="pt-6">
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
             <div class="row justify-content-between">
-                <div class="col-md-6 col-12">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
                     <img class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
+                    <!-- <button class="boton-generar-turno-1"><div class="mini-circle"></div>Generar <span class="span-boton-generar-turno">Turno Interno</span></button>
+                    <div class="mini-circle"></div> -->
                 </div>
                 <div class="col-md-6 col-12">
                     <img class="boton-generar-turno" src="../../../public/img/generar-turno-sala.png" alt="" @click="generarTurno(2)">
@@ -51,9 +52,7 @@
             }
         },
         methods: {
-           async generarTurno(turno) {
-               
-                // console.log(this.turno)
+           async generarTurno(turno) {               
                 try {
                     this.turno.tipo_turno_id = turno;
                         let response = await axios.post('/api/generar-turno', this.turno)
@@ -74,8 +73,6 @@
                                 errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
             }
-           
-            
         }
     })
 </script>

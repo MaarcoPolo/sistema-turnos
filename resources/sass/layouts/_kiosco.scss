@@ -58,3 +58,39 @@
 .boton-generar-turno:hover {
     transform: scale(1.1);
 }
+
+.div-boton-generar-turno {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+// Boton Generar Turno posible css
+.boton-generar-turno-1 {
+    background-color: v.$morado_m2;
+    color: white;
+    border-bottom: .3rem solid v.$verde_v2;
+    width: 65%;
+    height: 50%;
+    padding: 1rem;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: .5s all ease-in-out;
+}
+
+.span-boton-generar-turno {
+    font-weight: bold;
+}
+
+.boton-generar-turno-1:hover {
+    transform: scale(1.1);
+}
+
+.mini-circle {
+    background: v.$verde_v2;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+}

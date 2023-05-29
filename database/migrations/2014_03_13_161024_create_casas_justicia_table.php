@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('nomenclatura');
+            $table->string('nombre_impresora');
+            $table->string('tipo_conexion_impresora');
             $table->boolean('status');
             $table->timestamps();
         });
