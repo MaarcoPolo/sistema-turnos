@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use PDF;
 use Carbon\Carbon;
 use App\Models\Turno;
-use App\Events\LlamarTurnoPuebla;
-use App\Events\LlamarTurnoCholula;
-use App\Events\LlamarTurnoHuejotzingo;
-use App\Events\LlamarTurnoLaborales;
-use App\Events\CargarTurnosPuebla;
-use App\Events\CargarTurnosLaborales;
 use App\Models\Contador;
 use App\Models\Asignacion;
 use Mike42\Escpos\Printer;
+use App\Models\CasaJusticia;
 use Illuminate\Http\Request;
 use Mike42\Escpos\EscposImage;
+use App\Events\LlamarTurnoPuebla;
+use App\Events\CargarTurnosPuebla;
+use App\Events\LlamarTurnoCholula;
 use Illuminate\Support\Facades\DB;
+use App\Events\LlamarTurnoLaborales;
 use Illuminate\Support\Facades\View;
+use App\Events\CargarTurnosLaborales;
+use App\Events\LlamarTurnoHuejotzingo;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class TurnoController extends Controller
@@ -761,6 +762,9 @@ class TurnoController extends Controller
     public function generarReporteTiempoReal(Request $request)
     {
         try {
+            $distrito_sede = CasaJusticia::find($request->id_sede);
+            $currentDate = Carbon::now();
+
             $objectP = new \stdClass();
             $array_personas = array();
             $array = array();
@@ -785,7 +789,8 @@ class TurnoController extends Controller
             $suma_rapidos_general = 0;
             $suma_demandas_general = 0;
             $suma_familiares_general = 0;
-           
+            $suma_totales_personas = 0;
+            
             for($i = 1; $i < 8; $i++)
             {
                 $turnos = Turno::where('hora_registro', '>=', $hora_inicio)
@@ -949,6 +954,8 @@ class TurnoController extends Controller
                                     ->where('casa_justicia_id', 1)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->count();
+
+                $suma_totales_personas = $suma_totales_personas + $total_atendidos;
                 
                 $object = new \stdClass();
                 $object->hora = $inicio.' a '.$fin;
@@ -981,16 +988,17 @@ class TurnoController extends Controller
             $objectTiempoTotales->demandas = $suma_demandas_general;
             $objectTiempoTotales->familiares = $suma_familiares_general;
 
+            $objectTotalPersonasAtendidas = new \stdClass();
+            $objectTotalPersonasAtendidas->hora = 'Total';
+            $objectTotalPersonasAtendidas->totales = $suma_totales_personas;
+
+            // Objeto principal
+            $objectP->distrito_sede = $distrito_sede->nombre;
             $objectP->estadisticas_horarios = $array;
             $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;
+            $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
 
-            // return response()->json([
-            //     "status" => "ok",
-            //     // "message" => $hora_inicio,
-            //     // "turnos" => $hora_fin,
-            //     "turnos" => $objectP,
-            // ], 200);
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
                 $pdf->SetFont('helvetica', 'B', 11);
@@ -1001,14 +1009,16 @@ class TurnoController extends Controller
             });
 
             // Custom Footer
-            PDF::setFooterCallback(function($pdf) {
+            PDF::setFooterCallback(function($pdf) use ($currentDate) {
                 $pdf->SetFont('helvetica', 'I', 8);
 
+                $pdf->MultiCell(55, 5, 'Fecha y hora de reporte:', 0, '', 0, 1, '10', '275', true);
+                $pdf->MultiCell(55, 5, $currentDate->toDateString() . ' ' . $currentDate->toTimeString(), 0, '', 0, 1, '10', '279', true);
                 // Footer
                 $footer_image_file = public_path() . '/img/footer_pdf.png';
                 $pdf->Image($footer_image_file, 50,268,160,30);
 
-                // $pdf->MultiCell(1, 1, '[LEFT]', 0, 'L', 1, 0, '10', '150', true);
+                $pdf->Cell(0, 10, '      Página '.$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages(), 0, false, 'L', 0, '', 0, false, 'T', 'M');
                 // $pdf->MultiCell(1, 1, '[LEFT]', 0, 'L', 1, 0, '10', '150', true);
             });
 
@@ -1016,12 +1026,12 @@ class TurnoController extends Controller
             $PDF_MARGIN_TOP = 25;
             $PDF_MARGIN_RIGHT = 5;
             $PDF_MARGIN_BOTTOM = 20;
-
+            
             PDF::SetMargins($PDF_MARGIN_LEFT, $PDF_MARGIN_TOP, $PDF_MARGIN_RIGHT,$PDF_MARGIN_BOTTOM);
             PDF::SetAutoPageBreak(true, $PDF_MARGIN_BOTTOM);
             PDF::SetTitle('Reporte');
             PDF::AddPage('P', 'A4');
-            
+                        
             $view = View::make('pdf.reporte_tiempo_real', compact('objectP'));
             $html_content = $view->render();
 

@@ -70,7 +70,7 @@
 <body>
     <br>
     <p class="titulo">Reporte del sistema de control de turnos para la atención al público</p>
-    <p class="subtitulo">Estadística de Oficialía Común de Partes del distrito de Puebla</p>
+    <p class="subtitulo">Estadística de Oficialía Común de Partes del distrito de {{$objectP->distrito_sede}}</p>
     <table>
         <tr>
             <th colspan="2" class="encabezado_principal">Total de turnos asignados</th>
@@ -134,42 +134,20 @@
             <td class="encabezado_secundario">Hora</td>
             <td class="encabezado_secundario">No. usuarios</td>
         </tr>
+        @foreach($objectP->personas_atendidas as $personas_atendidas)
+            <tr>
+                <td class="dato_secundario">{{ $personas_atendidas->hora }}</td>
+                <td class="dato_secundario">{{ $personas_atendidas->totales }}</td>
+            </tr>
+        @endforeach
         <tr>
-            <td class="dato_secundario">08 a 09</td>
-            <td class="dato_secundario">37</td>
+            <td class="dato_principal">{{ $objectP->total_personas_atendidas->hora }}</td>
+            <td class="dato_principal">{{ $objectP->total_personas_atendidas->totales }}</td>
         </tr>
-        <tr>
-            <td class="dato_secundario">09 a 10</td>
-            <td class="dato_secundario">73</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">10 a 11</td>
-            <td class="dato_secundario">93</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">11 a 12</td>
-            <td class="dato_secundario">100</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">12 a 13</td>
-            <td class="dato_secundario">115</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">13 a 14</td>
-            <td class="dato_secundario">134</td>
-        </tr>
-        <tr>
-            <td class="dato_secundario">14 a 15</td>
-            <td class="dato_secundario">118</td>
-        </tr>
-        <tr>
-            <td class="dato_principal">TOTAL</td>
-            <td class="dato_principal">670</td>
-        </tr>
-        <tr>
+        {{-- <tr>
             <td class="dato_secundario">Después de las 15 h</td>
             <td class="dato_secundario">0</td>
-        </tr>
+        </tr> --}}
     </table>
     <div class="pagebreak"></div>
     <br><br><br><br><table>
