@@ -59,7 +59,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: v.$blanco;
 }
 
@@ -70,7 +70,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: v.$gris_g6
 }
 
@@ -86,26 +86,26 @@
 
 .pantalla-tabla-turno {
     text-align: center;
-    font-weight: 700;
+    font-weight: 800;
     color: v.$gris_g6;
-    font-size: 2rem;
+    font-size: 3rem;
 
     border-bottom: .1rem solid v.$gris_g3;
     width: 70%;
     margin: auto;
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
 }
 
 .pantalla-tabla-ventanilla {
     text-align: center;
-    font-weight: 700;
+    font-weight: 800;
     color: v.$blanco;
-    font-size: 2rem;
+    font-size: 3rem;
 
     border-bottom: .1rem solid v.$gris_g3;
     width: 70%;
     margin: auto;
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
 }
 
 .icono-flecha-turno {
@@ -140,4 +140,6 @@
 
 .custom-slider {
     width: 90%;
+    height: 50rem!important;
+    // margin-top: 5rem;
 }

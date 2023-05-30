@@ -50,6 +50,18 @@
         }
 }
 
+.wrapper-3 {
+    display: grid;
+    grid-template-areas: 
+        "content";
+
+        @include m.tablet {
+            grid-template-columns: 1fr 5fr;
+            grid-template-areas:
+                "content content";
+        }
+}
+
 .footer-first-line {
     border-bottom: .5rem solid v.$verde_v2;
 }

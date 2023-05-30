@@ -36,7 +36,7 @@
             </div>
         </footer>
     </div>
-    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla' || currentRoute == 'KioscoCholula' || currentRoute == 'ImprimirTurnoCholula' || currentRoute == 'KioscoHuejotzingo' || currentRoute == 'ImprimirTurnoHuejotzingo' || currentRoute == 'KioscoLaborales' || currentRoute == 'ImprimirTurnoLaborales' || currentRoute == 'PantallaTurnosPuebla' || currentRoute == 'PantallaTurnosCholula' || currentRoute == 'PantallaTurnosHuejotzingo' || currentRoute == 'PantallaTurnosLaborales'">
+    <div class="wrapper-2" v-else-if="currentRoute == 'KioscoPuebla' || currentRoute == 'ImprimirTurnoPuebla' || currentRoute == 'KioscoCholula' || currentRoute == 'ImprimirTurnoCholula' || currentRoute == 'KioscoHuejotzingo' || currentRoute == 'ImprimirTurnoHuejotzingo' || currentRoute == 'KioscoLaborales' || currentRoute == 'ImprimirTurnoLaborales'">
         <div class="main-head">
             <div class="custom-page-header">
                 <div class="separador">
@@ -54,6 +54,11 @@
             <div class="custom-border-header-1"></div>
             <div class="custom-border-header-2"></div>
         </div>
+        <div class="content">
+            <router-view></router-view>
+        </div>
+    </div>
+    <div class="wrapper-3" v-else-if="currentRoute == 'PantallaTurnosPuebla' || currentRoute == 'PantallaTurnosCholula' || currentRoute == 'PantallaTurnosHuejotzingo' || currentRoute == 'PantallaTurnosLaborales'">
         <div class="content">
             <router-view></router-view>
         </div>
