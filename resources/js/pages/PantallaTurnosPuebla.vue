@@ -123,12 +123,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-12 mt-4">
-                    <video class="tag-video" controls loop muted autoplay>
+                <div class="col-md-6 col-12 mt-10">
+                    <v-carousel class="custom-slider" cycle show-arrows="hover" hide-delimiters height="280">
+                        <v-carousel-item
+                            v-for="(item,i) in imagenes_slider"
+                            :key="i"
+                            :src="item.src"
+                            cover
+                        ></v-carousel-item>
+                    </v-carousel>
+                    <!-- <video id="video-turnos" class="tag-video" autoplay loop muted controls>
                         <source src="../../../public/video/video-pantalla.mp4" type="video/mp4">
                         Your browser does not support the video tag.
-                    </video>
+                    </video> -->
                 </div>
+                <!-- <div class="col-md-1 col-12 mt-4"></div> -->
             </div>
 
             <button id="startbtn" @click="reproducir()" style="display: none;">Start</button>
@@ -153,6 +162,23 @@
                 turno:{
                     casa_justicia_id: 1,
                 },
+                imagenes_slider: [
+                    {
+                        src: '/img/slider/imagen_1.png',
+                    },
+                    {
+                        src: '/img/slider/imagen_2.png',
+                    },
+                    {
+                        src: '/img/slider/imagen_3.png',
+                    },
+                    {
+                        src: '/img/slider/imagen_4.png',
+                    },
+                    {
+                        src: '/img/slider/imagen_5.png',
+                    },
+                ]
             }
         },
         created(){
