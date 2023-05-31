@@ -1,0 +1,233 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.main-head {
+    grid-area: header;
+}
+
+.content {
+    grid-area: content;
+    min-height: 85vh;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: v.$morado_m2;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "sidebar"
+        "content"
+        "footer";
+
+    @include m.tablet {
+        grid-template-columns: 1fr 5fr;
+        grid-template-areas:
+            "header header"
+            "sidebar content"
+            "footer footer";
+    }
+}
+
+.wrapper-2 {
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "content";
+
+        @include m.tablet {
+            grid-template-columns: 1fr 5fr;
+            grid-template-areas:
+                "header header"
+                "content content";
+        }
+}
+
+.wrapper-3 {
+    display: grid;
+    grid-template-areas: 
+        "content";
+
+        @include m.tablet {
+            grid-template-columns: 1fr 5fr;
+            grid-template-areas:
+                "content content";
+        }
+}
+
+.footer-first-line {
+    border-bottom: .5rem solid v.$verde_v2;
+}
+
+.footer-content {
+    height: 4rem;
+    background-color: v.$gris_g6;
+}
+
+.footer-content p {
+    color: v.$blanco;
+    text-align: center;
+    margin: auto;
+    padding-top: .8rem;
+}
+
+/* ================ INICIO HEADER ================ */
+.custom-page-header {
+    background-color: v.$blanco;
+
+    @include m.telefono {
+        display: grid;
+        grid-template-columns: auto 30rem;
+        background: rgb(140,146,188);
+        background: linear-gradient(135deg, rgba(140,146,188,1) 0%, rgba(140,146,188,1) 52%, rgba(117,124,176,1) 52%, rgba(140,146,188,1) 54%, rgba(140,146,188,1) 59%, rgba(255,255,255,1) 60%, rgba(255,255,255,1) 100%);
+    }
+
+    @include m.desktop {
+        grid-template-columns: auto 45rem;
+    }
+
+    & .separador {
+        display: none;
+
+        @include m.telefono {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding: 1rem;
+        }
+    }
+
+    & .separador-mobile {
+        background-color: rgb(140,146,188);
+        padding: 1rem;
+
+        @include m.telefono {
+            display: none;
+        }
+    }
+}
+
+.custom-image-header {
+    margin: auto;
+    width: auto;
+    // height: 12rem;
+    height: 10.6rem;
+}
+
+.custom-border-header-1 {
+    border-style: none none solid none;
+    border-color: v.$morado_m2;
+    border-width: .3rem;
+}
+
+.custom-border-header-2 {
+    border-style: none none solid none;
+    border-color: v.$verde_v2;
+    border-width: .3rem;
+}
+
+.title-head {
+    color: v.$blanco;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+
+    font-size: 2rem;
+
+    @include m.telefono {
+        text-align: left;
+        font-size: 2.5rem;
+    }
+
+    @include m.desktop {
+        font-size: 3rem;
+        margin: 0;
+    }
+}
+
+.title-head span {
+    font-weight: 700;
+}
+
+/* ================ INICIO SIDEBAR ================ */
+.sidebar .div-sidebar {
+    position: fixed;
+    height: 100%;
+    width: 16.6%;
+    background-color: v.$morado_m2;
+}
+
+.sidebar {
+    position: relative;
+}
+
+.custom-ul {
+    list-style: none;
+    width: auto;
+    margin-bottom: 0;
+}
+
+.div-logout {
+    position: relative;
+    display: inline-block;
+    bottom: 0;
+}
+
+.logout_sidebar_button {
+    position: inline;
+
+    @include m.tablet {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+
+.option-sidebar {
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    // list-style: none;
+    font-weight: 500;
+}
+
+.option-sidebar-unselected {
+    background-color: v.$morado_m2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option-sidebar-unselected:hover {
+    background-color: v.$morado_m1;
+}
+
+.option-sidebar-selected {
+    background-color: v.$verde_v2;
+    color: v.$morado_m1;
+    cursor: default;
+}
+
+.boton-sencillo {
+    height: 3rem;
+    background-color: v.$verde_v2;
+    border-right: .5rem solid v.$morado_m2;
+    border-left: .5rem solid v.$morado_m2;
+    padding: 0 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    transition: .5s all ease-in-out;
+}
+
+.boton-sencillo:hover {
+    box-shadow: 0 .7rem 1.6rem 0 rgba(0,0,0,0.24), 0 1.7rem 5rem 0 rgba(0,0,0,0.19);
+}

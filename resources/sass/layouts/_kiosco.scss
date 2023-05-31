@@ -1,0 +1,96 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.kiosco-body {
+    background-image: url(../../public/img/solicitar-turno-background.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+}
+
+.custom-title-div-normal-2 {
+    display: none;
+
+    @include m.tablet {
+        display: flex;
+        background: rgb(196,244,93);
+        background: linear-gradient(135deg, rgba(196,244,93,1) 0%, rgba(196,244,93,1) 47%, rgba(255, 255, 255, 0) 43%, rgba(255, 255, 255, 0) 100%);
+    }
+}
+
+.custom-title-page-2 {
+    height: 3rem;
+}
+
+.division {
+    display: none;
+    
+    @include m.tablet {
+        display: inline;
+        position: absolute;
+        z-index: 3;
+        left: 48.5%;
+
+        width: 3rem;
+        height: 27rem;
+    }
+
+    @include m.desktop {
+        width: 4rem;
+        height: 36rem;
+    }
+
+    @include m.desktopXL {
+        width: 5rem;
+        height: 51rem;
+    }
+}
+
+.boton-generar-turno {
+    padding-top: 8%;
+    width: 65%;
+    margin: auto;
+    
+    cursor: pointer;
+    transition: .5s all ease-in-out;
+}
+
+.boton-generar-turno:hover {
+    transform: scale(1.1);
+}
+
+.div-boton-generar-turno {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+// Boton Generar Turno posible css
+.boton-generar-turno-1 {
+    background-color: v.$morado_m2;
+    color: white;
+    border-bottom: .3rem solid v.$verde_v2;
+    width: 65%;
+    height: 50%;
+    padding: 1rem;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: .5s all ease-in-out;
+}
+
+.span-boton-generar-turno {
+    font-weight: bold;
+}
+
+.boton-generar-turno-1:hover {
+    transform: scale(1.1);
+}
+
+.mini-circle {
+    background: v.$verde_v2;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+}

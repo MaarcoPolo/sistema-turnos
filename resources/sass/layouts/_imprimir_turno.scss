@@ -1,0 +1,123 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.imprimir-turno-body {
+    background-image: url(../../public/img/imprimir-turno-background.png);
+    // height: 100vh;
+    background-size: cover;
+    // background-position: center center;
+}
+
+.card-turno {
+    margin-top: 10rem;
+    width: 75%;
+
+    @include m.tablet {
+        width: 45%;
+    }
+
+    @include m.desktop {
+        width: 35%;
+    }
+}
+
+.card-turno-titulo {
+    border-top: .5rem solid v.$verde_v2;
+    box-shadow: 2px -4px 10px v.$gris_g3;
+}
+
+.card-turno-titulo p {
+    padding-top: .5rem;
+    margin-bottom: .5rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: v.$gris_g6;
+}
+
+.icono-nuevo-turno {
+    position: absolute;
+    width: 7rem;
+    margin-top: -3.2rem;
+    margin-left: -3.2rem;
+
+    @include m.tablet {
+        width: 10rem;
+        margin-top: -4.7rem;
+        margin-left: -4.7rem;
+    }
+
+    @include m.desktop {
+        width: 14rem;
+        margin-top: -6.7rem;
+        margin-left: -6.7rem;
+    }
+}
+
+.card-turno-body {
+    background-color: v.$morado_m2;
+    background-image: url(../../public/img/background-nuevo-turno.png);
+    background-size: cover;
+    background-position: center center;
+    
+    min-height: 20rem;
+    border-bottom: .5rem solid v.$verde_v2;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-turno-body p {
+    font-weight: 700;
+    color: v.$blanco;
+    font-size: 5rem;
+}
+
+.custom-card-action {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 90%;
+    height: 3.9rem;
+    margin: auto;
+}
+
+.custom-card-action-icon {
+    position: relative;
+    height: 100%;
+    width: 20%;
+    background-color: v.$morado_m2;
+
+    @include m.tablet {
+        width: 25%;
+    }
+
+    @include m.desktop {
+        width: 22%;
+    }
+}
+
+.custom-card-action-icon img {
+    position: absolute;
+    height: 60%;
+    width: 60%;
+    top: 20%;
+    left: 20%;
+}
+
+.custom-card-button {
+    width: 80%;
+    height: 3.9rem!important;
+    border-radius: 0;
+    border-right: .5rem solid v.$morado_m2;
+    font-weight: 600;
+
+    @include m.tablet {
+        width: 75%;
+    }
+
+    @include m.desktop {
+        width: 73%;
+    }
+}

@@ -13,12 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('apellido_paterno', 50)->nullable();
+            $table->string('apellido_materno', 50)->nullable();
+            $table->string('nombre', 100)->nullable();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('username');
+            $table->string('tipo_usuario')->nullable();
+            $table->unsignedBigInteger('casa_justicia_id')->nullable();
+            $table->unsignedBigInteger('caja_id')->nullable();
             $table->rememberToken();
+            $table->boolean('status')->default(1);
+            $table->foreignId('tipo_usuario_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
+            $table->foreign('caja_id')->references('id')->on('cajas');
         });
     }
 

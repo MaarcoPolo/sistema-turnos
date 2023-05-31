@@ -1,0 +1,40 @@
+//Tipografia
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+$fuente_principal: "Montserrat", sans-serif;
+// Colores
+
+
+$morado_m1 :#6a73a0;
+$morado_m2 :#8c92bc;
+$morado_m3 :#b1bced;
+
+$verde_v1 :#a4bc4b;
+$verde_v3 :#d1ef5f;
+$verde_v2 :#c4f45d;
+
+$danger: #A20400;
+$dangerB: #881001;
+
+$warning: #E78900;
+$warningB: #A55D00;
+
+$success: #A3BC39; 
+$successB: #005C23; 
+
+$gris_g1 :#353535;
+$gris_g2 :#7a7b7f;
+$gris_g3 :#C6C5C7;
+$gris_g4 :#EAEAED;
+$gris_g5 :#f6f6f6;
+$gris_g6 : #565658;
+
+$negro :#000;
+$blanco :#fff;
+
+
+// Tamaños de Media Queries
+$telefono: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$desktopXL: 1440px;

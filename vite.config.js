@@ -14,6 +14,10 @@ export default defineConfig({
     //    chunkSizeWarningLimit: 1600,
     //},
     // server: {
-    //     host: true
+    //     // host: true
+    //     hmr: {
+    //         host: "127.0.0.1",
+    //         protocol: "ws",
+    //     },
     // }
 });

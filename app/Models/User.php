@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function casaJusticia()
+    {
+        return $this->belongsTo(CasaJusticia::class, 'casa_justicia_id');
+    }
+
+    public function caja()
+    {
+        return $this->belongsTo(Caja::class, 'caja_id');
+    }
+
+    public function asignacion()
+    {
+        return $this->hasOne(Asignacion::class, 'id');
+    }    
 }
