@@ -7,7 +7,7 @@
         </div>
         <div class="pt-6">
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
-            <div class="row justify-content-between">
+            <div class="row justify-content-between div-row-botones-generar-turno">
                 <div class="col-md-6 col-12 text-center div-boton-generar-turno">
                     <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
                     <span v-else class="loader"></span>
@@ -17,7 +17,7 @@
                     <span v-else class="loader"></span>
                 </div>
             </div>
-            <div class="row justify-content-between">
+            <div class="row justify-content-between div-row-botones-generar-turno">
                 <div class="col-md-6 col-12 text-center div-boton-generar-turno">
                     <img v-if="!loader_6" class="boton-generar-turno" src="../../../public/img/oral-familiar.png" alt="" @click="generarTurno(6)">
                     <span v-else class="loader"></span>
@@ -44,14 +44,12 @@
                 },
                 loader_1: false,
                 loader_5: false,
-                loader_6: false,    
-                
-                
+                loader_6: false,
             }
         },
         methods: {
            async generarTurno(turno) {
-            switch (turno) {
+                switch (turno) {
                     case 1:
                         this.loader_1 = true
                         break
@@ -64,30 +62,28 @@
                 }
                 // console.log(this.turno)
                 try {
-                        this.turno.tipo_turno_id = turno;
-                        let response = await axios.post('/api/generar-turno', this.turno)
-                        if (response.status === 200) {
-                            if (response.data.status === "ok") {
-                                this.$store.commit('setTurnoGenerado',response.data.turno)
-                                // console.log(this.$store.state.turno.turnoGenerado)
-                                // successSweetAlert(response.message)
-                                this.$router.push('/imprimir-turno-cholula')
-                                
-                                } else {
-                                errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
-                            }
-                        } else {
-                        errorSweetAlert('Ocurrió un error al generar el turno.')
+                    this.turno.tipo_turno_id = turno;
+                    let response = await axios.post('/api/generar-turno', this.turno)
+                    if (response.status === 200) {
+                        if (response.data.status === "ok") {
+                            this.$store.commit('setTurnoGenerado',response.data.turno)
+                            // console.log(this.$store.state.turno.turnoGenerado)
+                            // successSweetAlert(response.message)
+                            this.$router.push('/imprimir-turno-cholula')
+                            
+                            } else {
+                            errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
                         }
-                    } catch (error) {
-                                errorSweetAlert('Ocurrió un error al generar el turno.')
+                    } else {
+                    errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
-                    this.loader_1 = false
-                    this.loader_5 = false
-                    this.loader_6 = false
+                } catch (error) {
+                            errorSweetAlert('Ocurrió un error al generar el turno.')
+                }
+                this.loader_1 = false
+                this.loader_5 = false
+                this.loader_6 = false
             }
-           
-            
         }
     })
 </script>
