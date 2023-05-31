@@ -1000,6 +1000,63 @@ class TurnoController extends Controller
             $objectP->personas_atendidas = $array_personas;
             $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
 
+            //Consultas 209 dia anterior(guardia)
+
+            $f= Carbon::now();
+            $fecha = $f->toDateString();
+           
+            // $fechaAnterior = $fecha->subDay();
+
+            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '9994'");
+
+            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='PUEBLA'");
+            $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='APELACION'");
+
+            $objectP->totalPromociones = $promocionesRecibidas[0]->total;
+            $objectP->totalDemandas = $demandasRecividas[0]->total;
+            $objectP->totalApelaciones = $apelacionesRecividas[0]->total;
+            
+            
+            $fechaAnterior = $f->subDay()->toDateString();
+
+            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '9994'");
+        
+            if($existenPromocionesDiaAnterior[0]->total > 0)
+            {
+
+                $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA FROM promociones_pen,juzgados 
+                WHERE  fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '9994' and promociones_pen.juzgado = juzgados.codigo");
+
+                $objectP->promocionesDiaAnterior = $promocionesDiaAnterior;
+                $num_promociones = count($promocionesDiaAnterior);
+                $objectP->num_promociones_dia_anterior = $num_promociones;
+                $objectP->num_tablas = ceil($num_promociones/30);
+            }
+            else
+            { 
+                $objectP->promocionesDiaAnterior = [];
+                $objectP->num_promociones_dia_anterior = 0;
+                $objectP->num_tablas = 0;
+            }
+            
+            $existenDemandasDiaAnterior = DB::connection('mysql_209')->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
+            fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+            and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = 'PUEBLA'");
+
+            if($existenDemandasDiaAnterior[0]->total > 0)
+            {
+                $demandasDiaAnterior = DB::conection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
+                ocomun.juzgado = juzgados.codigo and fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+                and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = 'PUEBLA'");
+               
+                $objectP->demandasDiaAnterior = $demandasDiaAnterior;
+            }
+            else
+            { 
+                $objectP->demandasDiaAnterior = [];
+            }
+
+
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
                 $pdf->SetFont('helvetica', 'B', 11);

@@ -83,15 +83,15 @@
         </tr>
         <tr>
             <td class="dato_secundario">Demandas recibidas</td>
-            <td class="dato_secundario">132</td>
+            <td class="dato_secundario">{{$objectP->totalDemandas}}</td>
         </tr>
         <tr>
             <td class="dato_secundario">Apelaciones recibidas</td>
-            <td class="dato_secundario">13</td>
+            <td class="dato_secundario">{{$objectP->totalApelaciones}}</td>
         </tr>
         <tr>
             <td class="dato_secundario">Promociones recibidas</td>
-            <td class="dato_secundario">918</td>
+            <td class="dato_secundario">{{$objectP->totalPromociones}}</td>
         </tr>
     </table><br><br><table>
         <tr>
@@ -200,77 +200,40 @@
             <td class="dato_secundario">0</td>
         </tr> --}}
     </table>
-    <div class="pagebreak"></div>
-    <br><br><br><br><table>
-        <tr>
-            <th colspan="4" class="encabezado_principal">Listado de Promociones</th>
-        </tr>
-        <tr>
-            <td colspan="1" class="encabezado_secundario" style="width: 5%;">No.</td>
-            <td colspan="1" class="encabezado_secundario" style="width: 10%;">Folio</td>
-            <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
-            <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">1</td>
-            <td colspan="1" class="dato_secundario">699093</td>
-            <td colspan="1" class="dato_secundario">JUZGADO ORAL FAMILIAR PUEBLA</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">2</td>
-            <td colspan="1" class="dato_secundario">699094</td>
-            <td colspan="1" class="dato_secundario">JUZGADO SEPTIMO ESPECIALIZADO EN MATERIA MERCANTIL</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">3</td>
-            <td colspan="1" class="dato_secundario">699095</td>
-            <td colspan="1" class="dato_secundario">JUZGADO SEXTO FAMILIAR</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">4</td>
-            <td colspan="1" class="dato_secundario">699096</td>
-            <td colspan="1" class="dato_secundario">JUZGADO CUARTO ESPECIALIZADO EN MATERIA CIVIL</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">5</td>
-            <td colspan="1" class="dato_secundario">699097</td>
-            <td colspan="1" class="dato_secundario">JUZGADO QUINTO FAMILIAR</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">6</td>
-            <td colspan="1" class="dato_secundario">699098</td>
-            <td colspan="1" class="dato_secundario">JUZGADO CUARTO FAMILIAR</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">7</td>
-            <td colspan="1" class="dato_secundario">699099</td>
-            <td colspan="1" class="dato_secundario">JUZGADO PRIMERO FAMILIAR</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">8</td>
-            <td colspan="1" class="dato_secundario">699100</td>
-            <td colspan="1" class="dato_secundario">JUZGADO SEXTO FAMILIAR</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">9</td>
-            <td colspan="1" class="dato_secundario">699101</td>
-            <td colspan="1" class="dato_secundario">JUZGADO OCTAVO ESPECIALIZADO EN MATERIA MERCANTIL</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-        <tr>
-            <td colspan="1" class="dato_secundario">10</td>
-            <td colspan="1" class="dato_secundario">699102</td>
-            <td colspan="1" class="dato_secundario">TERCERA SALA PENAL</td>
-            <td colspan="1" class="dato_secundario">15:00:25</td>
-        </tr>
-    </table>
+    
+    @php
+        $aux_key = 0;
+    @endphp
+    @for($i=0; $i<$objectP->num_tablas; $i++)
+        @php
+            $aux_cont = 0;
+        @endphp
+        <div class="pagebreak"></div>
+        <br><br><br><br><table>
+            <tr>
+                <th colspan="4" class="encabezado_principal">Listado de Promociones</th>
+            </tr>
+            <tr>
+                <td colspan="1" class="encabezado_secundario" style="width: 5%;">No.</td>
+                <td colspan="1" class="encabezado_secundario" style="width: 10%;">Folio</td>
+                <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
+                <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
+            </tr>
+            @for($j=0; $j<$objectP->num_promociones_dia_anterior; $j++)
+                @if($aux_cont < 30 && $aux_key < $objectP->num_promociones_dia_anterior)
+                    <tr>
+                        <td colspan="1" class="dato_secundario">{{$aux_key+1}}</td>
+                        <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->ID}}</td>
+                        <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->JUZGADO}}</td>
+                        <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->HORA}}</td>
+                    </tr>
+                    @php
+                        $aux_cont = $aux_cont + 1;
+                        $aux_key = $aux_key + 1;
+                    @endphp
+                @endif
+            @endfor
+        </table>
+    @endfor
 </body>
 </html>
