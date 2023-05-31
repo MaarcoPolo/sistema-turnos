@@ -85,10 +85,12 @@
             <td class="dato_secundario">Demandas recibidas</td>
             <td class="dato_secundario">{{$objectP->totalDemandas}}</td>
         </tr>
-        <tr>
-            <td class="dato_secundario">Apelaciones recibidas</td>
-            <td class="dato_secundario">{{$objectP->totalApelaciones}}</td>
-        </tr>
+        @if($objectP->id_sede == 1)
+            <tr>
+                <td class="dato_secundario">Apelaciones recibidas</td>
+                <td class="dato_secundario">{{$objectP->totalApelaciones}}</td>
+            </tr>
+        @endif
         <tr>
             <td class="dato_secundario">Promociones recibidas</td>
             <td class="dato_secundario">{{$objectP->totalPromociones}}</td>

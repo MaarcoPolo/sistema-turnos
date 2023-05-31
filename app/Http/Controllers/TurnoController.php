@@ -782,6 +782,7 @@ class TurnoController extends Controller
             $currentDate = Carbon::now();
 
             $objectP = new \stdClass();
+            $objectP->id_sede = $request->id_sede;
             $array_personas = array();
             $array = array();
             $inicio = 8;
@@ -1119,7 +1120,7 @@ class TurnoController extends Controller
 
             ob_end_clean();
     
-            PDF::Output('Reporte_Turnos_Oficialia.pdf', 'I');
+            PDF::Output('Reporte_Turnos_Oficialia_'. $distrito_sede->nombre .'.pdf', 'I');
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "error",

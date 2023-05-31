@@ -53,15 +53,19 @@
         },
         methods: {
             async generarReporte(id_sede) {
+                let sede_nombre
                 switch (id_sede) {
                     case 1:
                         this.loading_1 = true
+                        sede_nombre = 'Puebla'
                         break
                     case 2:
                         this.loading_2 = true
+                        sede_nombre = 'Cholula'
                         break
                     case 3:
                         this.loading_3 = true
+                        sede_nombre = 'Huejotzingo'
                         break
                 }
                 this.variables_reporte.id_sede = id_sede
@@ -72,7 +76,7 @@
                         let blob = new Blob([response.data], { type: 'application/pdf' })
                         let link = document.createElement('a')
                         link.href = window.URL.createObjectURL(blob)
-                        link.download = `Reporte_Turnos_Oficialia.pdf`
+                        link.download = `Reporte_Turnos_Oficialia_${sede_nombre}.pdf`
                         link.click()
                     })
                 } catch (error) {
