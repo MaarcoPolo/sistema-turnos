@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid imprimir-turno-body">
         <div class="custom-title-div-normal-2 row justify-content-between">
-            <div class="">
+            <!-- <div class="">
                 <p class="custom-title-page-2"></p>
-            </div>
+            </div> -->
         </div>
         <div class="container-fluid">
             <div class="row justify-content-between mt-12">
