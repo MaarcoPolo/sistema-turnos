@@ -79,7 +79,7 @@
             <th colspan="2" class="encabezado_principal">Total de turnos asignados</th>
         </tr>
         <tr>
-            <td colspan="2" class="dato_principal">681</td>
+            <td colspan="2" class="dato_principal">{{$objectP->total_turnos_asignados}}</td>
         </tr>
         <tr>
             <td class="dato_secundario">Demandas recibidas</td>
@@ -235,5 +235,25 @@
             @endfor
         </table>
     @endfor
+    <div class="pagebreak"></div>
+    <br><br><br><br><table>
+        <tr>
+            <th colspan="4" class="encabezado_principal">Listado de Demandas</th>
+        </tr>
+        <tr>
+            <td colspan="1" class="encabezado_secundario" style="width: 5%;">No.</td>
+            <td colspan="1" class="encabezado_secundario" style="width: 10%;">Folio</td>
+            <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
+            <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
+        </tr>
+        @foreach($objectP->demandasDiaAnterior as $key => $demanda)
+            <tr>
+                <td colspan="1" class="dato_secundario">{{$key+1}}</td>
+                <td colspan="1" class="dato_secundario">{{$demanda->ID}}</td>
+                <td colspan="1" class="dato_secundario">{{$demanda->JUZGADO}}</td>
+                <td colspan="1" class="dato_secundario">{{$demanda->HORA}}</td>
+            </tr>
+        @endforeach
+    </table>
 </body>
 </html>

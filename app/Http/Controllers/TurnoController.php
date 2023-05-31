@@ -992,6 +992,11 @@ class TurnoController extends Controller
             $objectTotalPersonasAtendidas->hora = 'Total';
             $objectTotalPersonasAtendidas->totales = $suma_totales_personas;
 
+            $total_turnos_asignados = Turno::where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', $request->id_sede)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->count();
+            
             // Objeto principal
             $objectP->distrito_sede = $distrito_sede->nombre;
             $objectP->distrito_sede_id = $distrito_sede->id;
@@ -999,6 +1004,7 @@ class TurnoController extends Controller
             $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;
             $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
+            $objectP->total_turnos_asignados = $total_turnos_asignados;
 
             //Consultas 209 dia anterior(guardia)
 
@@ -1055,7 +1061,6 @@ class TurnoController extends Controller
             { 
                 $objectP->demandasDiaAnterior = [];
             }
-
 
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
