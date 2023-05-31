@@ -79,10 +79,10 @@
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div class="mb-4">
@@ -112,9 +112,9 @@
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : '--'}}</p>
                             </div>
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : '--'}}</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -148,10 +148,8 @@
     import { defineComponent } from "vue"
     import { errorSweetAlert, successSweetAlert, warningSweetAlert } from "../helpers/sweetAlertGlobals"
 
-
     export default defineComponent({
         name: 'pantalla-turnos-puebla',
-      
         data(){
             return{
                 turno:{
