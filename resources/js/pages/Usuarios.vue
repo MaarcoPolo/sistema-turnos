@@ -6,7 +6,7 @@
             </div>
         </div>
     <!-- </div> -->
-    <div class="container mt-16">
+    <div class="container mt-6">
         <!-- INICIO BOTON NUEVA CAJA -->
         <div class="row justify-content-between">
                 <div class="col-md-4 col-12"></div>
@@ -28,6 +28,7 @@
         <!-- INICIO FILTROS Y BUSCADOR -->
         <div class="row justify-content-between mt-8">
             <div class="col-md-4 col-12">
+                <v-btn class="boton-regresar" variant="text" prepend-icon="mdi-arrow-left" @click="this.$router.push('/catalogos')">Regresar</v-btn>
             </div>
             <div class="col-md-4 col-12">
             </div>

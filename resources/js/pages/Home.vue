@@ -185,6 +185,21 @@
                         <img class="icono-administrar-ventanillas" src="../../../public/icons/ventanilla.png" alt="">
                         <p>Ventanillas</p>
                     </div>
+                    <div class="row justify-content-between mt-10">
+                        <div class="col-md-6 col-12"></div>
+                        <div class="col-md-6 col-12">
+                            <div class="principal-div-custom-select">
+                                <div class="first-div-custom-select">
+                                    <img src="../../../public/icons/buscar.png" alt="">
+                                </div>
+                                <div class="second-div-custom-select">
+                                    <input v-model="buscar" placeholder="Buscar..." type="search" autocomplete="off" class="form-control custom-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    
                     <div class="container mt-10">
                         <div class="row justify-content-between">
                             <table class="table">
@@ -434,18 +449,15 @@
                 this.getTurnosPendientes()
             },
             buscar: function () {
-                // if (!this.buscar.length == 0) {
-                //     this.datosPaginados = this.ventanillas.filter(item => {
-                //         return item.num_oficio.toLowerCase().includes(this.buscar.toLowerCase())
-                //         || item.descripcion.toLowerCase().includes(this.buscar.toLowerCase())
-                //         || item.tipo_documento.toLowerCase().includes(this.buscar.toLowerCase())
-                //         || item.fecha_oficio.toLowerCase().includes(this.buscar.toLowerCase())
-                //         || item.estatus.toLowerCase().includes(this.buscar.toLowerCase())
-                //         || item.area.toLowerCase().includes(this.buscar.toLowerCase())
-                //     })
-                // } else {
-                //     this.getDataPagina(1)
-                // }
+                if (!this.buscar.length == 0) {
+                this.datosPaginados = this.cajas.filter(item => {
+                    return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.tipo_ventanilla.toLowerCase().includes(this.buscar.toLowerCase())
+                })
+            } else {
+                this.getDataPagina(1)
+            }
             },
             mostrar: function () {
                 if (this.mostrar) {

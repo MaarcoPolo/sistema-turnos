@@ -27,6 +27,7 @@
             <!-- INICIO FILTROS Y BUSCADOR -->
             <div class="row justify-content-between mt-8">
                 <div class="col-md-4 col-12">
+                    <v-btn class="boton-regresar" variant="text" prepend-icon="mdi-arrow-left" @click="this.$router.push('/catalogos')">Regresar</v-btn>
                 </div>
                 <div class="col-md-4 col-12">
                 </div>
