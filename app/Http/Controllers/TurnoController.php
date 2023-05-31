@@ -797,7 +797,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 1)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -822,7 +822,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 2)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -848,7 +848,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 3)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -874,7 +874,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 4)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -900,7 +900,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 5)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -926,7 +926,7 @@ class TurnoController extends Controller
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 6)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->get();
 
@@ -951,7 +951,7 @@ class TurnoController extends Controller
                 $total_atendidos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('en_atencion', '!=' , 0)
-                                    ->where('casa_justicia_id', 1)
+                                    ->where('casa_justicia_id', $request->id_sede)
                                     ->where('fecha_registro', $fecha_hoy)
                                     ->count();
 
