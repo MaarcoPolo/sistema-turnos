@@ -1,10 +1,5 @@
 <template>
     <div class="container-fluid imprimir-turno-body">
-        <div class="custom-title-div-normal-2 row justify-content-between">
-            <!-- <div class="">
-                <p class="custom-title-page-2"></p>
-            </div> -->
-        </div>
         <div class="container-fluid">
             <div class="row justify-content-between mt-4">
                 <div class="col-md-1 col-12"></div>
@@ -12,7 +7,7 @@
                     <div class="card-turno-3">
                         <img class="icono-pantalla" src="../../../public/icons/turno.png" alt="">
                         <div class="card-turno-titulo">
-                            <p>Turno</p>
+                            <p style="font-size: 2rem;">Turno</p>
                         </div>
                         <div class="card-turno-body-3">
                             <p class="card-numero-turno">{{ turnos.length > 0 ? turnos[0].turno : '--'}}</p>
@@ -23,7 +18,7 @@
                     <div class="card-turno-3">
                         <img class="icono-pantalla" src="../../../public/icons/ventanilla.png" alt="">
                         <div class="card-turno-titulo">
-                            <p>Pasar a Ventanilla</p>
+                            <p style="font-size: 2rem;">Pasar a Ventanilla</p>
                         </div>
                         <div class="card-turno-body-3">
                             <p class="card-ventanilla-turno">{{ turnos.length > 0 ? turnos[0].caja : '--'}}</p>
@@ -32,7 +27,7 @@
                 </div>
                 <div class="col-md-1 col-12"></div>
             </div>
-            <div class="row justify-content-between mt-6 mb-8">
+            <div class="row justify-content-between mt-12 mb-8">
                 <div class="col-md-5 col-12 mt-4">
                     <div class="card-turno-3 row justify-content-between">
                         <div class="col-6 p-0">
@@ -80,14 +75,14 @@
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[8].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
-                            <!-- <div class="mb-4">
+                            <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
                             <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div> -->
+                            </div>
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div class="mb-4">
@@ -114,22 +109,22 @@
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[8].caja : '--'}}</p>
                             </div>
-                            <!-- <div class="mb-4">
+                            <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : '--'}}</p>
                             </div>
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : '--'}}</p>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-12 mt-8">
-                    <v-carousel class="custom-slider" cycle show-arrows="hover" hide-delimiters height="280">
+                    <v-carousel class="custom-slider" cycle show-arrows="hover" hide-delimiters>
                         <v-carousel-item
                             v-for="(item,i) in imagenes_slider"
                             :key="i"
                             :src="item.src"
-                       
+                            
                         ></v-carousel-item>
                     </v-carousel>
                     <!-- <video id="video-turnos" class="tag-video" autoplay loop muted controls>

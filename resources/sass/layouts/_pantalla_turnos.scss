@@ -13,7 +13,7 @@
 .card-turno-body-3 {
     background-color: v.$morado_m2;
     
-    min-height: 17rem;
+    min-height: 22rem;
     border-bottom: .3rem solid v.$verde_v2;
     
     display: flex;
@@ -24,21 +24,21 @@
 .card-ventanilla-turno {
     font-weight: 700;
     color: v.$blanco;
-    font-size: 7rem;
+    font-size: 12rem;
     text-transform: uppercase;
 }
 
 .card-numero-turno {
     font-weight: 700;
     color: v.$blanco;
-    font-size: 7rem;
+    font-size: 12rem;
 }
 
 .icono-pantalla {
     position: absolute;
     width: 12rem;
 
-    margin-top: 5rem;
+    margin-top: 8rem;
     margin-left: -6.5rem;
 }
 
@@ -59,7 +59,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: v.$blanco;
 }
 
@@ -70,7 +70,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: v.$gris_g6
 }
 
@@ -88,7 +88,7 @@
     text-align: center;
     font-weight: 800;
     color: v.$gris_g6;
-    font-size: 3rem;
+    font-size: 3.5rem;
 
     border-bottom: .1rem solid v.$gris_g3;
     width: 70%;
@@ -100,7 +100,7 @@
     text-align: center;
     font-weight: 800;
     color: v.$blanco;
-    font-size: 3rem;
+    font-size: 3.5rem;
 
     border-bottom: .1rem solid v.$gris_g3;
     width: 70%;
@@ -129,7 +129,7 @@
     
     @include m.desktopXL {
         margin-top: -20%;
-        margin-left: 85%;
+        margin-left: 95%;
     }
 }
 
