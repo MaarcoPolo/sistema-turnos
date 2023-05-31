@@ -445,7 +445,7 @@ class TurnoController extends Controller
                     // }
                     return response()->json([
                         "status" => "no-data",
-                        "message" => "No hay turnos",
+                        "message" => "No tienes turnos pendientes por atender",
                         "turnos" => $array_turnos
                     ], 200);
 
@@ -530,7 +530,7 @@ class TurnoController extends Controller
                     // }
                     return response()->json([
                         "status" => "no-data",
-                        "message" => "No hay turnos",
+                        "message" => "No tienes turnos pendientes por atender",
                         "turnos" => $array_turnos
                     ], 200);
 
@@ -599,7 +599,7 @@ class TurnoController extends Controller
                 }
                 return response()->json([
                     "status" => "no-data",
-                    "message" => "No hay turnos",
+                    "message" => "No tienes turnos pendientes por atender",
                     "turnos" => $array
                 ], 200);
 

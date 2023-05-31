@@ -7,7 +7,8 @@
             </div>
         </div>
         <div class="row justify-content-center mt-8">
-            <button class="boton-sencillo" @click="atenderTurno()">Atender Nuevo Turno</button>
+            <button v-if="!loading" class="boton-sencillo" @click="atenderTurno()">Atender Nuevo Turno</button>
+            <span v-else class="loader-ventanilla"></span>
         </div>
         <div class="row justify-content-between mt-12">
             <div class="col-md-1 col-12"></div>
@@ -59,7 +60,7 @@
 
 <script>
     import { defineComponent } from "vue"
-    import { errorSweetAlert, successSweetAlert, warningSweetAlert } from "../helpers/sweetAlertGlobals"
+    import { errorSweetAlert, successSweetAlert, warningSweetAlert, infoSweetAlert } from "../helpers/sweetAlertGlobals"
 
 
     export default defineComponent({
@@ -70,7 +71,7 @@
                     id: null,
                     sede_id: null
                 },
-                
+                loading: false,
             }
         },
         created(){
@@ -129,7 +130,7 @@
         methods:{
             async atenderTurno()
             {
-               
+                this.loading = true
                 try {
                     this.usuario.id = this.user.user.id;
                     this.usuario.sede_id = this.user.user.casa_justicia_id;
@@ -143,7 +144,7 @@
                                 // this.$router.push('/imprimir-turno-laborales')
                                 }else if(response.data.status === "no-data"){
                                     this.$store.commit('setAtencionTurnos',response.data.turnos)
-                                    warningSweetAlert(response.data.message)
+                                    infoSweetAlert(response.data.message)
                                 
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
@@ -154,7 +155,7 @@
                     } catch (error) {
                                 errorSweetAlert('Ocurrió un error al actualizar el turno.')
                     }
-
+                this.loading = false
             },
             async cargarTurnos()
             {
@@ -172,7 +173,7 @@
                                 // this.$router.push('/imprimir-turno-laborales')
                                 }else if(response.data.status === "no-data"){
                                     this.$store.commit('setAtencionTurnos',response.data.turnos)
-                                    warningSweetAlert(response.data.message)
+                                    infoSweetAlert(response.data.message)
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
                             }

@@ -186,8 +186,8 @@
                         <p>Ventanillas</p>
                     </div>
                     <div class="row justify-content-between mt-10">
-                        <div class="col-md-6 col-12"></div>
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-4 col-12"></div>
+                        <div class="col-md-8 col-12">
                             <div class="principal-div-custom-select">
                                 <div class="first-div-custom-select">
                                     <img src="../../../public/icons/buscar.png" alt="">
@@ -199,8 +199,7 @@
                         </div>
                     </div>
                         
-                    
-                    <div class="container mt-10">
+                    <div class="container mt-4">
                         <div class="row justify-content-between">
                             <table class="table">
                                 <thead class="head-ventanillas">
