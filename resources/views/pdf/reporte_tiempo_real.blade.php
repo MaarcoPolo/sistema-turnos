@@ -182,6 +182,7 @@
             <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
             <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
         </tr>
+        
         <tr>
             <td colspan="1" class="dato_secundario">1</td>
             <td colspan="1" class="dato_secundario">699093</td>
