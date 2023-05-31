@@ -640,7 +640,7 @@ class TurnoController extends Controller
                         $object = new \stdClass();
                         // $object->posicion = $cont;
                         $object->turno = $turno->turno;
-                        $object->caja = $turno->usuario->caja_id;
+                        $object->caja = substr($turno->usuario->caja->nombre, 10);
                         array_push($array_turnos, $object);
                         $cont++;
                     }
