@@ -763,6 +763,22 @@ class TurnoController extends Controller
     {
         try {
             $distrito_sede = CasaJusticia::find($request->id_sede);
+
+            switch($request->id_sede)
+            {
+                case '1':
+                    $oficialia = '9994';
+                    $distrito = 'PUEBLA';
+                break;
+                case '2':
+                    $oficialia = '9997';
+                    $distrito = 'CHOLULA';
+                break;
+                case '3':
+                    $oficialia = '9996';
+                    $distrito = 'HUEJOTZINGO';
+                break;
+            }
             $currentDate = Carbon::now();
 
             $objectP = new \stdClass();
@@ -1013,9 +1029,10 @@ class TurnoController extends Controller
            
             // $fechaAnterior = $fecha->subDay();
 
-            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '9994'");
+            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '$oficialia'");
 
-            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='PUEBLA'");
+            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='$distrito'");
+
             $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='APELACION'");
 
             $objectP->totalPromociones = $promocionesRecibidas[0]->total;
@@ -1025,13 +1042,13 @@ class TurnoController extends Controller
             
             $fechaAnterior = $f->subDay()->toDateString();
 
-            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '9994'");
+            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia'");
         
             if($existenPromocionesDiaAnterior[0]->total > 0)
             {
 
                 $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA FROM promociones_pen,juzgados 
-                WHERE  fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '9994' and promociones_pen.juzgado = juzgados.codigo");
+                WHERE  fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia' and promociones_pen.juzgado = juzgados.codigo");
 
                 $objectP->promocionesDiaAnterior = $promocionesDiaAnterior;
                 $num_promociones = count($promocionesDiaAnterior);
@@ -1047,13 +1064,13 @@ class TurnoController extends Controller
             
             $existenDemandasDiaAnterior = DB::connection('mysql_209')->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
             fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
-            and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = 'PUEBLA'");
+            and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
 
             if($existenDemandasDiaAnterior[0]->total > 0)
             {
-                $demandasDiaAnterior = DB::conection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
+                $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
                 ocomun.juzgado = juzgados.codigo and fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
-                and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = 'PUEBLA'");
+                and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
                
                 $objectP->demandasDiaAnterior = $demandasDiaAnterior;
             }
