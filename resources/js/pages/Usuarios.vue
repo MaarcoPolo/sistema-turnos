@@ -271,7 +271,6 @@
                                     <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
-                            
                         </div>
                         <!-- <div class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12">
@@ -370,7 +369,35 @@
                                     <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
-                          
+                        </div>
+                        <div v-if="user.user.tipo_usuario_id == 1" class="row justify-content-between mt-4">
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_tipo_usuario">Tipo de usuario:</label>
+                                    <select id="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.tipo_usuario_id.$model">
+                                        <option  v-for="item in tipoUsuarios" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.tipo_usuario_id.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_sede">Sede:</label>
+                                    <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
+                                        <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4 col-12">
+                                <div class="div-custom-input-caja">
+                                    <label for="select_ventanilla">Ventanillas disponibles:</label>
+                                    <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
+                                        <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
+                                    </select>
+                                    <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
+                                </div>
+                            </div> -->
                         </div>
                         <div class="row justify-content-between mt-4">
                             <div class="col-md-6 col-12">
@@ -718,8 +745,8 @@
                 // console.log(usuario)
                 this.dialogEditarUsuario=true 
                 // this.dialogEditarUsuario = true
-                // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
-                // this.usuario.sede = this.user.user.casa_justicia_id
+                this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
+                this.usuario.sede = usuario.sede_id
                 this.usuario.id = usuario.id
                 this.usuario.nombre = usuario.nombre
                 this.usuario.apellido_materno = usuario.apellido_materno
@@ -816,6 +843,11 @@
                 this.ventanillasDisponibles()   
             },
             async guardarCambiosEditarUsuario() {
+                // if(this.user.user.tipo_usuario_id == 2){
+                    // console.log(this.usuario)
+                //     // this.usuario.tipo_usuario_id = this.user.user.tipo_usuario_id
+                //     // this.usuario.sede = this.user.user.casa_justicia_id
+                // }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
                     Swal.fire({
@@ -829,8 +861,7 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
                             try {
-                                // usuario.tipo_usuario = this.user.user.tipo_usuario_id
-                                // usuario.sede = this.user.user.casa_justicia_id
+                                
                                 let response = await axios.post('/api/usuarios/actualizar-usuario', this.usuario)
                                 return response
                             } catch (error) {

@@ -39,6 +39,8 @@ class UserController extends Controller
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
                 $objectUsuario->sede = $usuario->casaJusticia->nombre;
+                $objectUsuario->sede_id = $usuario->casa_justicia_id;
+                $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;
@@ -154,6 +156,8 @@ class UserController extends Controller
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
                 $objectUsuario->sede = $usuario->casaJusticia->nombre;
+                $objectUsuario->sede_id = $usuario->casa_justicia_id;
+                $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;
@@ -203,11 +207,24 @@ class UserController extends Controller
             $usuario->apellido_paterno = $request->apellido_paterno;
             $usuario->apellido_materno = $request->apellido_materno;
             // $usuario->tipo_usuario_id = $request->tipo_usuario_id;
-            // $usuario->area_id = $request->area_id;
+            $usuario->casa_justicia_id = $request->sede;
             $usuario->email = $request->email;
             $usuario->username = $request->username;
             $usuario->password = $request->password;
             // $usuario->numero = $request->numero;
+            if($request->tipo_usuario == 1){
+                $usuario->tipo_usuario_id = $request->tipo_usuario_id;
+                if($request->tipo_usuario_id == 2){
+                    $usuario->tipo_usuario = 'Administrador';
+                }else{
+                    $usuario->tipo_usuario = 'ventanilla';
+                }
+            }//Administrador
+            else{
+                $usuario->tipo_usuario = 'ventanilla';
+                $usuario->tipo_usuario_id = $request->tipo_usuario_id;
+            }
+            
             if($request->caja_id)
             {
                 $caja_anterior = $usuario->caja_id;
@@ -302,6 +319,8 @@ class UserController extends Controller
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
                 $objectUsuario->sede = $usuario->casaJusticia->nombre;
+                $objectUsuario->sede_id = $usuario->casa_justicia_id;
+                $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;
@@ -387,6 +406,8 @@ class UserController extends Controller
                 $objectUsuario->nombrecompleto = $usuario->nombre.' '.$usuario->apellido_paterno.' '.$usuario->apellido_materno;
                 $objectUsuario->password = $usuario->password;
                 $objectUsuario->sede = $usuario->casaJusticia->nombre;
+                $objectUsuario->sede_id = $usuario->casa_justicia_id;
+                $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
                 $objectUsuario->email = $usuario->email;
                 if($usuario->caja){
                     $objectUsuario->ventanilla = $usuario->caja->nombre;

@@ -22,6 +22,9 @@ use Mike42\Escpos\EscposImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+
 
 class TurnoController extends Controller
 {
@@ -312,6 +315,8 @@ class TurnoController extends Controller
             $fecha = $date->toDateTimeString();
             $logo = EscposImage::load("../public/img/logo.png");
             $nombreImpresora = $impresora;
+            // $connector = new FilePrintConnector("192.168.1.34",9100);
+            // $connector = new NetworkPrintConnector("10.x.x.x", 9100);
             $connector = new WindowsPrintConnector($nombreImpresora);
             $impresora = new Printer($connector);       
             $impresora->setJustification(Printer::JUSTIFY_CENTER);
