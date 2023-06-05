@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 
 class TurnoController extends Controller
@@ -309,15 +308,19 @@ class TurnoController extends Controller
             $sede_id =  $turno->casa_justicia_id;
 
             $sede = $turno->casaJusticia->nombre;
-            $impresora = $turno->casaJusticia->nombre_impresora;
-
+            $tipo_red = $turno->casaJusticia->tipo_conexion_impresora;
+            if($tipo_red == 'local'){
+                $impresora = $turno->casaJusticia->nombre_impresora;
+                $connector = new WindowsPrintConnector($impresora);
+            }else{
+                $impresora = $turno->casaJusticia->ip;
+                $connector = new NetworkPrintConnector($impresora, 9100);
+            }
+            
             $date = Carbon::now();
             $fecha = $date->toDateTimeString();
             $logo = EscposImage::load("../public/img/logo.png");
-            $nombreImpresora = $impresora;
-            // $connector = new FilePrintConnector("192.168.1.34",9100);
-            // $connector = new NetworkPrintConnector("10.x.x.x", 9100);
-            $connector = new WindowsPrintConnector($nombreImpresora);
+            // $nombreImpresora = $impresora;
             $impresora = new Printer($connector);       
             $impresora->setJustification(Printer::JUSTIFY_CENTER);
             $impresora->bitImageColumnFormat($logo);
