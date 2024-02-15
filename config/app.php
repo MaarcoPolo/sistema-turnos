@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'America/Ojinaga',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------

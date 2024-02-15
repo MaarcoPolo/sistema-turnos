@@ -11,6 +11,7 @@ const store = createStore({
         showRecaptcha: false,
         cajas:[],
         usuarios:[],
+        loading: false,
     },
 
     getters: {
@@ -29,6 +30,9 @@ const store = createStore({
         },
         getUsuarios(state){
             return state.usuarios
+        },
+        getLoading(state) {
+            return state.loading
         }
     },
     mutations: {
@@ -46,10 +50,14 @@ const store = createStore({
         },
         setUsuarios(state, payload) {
             state.usuarios = payload
+        },
+        setLoading(state, payload) {
+            state.loading = payload
         }
     },
     actions: {
         async login({commit}, credentials) {
+            this.state.loading = true
             try {
                 let response = await axios.post('/api/login', credentials)
                 if (response.status === 200) {
@@ -76,6 +84,7 @@ const store = createStore({
             } catch (error) {
                 errorSweetAlert('Ocurrió un error al iniciar sesión')
             }
+            this.state.loading = false
         },
         logout ({commit}) {
             commit('clearUserData')

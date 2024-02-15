@@ -40,8 +40,9 @@
                     </vue-recaptcha>
                     <label v-if="mostrarlabel" style="color: white">Porfavor verifica que no seas UN ROBOT</label>
                 </div>
-                <div class="col-md-12 form-group mb-12">
-                    <button class="btn" type="submit" @click="login()">Entrar</button>
+                <div class="col-md-12 form-group mt-6 mb-12">
+                    <button v-if="!loading" class="btn" type="submit" @click="login()">Entrar</button>
+                    <span v-else class="loader-ventanilla"></span>
                 </div>
             </form>
         </div>
@@ -66,7 +67,6 @@
                 },
                 valid: true,
                 show: false,
-                loading: false,
                 usuarioRules: [
                     v => !!v || 'El nombre de usuario es requerido'
                 ],
@@ -81,6 +81,9 @@
             },
             cont() {
                 return this.$store.getters.getContRecaptcha
+            },
+            loading() {
+                return this.$store.getters.getLoading
             }
         },
         methods: {
@@ -91,7 +94,6 @@
                 this.$refs.vueRecaptcha.reset();
             },
             login() {
-                this.loading = true
                 if (this.cont < 3) {
                     this.$store.dispatch('login', {
                         usuario: this.form.usuario,
@@ -115,7 +117,6 @@
                         this.mostrarlabel = true
                     }
                 }
-                this.loading = false
             }
         }
     })

@@ -175,7 +175,7 @@
             }
         },
         created(){
-            this.auxTurnosPantalla()
+            this.turnosPantalla()
         },
         mounted() {
             Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
@@ -190,24 +190,6 @@
         methods:{
             reproducir() {
                 document.getElementById("music").play()
-            },
-            async auxTurnosPantalla() {
-                try {
-                    let response = await axios.post('/api/turnos-pantalla', this.turno)
-                    if (response.status === 200) {
-                        if (response.data.status === "ok") {
-                            this.$store.commit('setTurnosPantalla', response.data.turnos)
-                        }else if(response.data.status === "no-data"){
-                            this.$store.commit('setTurnosPantalla',response.data.turnos)
-                        } else {
-                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
-                        }
-                    } else {
-                        errorSweetAlert('Ocurrió un error al obtener los turnos.')
-                    }
-                } catch (error) {
-                    errorSweetAlert('Ocurrió un error al obtener los turnos.')
-                }
             },
             async turnosPantalla() {
                 try {

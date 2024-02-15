@@ -17,13 +17,14 @@
                     </div>
                     <div class="row justify-content-between">
                         <div class="col-md-6 col-12 mt-6">
-                            <div class="custom-card-action" @click="imprimirTurno()">
+                            <div class="custom-card-action" @click="!loading ? imprimirTurno() : ''">
                                 <div class="custom-card-action-icon">
                                     <img src="../../../public/icons/imprimir.png" alt="">
                                 </div>
                                 <v-btn
                                     class="custom-card-button"
                                     color="#c4f45d"
+                                    :loading="loading"
                                     >
                                     Imprimir
                                 </v-btn>
@@ -60,7 +61,8 @@
             return{
                 turno:{
                     id: null
-                }
+                },
+                loading: false,
             }
         },
         computed: {
@@ -70,6 +72,7 @@
         },
         methods: {
            async imprimirTurno() {
+                this.loading = true
                 this.turno.id = this.turnoGenerado.id
                 try {
                         let response = await axios.post('/api/imprimir-turno', this.turno)
@@ -89,7 +92,7 @@
                     } catch (error) {
                                 errorSweetAlert('Ocurrió un error al imprimir el turno.')
                     }
-                // console.log(this.turno)
+                    this.loading = false
             },
             volverKiosco() {
                 this.$router.push('/kiosco-huejotzingo')

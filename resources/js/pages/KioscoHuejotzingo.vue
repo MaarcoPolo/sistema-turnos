@@ -8,12 +8,14 @@
         </div>
         <div class="pt-6">
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
-            <div class="row justify-content-between">
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
+            <div class="row justify-content-between div-row-botones-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                    <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
+                    <span v-else class="loader"></span>
                 </div>
-                <div class="col-md-6 col-12">
-                    <img class="boton-generar-turno" src="../../../public/img/generar-turno-demanda.png" alt="" @click="generarTurno(5)">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                    <img v-if="!loader_5" class="boton-generar-turno" src="../../../public/img/generar-turno-demanda.png" alt="" @click="generarTurno(5)">
+                    <span v-else class="loader"></span>
                 </div>
             </div>
         </div>
@@ -31,7 +33,9 @@
                 turno:{
                     tipo_turno_id: null,
                     casa_justicia_id: 3,
-                }
+                },
+                loader_1: false,
+                loader_5: false,
                     
                 
                 
@@ -39,6 +43,14 @@
         },
         methods: {
            async generarTurno(turno) {
+            switch (turno) {
+                    case 1:
+                        this.loader_1 = true
+                        break
+                    case 5:
+                        this.loader_5 = true
+                        break
+                }
                 this.turno.tipo_turno_id = turno;
                 // console.log(this.turno)
                 try {
@@ -59,6 +71,8 @@
                     } catch (error) {
                                 errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
+                    this.loader_1 = false
+                    this.loader_5 = false
             }
            
             

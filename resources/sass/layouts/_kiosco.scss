@@ -65,6 +65,10 @@
     align-items: flex-end;
 }
 
+.div-row-botones-generar-turno {
+    min-height: 11rem;
+}
+
 // Boton Generar Turno posible css
 .boton-generar-turno-1 {
     background-color: v.$morado_m2;
@@ -93,4 +97,24 @@
     width: 1.5rem;
     height: 1.5rem;
     position: absolute;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid v.$blanco;
+    border-bottom-color: v.$morado_m2;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

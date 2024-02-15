@@ -22,6 +22,9 @@ use Mike42\Escpos\EscposImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+
 
 class TurnoController extends Controller
 {
@@ -312,6 +315,8 @@ class TurnoController extends Controller
             $fecha = $date->toDateTimeString();
             $logo = EscposImage::load("../public/img/logo.png");
             $nombreImpresora = $impresora;
+            // $connector = new FilePrintConnector("192.168.1.34",9100);
+            // $connector = new NetworkPrintConnector("10.x.x.x", 9100);
             $connector = new WindowsPrintConnector($nombreImpresora);
             $impresora = new Printer($connector);       
             $impresora->setJustification(Printer::JUSTIFY_CENTER);
@@ -445,7 +450,7 @@ class TurnoController extends Controller
                     // }
                     return response()->json([
                         "status" => "no-data",
-                        "message" => "No hay turnos",
+                        "message" => "No tienes turnos pendientes por atender",
                         "turnos" => $array_turnos
                     ], 200);
 
@@ -530,7 +535,7 @@ class TurnoController extends Controller
                     // }
                     return response()->json([
                         "status" => "no-data",
-                        "message" => "No hay turnos",
+                        "message" => "No tienes turnos pendientes por atender",
                         "turnos" => $array_turnos
                     ], 200);
 
@@ -599,7 +604,7 @@ class TurnoController extends Controller
                 }
                 return response()->json([
                     "status" => "no-data",
-                    "message" => "No hay turnos",
+                    "message" => "No tienes turnos pendientes por atender",
                     "turnos" => $array
                 ], 200);
 
@@ -630,7 +635,7 @@ class TurnoController extends Controller
                                 ->where('en_atencion', '>=' ,1)
                                 ->orderBy('fecha_atencion_inicio', 'DESC')
                                 ->orderBy('hora_atencion_inicio', 'DESC')
-                                ->limit(11)
+                                ->limit(10)
                                 ->get(); 
 
                 if($turnos->count()>0){
@@ -640,11 +645,11 @@ class TurnoController extends Controller
                         $object = new \stdClass();
                         // $object->posicion = $cont;
                         $object->turno = $turno->turno;
-                        $object->caja = $turno->usuario->caja_id;
+                        $object->caja = substr($turno->usuario->caja->nombre, 10);
                         array_push($array_turnos, $object);
                         $cont++;
                     }
-                    for($i = $cont; $i < 11; $i++)
+                    for($i = $cont; $i < 10; $i++)
                     {
                         $object = new \stdClass();
                         $object->turno = '--';
@@ -661,7 +666,7 @@ class TurnoController extends Controller
                 }else{
                     $cont =0;  
                     $array_turnos = array();
-                    for($i = $cont; $i < 11; $i++)
+                    for($i = $cont; $i < 10; $i++)
                     {
                         $object = new \stdClass();
                         $object->caja = "--";
@@ -763,9 +768,26 @@ class TurnoController extends Controller
     {
         try {
             $distrito_sede = CasaJusticia::find($request->id_sede);
+
+            switch($request->id_sede)
+            {
+                case '1':
+                    $oficialia = '9994';
+                    $distrito = 'PUEBLA';
+                break;
+                case '2':
+                    $oficialia = '9997';
+                    $distrito = 'CHOLULA';
+                break;
+                case '3':
+                    $oficialia = '9996';
+                    $distrito = 'HUEJOTZINGO';
+                break;
+            }
             $currentDate = Carbon::now();
 
             $objectP = new \stdClass();
+            $objectP->id_sede = $request->id_sede;
             $array_personas = array();
             $array = array();
             $inicio = 8;
@@ -992,6 +1014,11 @@ class TurnoController extends Controller
             $objectTotalPersonasAtendidas->hora = 'Total';
             $objectTotalPersonasAtendidas->totales = $suma_totales_personas;
 
+            $total_turnos_asignados = Turno::where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', $request->id_sede)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->count();
+            
             // Objeto principal
             $objectP->distrito_sede = $distrito_sede->nombre;
             $objectP->distrito_sede_id = $distrito_sede->id;
@@ -999,6 +1026,64 @@ class TurnoController extends Controller
             $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;
             $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
+            $objectP->total_turnos_asignados = $total_turnos_asignados;
+
+            //Consultas 209 dia anterior(guardia)
+
+            $f= Carbon::now();
+            $fecha = $f->toDateString();
+           
+            // $fechaAnterior = $fecha->subDay();
+
+            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '$oficialia'");
+
+            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='$distrito'");
+
+            $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='APELACION'");
+
+            $objectP->totalPromociones = $promocionesRecibidas[0]->total;
+            $objectP->totalDemandas = $demandasRecividas[0]->total;
+            $objectP->totalApelaciones = $apelacionesRecividas[0]->total;
+            
+            
+            $fechaAnterior = $f->subDay()->toDateString();
+
+            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia'");
+        
+            if($existenPromocionesDiaAnterior[0]->total > 0)
+            {
+
+                $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA FROM promociones_pen,juzgados 
+                WHERE  fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia' and promociones_pen.juzgado = juzgados.codigo");
+
+                $objectP->promocionesDiaAnterior = $promocionesDiaAnterior;
+                $num_promociones = count($promocionesDiaAnterior);
+                $objectP->num_promociones_dia_anterior = $num_promociones;
+                $objectP->num_tablas = ceil($num_promociones/30);
+            }
+            else
+            { 
+                $objectP->promocionesDiaAnterior = [];
+                $objectP->num_promociones_dia_anterior = 0;
+                $objectP->num_tablas = 0;
+            }
+            
+            $existenDemandasDiaAnterior = DB::connection('mysql_209')->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
+            fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+            and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
+
+            if($existenDemandasDiaAnterior[0]->total > 0)
+            {
+                $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
+                ocomun.juzgado = juzgados.codigo and fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+                and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
+               
+                $objectP->demandasDiaAnterior = $demandasDiaAnterior;
+            }
+            else
+            { 
+                $objectP->demandasDiaAnterior = [];
+            }
 
             //Custom Header
             PDF::setHeaderCallback(function($pdf) {
@@ -1040,7 +1125,7 @@ class TurnoController extends Controller
 
             ob_end_clean();
     
-            PDF::Output('Reporte_Turnos_Oficialia.pdf', 'I');
+            PDF::Output('Reporte_Turnos_Oficialia_'. $distrito_sede->nombre .'.pdf', 'I');
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "error",
