@@ -118,12 +118,20 @@ class UserController extends Controller
                         $id2->save();
                     
                     }else{
-
-                        $asignacion = new Asignacion;
-                        $asignacion->user_id = $usuario->id;
-                        $asignacion->casa_justicia_id = $request->sede;
-                        $asignacion->tipo_turno = $caja->tipo_turno_id;
-                        $asignacion->save();
+                        for($i=0;$i <strlen($caja->tipo_turno_id); $i++)
+                        {
+                        
+                            $asignacion = new Asignacion;
+                            $asignacion->user_id = $usuario->id;
+                            $asignacion->casa_justicia_id = $request->sede;
+                            $asignacion->tipo_turno = intval($caja->tipo_turno_id[$i]);
+                            $asignacion->save();
+                        }
+                        // $asignacion = new Asignacion;
+                        // $asignacion->user_id = $usuario->id;
+                        // $asignacion->casa_justicia_id = $request->sede;
+                        // $asignacion->tipo_turno = $caja->tipo_turno_id;
+                        // $asignacion->save();
                     }
                 }
 

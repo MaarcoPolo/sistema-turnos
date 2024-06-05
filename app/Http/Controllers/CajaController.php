@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Caja;
 use App\Models\User;
 use App\Models\Asignacion;
+use App\Models\TipoTurno;
 use Illuminate\Support\Facades\DB;
 
 class CajaController extends Controller
@@ -20,6 +21,8 @@ class CajaController extends Controller
 
                 $array_cajas = array();
                 $cont = 1;
+                $nombre = '';
+
                 foreach ($cajas as $caja) {
                     $objectCaja = new \stdClass();
                     $objectCaja->id = $caja->id;
@@ -32,27 +35,37 @@ class CajaController extends Controller
                     }
                     $objectCaja->sede = $caja->casaJusticia->nombre;
                     $objectCaja->tipo_id = $caja->tipo_turno_id;
-                    $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
-                    // $objectArea->estatus = $area->estatus;
+
+                    for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                        $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                        $nombre = $nombre.$tp->nombre;
+                    
+                        if($i+1 != strlen($caja->tipo_turno_id)){
+
+                            $nombre =$nombre.',';
+                        }
+                    }
+
+                    $objectCaja->tipo_ventanilla = $nombre;
                     
                     array_push($array_cajas, $objectCaja);
                     $cont++;
+                    $nombre = '';
+
                 }
-    
                 return response()->json([
                     "status" => "ok",
                     "message" => "Ventanillas obtenidas con éxito",
                     "cajas" => $array_cajas
                 ], 200);
-
-
             }else{
                 // $cajas = Caja::where('status', 1)->get();
                 $cajas = Caja::all();
 
-
                 $array_cajas = array();
                 $cont = 1;
+                $nombre = '';
                 foreach ($cajas as $caja) {
                     $objectCaja = new \stdClass();
                     $objectCaja->id = $caja->id;
@@ -65,11 +78,23 @@ class CajaController extends Controller
                     }
                     $objectCaja->sede = $caja->casaJusticia->nombre;
                     $objectCaja->tipo_id = $caja->tipo_turno_id;
-                    $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
-                    // $objectArea->estatus = $area->estatus;
+                                            
+                        for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                            $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                            $nombre = $nombre.$tp->nombre;
+                            
+                            if($i+1 != strlen($caja->tipo_turno_id)){
+
+                                $nombre =$nombre.',';
+                            }
+                        }
+
+                    $objectCaja->tipo_ventanilla = $nombre;
                     
                     array_push($array_cajas, $objectCaja);
                     $cont++;
+                    $nombre = '';
                 }
     
                 return response()->json([
@@ -77,10 +102,7 @@ class CajaController extends Controller
                     "message" => "Ventanillas obtenidas con éxito",
                     "cajas" => $array_cajas
                 ], 200);
-
             }
-            
-           
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "error",
@@ -105,15 +127,6 @@ class CajaController extends Controller
                             $objectCaja->id = $caja->id;
                             $objectCaja->num = $cont;
                             $objectCaja->nombre = $caja->nombre;
-                            // if($caja->status== 1){
-                            //     $objectCaja->estatus = 'Activa'; 
-                            // }else{
-                            //     $objectCaja->estatus = 'Desactivada';
-                            // }
-                            // $objectCaja->sede = $caja->casaJusticia->nombre;
-                            // $objectCaja->tipo_id = $caja->tipo_turno_id;
-                            // $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
-                            // $objectArea->estatus = $area->estatus;
                             
                             array_push($array, $objectCaja);
                             $cont++;
@@ -137,17 +150,27 @@ class CajaController extends Controller
         }
 
     }
-    public function guardarCaja(Request $request) {
+    public function guardarCaja(Request $request){
+
         $exito = false;
-       
+    
         DB::beginTransaction();
         try{
-            $caja = new Caja;
-            $caja->nombre = $request->nombre;
-            $caja->casa_justicia_id = $request->sede;
-            $caja->tipo_turno_id = $request->tipo;
-            $caja->status = 0;
-            $caja->save();
+            $inserttipos = "";
+            foreach($request->tipo as $tipo)
+            {
+                $inserttipos =$inserttipos.$tipo;
+                if(count($request->tipo ) > 1)
+                    $inserttipos = $inserttipos;
+
+            }
+                $caja = new Caja;
+                $caja->nombre = $request->nombre;
+                $caja->casa_justicia_id = $request->sede;
+                $caja->tipo_turno_id = $inserttipos;
+                $caja->status = 0;
+                $caja->save();
+
 
             if($request->tipo_usuario == 1){
                 // $cajas = Caja::where('status', 1)->get();
@@ -157,10 +180,11 @@ class CajaController extends Controller
                 // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
                 $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
             }
-           
 
             $array_cajas = array();
             $cont = 1;
+            $nombre = '';
+
             foreach ($cajas as $caja) {
                 $objectCaja = new \stdClass();
                 $objectCaja->id = $caja->id;
@@ -173,7 +197,20 @@ class CajaController extends Controller
                 }
                 $objectCaja->sede = $caja->casaJusticia->nombre;
                 $objectCaja->tipo_id = $caja->tipo_turno_id;
-                $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
+                
+                for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                            $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                            $nombre = $nombre.$tp->nombre;
+                            
+                            if($i+1 != strlen($caja->tipo_turno_id)){
+                                
+                                $nombre =$nombre.',';
+                            }
+                        }
+        
+                $objectCaja->tipo_ventanilla = $nombre;        
+                $nombre = '';
                 
                 array_push($array_cajas, $objectCaja);
                 $cont++;
@@ -196,11 +233,8 @@ class CajaController extends Controller
                 "status" => "ok",
                 "message" => "Nueva Ventanilla guardada con exito.",
                 "cajas" => $array_cajas,
-             
             ], 200);
         }
-
-        
     }
     public function actualizarCaja(Request $request)
     {
@@ -221,6 +255,8 @@ class CajaController extends Controller
             }
             $array_cajas = array();
             $cont = 1;
+            $nombre = '';
+
             foreach ($cajas as $caja) {
                 $objectCaja = new \stdClass();
                 $objectCaja->id = $caja->id;
@@ -233,7 +269,21 @@ class CajaController extends Controller
                 }
                 $objectCaja->sede = $caja->casaJusticia->nombre;
                 $objectCaja->tipo_id = $caja->tipo_turno_id;
-                $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
+
+                for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                    $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                    $nombre = $nombre.$tp->nombre;
+                            
+                        if($i+1 != strlen($caja->tipo_turno_id)){
+
+                                $nombre =$nombre.',';
+                            }
+                        }
+                    
+                    $objectCaja->tipo_ventanilla = $nombre;
+                    $nombre = '';
+
                 array_push($array_cajas, $objectCaja);
                 $cont++;
             }
@@ -251,7 +301,6 @@ class CajaController extends Controller
                 "line" => $th->getLine(),
             ], 200);
         }
-
         if ($exito) {
             return response()->json([
                 "status" => "ok",
@@ -290,6 +339,8 @@ class CajaController extends Controller
 
             $array_cajas = array();
             $cont = 1;
+            $nombre = '';
+
             foreach ($cajas as $caja) {
                 $objectCaja = new \stdClass();
                 $objectCaja->id = $caja->id;
@@ -302,7 +353,21 @@ class CajaController extends Controller
                 }
                 $objectCaja->sede = $caja->casaJusticia->nombre;
                 $objectCaja->tipo_id = $caja->tipo_turno_id;
-                $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
+
+                for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                    $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                    $nombre = $nombre.$tp->nombre;
+                    
+                    if($i+1 != strlen($caja->tipo_turno_id)){
+
+                        $nombre =$nombre.',';
+                    }
+                }
+    
+            $objectCaja->tipo_ventanilla = $nombre;
+            $nombre = '';
+
                 array_push($array_cajas, $objectCaja);
                 $cont++;
             }
@@ -350,6 +415,8 @@ class CajaController extends Controller
             $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();
                 $array_cajas = array();
                 $cont = 1;
+                $nombre = '';
+
                 foreach ($cajas as $caja) {
                     $objectCaja = new \stdClass();
                     $objectCaja->id = $caja->id;
@@ -357,9 +424,21 @@ class CajaController extends Controller
                     $objectCaja->nombre = $caja->nombre;
                     $objectCaja->sede = $caja->casaJusticia->nombre;
                     $objectCaja->tipo_id = $caja->tipo_turno_id;
-                    $objectCaja->tipo_ventanilla = $caja->tipo_turno->nombre;
-                    // $objectArea->estatus = $area->estatus;
-                    
+
+                    for($i=0;$i <strlen($caja->tipo_turno_id); $i++){
+
+                        $tp =  TipoTurno::find(intval($caja->tipo_turno_id[$i]));
+                        $nombre = $nombre.$tp->nombre;
+                        
+                        if($i+1 != strlen($caja->tipo_turno_id)){
+                            
+                            $nombre =$nombre.',';
+                        }
+                    }
+                
+                $objectCaja->tipo_ventanilla = $nombre;
+                $nombre = '';
+    
                     array_push($array_cajas, $objectCaja);
                     $cont++;
                 }

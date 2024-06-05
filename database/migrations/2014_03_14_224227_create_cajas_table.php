@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('nombre');
             $table->boolean('status')->default(1);
             $table->unsignedBigInteger('casa_justicia_id');
-            $table->unsignedBigInteger('tipo_turno_id');
+            // $table->unsignedBigInteger('tipo_turno_id');
+            $table->string('tipo_turno_id');
             $table->timestamps();
 
             $table->foreign('casa_justicia_id')->references('id')->on('casas_justicia');
-            $table->foreign('tipo_turno_id')->references('id')->on('tipo_turnos');
+            // $table->foreign('tipo_turno_id')->references('id')->on('tipo_turnos');
         });
     }
 

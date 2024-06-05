@@ -157,9 +157,6 @@
                 },
                 imagenes_slider: [
                     {
-                        src: '/img/slider/imagen_7.gif',
-                    },
-                    {
                         src: '/img/slider/imagen_2.png',
                     },
                     {

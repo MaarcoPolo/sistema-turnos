@@ -97,21 +97,22 @@
         </tr>
     </table><br><br><table>
         <tr>
-            <th colspan="7" class="encabezado_principal">Tiempos de atención</th>
+            <th colspan="8" class="encabezado_principal">Tiempos de atención</th>
         </tr>
         <tr>
             <td rowspan="2" colspan="1" class="encabezado_secundario">Hora</td>
-            <td colspan="6" class="encabezado_secundario">Tipo de turno</td>
+            <td colspan="7" class="encabezado_secundario">Tipo de turno</td>
         </tr>
         <tr>
             
             @if ($prueba == 1)
-            <td colspan="1" class="encabezado_secundario">Turno</td>
-            <td colspan="1" class="encabezado_secundario">Sala</td> 
-            <td colspan="1" class="encabezado_secundario">Interno</td> 
-            <td colspan="1" class="encabezado_secundario">Demanda</td> 
-            <td colspan="1" class="encabezado_secundario">Atn. rápida</td>
+            <td colspan="1" class="encabezado_secundario">Esc s/a</td>
+            <td colspan="1" class="encabezado_secundario">Apel y Esc</td> 
+            <td colspan="1" class="encabezado_secundario">Trab PJ</td> 
+            <td colspan="1" class="encabezado_secundario">Esc c/a</td> 
+            <td colspan="1" class="encabezado_secundario">Dem nueva</td>
             <td colspan="1" class="encabezado_secundario">O. familiar</td>
+            <td colspan="1" class="encabezado_secundario">Exhortos</td>
             @endif
             
             @if ($prueba == 2)
@@ -139,6 +140,7 @@
                 <td class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->aten_rapida }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->o_familiar }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->exhorto }}</td>
                 @endif
                 
                 @if ($prueba == 2)
@@ -166,6 +168,7 @@
             <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }}</td>
             <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->rapidos }}</td>
             <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->exhorto }}</td>
             @endif
             
             @if ($prueba == 2)

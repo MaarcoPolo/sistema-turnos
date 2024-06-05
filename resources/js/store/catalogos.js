@@ -31,6 +31,6 @@ export default{
         },
         setTipoUsuarios(state, payload) {
             state.tipoUsuarios = payload
-        },
+        }
     }
 }

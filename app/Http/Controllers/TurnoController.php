@@ -117,13 +117,9 @@ class TurnoController extends Controller
                 $id_contador = $con->id;
 
             }
-            
-            
-           
-            
             switch($tipo_turno){
                 case '1':
-                   
+                
                     if($contador < 10)
                     {
                         $turnoo = $turnoo.'T000'.$contador.$nomen;
@@ -256,6 +252,29 @@ class TurnoController extends Controller
                         $turnoo = $turnoo.'J'.$contador.$nomen;
                     }
                     break;
+                    case '7':
+                        // $contador = Contador::where('casa_justicia_id',$sede)->get();
+                        if($contador == 0)
+                        {
+                            $turnoo = $turnoo.'E0001'.$nomen;
+                        }
+                        elseif($contador < 10)
+                        {
+                            $turnoo = $turnoo.'E000'.$contador.$nomen;
+                        }
+                        elseif($contador >= 10 && $contador < 100)
+                        {
+                            $turnoo = $turnoo.'E00'.$contador.$nomen;   
+                        }
+                        elseif($contador >= 100 && $contador < 1000)
+                        {
+                            $turnoo = $turnoo.'E0'.$contador.$nomen; 
+                        }
+                        elseif($contador >= 1000)
+                        {
+                            $turnoo = $turnoo.'J'.$contador.$nomen;
+                        }
+                        break;
 
             }
             $turno->turno = $turnoo;
@@ -370,8 +389,6 @@ class TurnoController extends Controller
                                     ->where('user_id', $request->id)
                                     ->where('en_atencion', 1)
                                     ->first(); 
-
-                     
                             
             if($turno_atencion){
                 $date = Carbon::now();
@@ -704,31 +721,31 @@ class TurnoController extends Controller
     public function turnosPendientes(Request $request)
     {
         try{
-            $turnos = Turno::where('casa_justicia_id', $request->sede)
+            $escritosConAnexos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 1)
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
                                     ->count();
 
-            $salas = Turno::where('casa_justicia_id', $request->sede)
+            $apelaciones = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 2)
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
                                     ->count();
 
-            $internos = Turno::where('casa_justicia_id', $request->sede)
+            $trabajadores = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 3)
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
                                     ->count();
 
-            $rapidos = Turno::where('casa_justicia_id', $request->sede)
+            $escritosSinAnexos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 4)
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
                                     ->count();
 
-            $demandas = Turno::where('casa_justicia_id', $request->sede)
+            $demandaNueva = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 5)
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
@@ -739,14 +756,20 @@ class TurnoController extends Controller
                                     ->where('en_atencion', 0)
                                     // ->where('status', 1)
                                     ->count();
+            $exhortos = Turno::where('casa_justicia_id', $request->sede)
+                                    ->where('tipo_turno_id', 7)
+                                    ->where('en_atencion', 0)
+                                    // ->where('status', 1)
+                                    ->count();
 
                         $object = new \stdClass();
-                        $object->turnos = $turnos;
-                        $object->salas = $salas;
-                        $object->internos = $internos;
-                        $object->rapidos = $rapidos;
-                        $object->demandas = $demandas;
+                        $object->escritosConAnexos = $escritosConAnexos;
+                        $object->apelaciones = $apelaciones;
+                        $object->trabajadores = $trabajadores;
+                        $object->escritosSinAnexos = $escritosSinAnexos;
+                        $object->demandaNueva = $demandaNueva;
                         $object->familiares = $familiares;
+                        $object->exhortos = $exhortos;
 
                         return response()->json([
                             "status" => "ok",
@@ -801,12 +824,13 @@ class TurnoController extends Controller
             $hora_inicio = $fecha->toTimeString();
             $fecha->addHours(1);
             $hora_fin = $fecha->toTimeString();
-            $suma_turnos= 0;
-            $suma_salas= 0;
-            $suma_internos= 0;
-            $suma_rapidos= 0;
-            $suma_demandas= 0;
-            $suma_familiares= 0;
+            $suma_turnos = 0;
+            $suma_salas = 0;
+            $suma_internos = 0;
+            $suma_rapidos = 0;
+            $suma_demandas = 0;
+            $suma_familiares = 0;
+            $suma_exhortos = 0;
 
             $suma_turnos_general = 0;
             $suma_salas_general = 0;
@@ -814,6 +838,7 @@ class TurnoController extends Controller
             $suma_rapidos_general = 0;
             $suma_demandas_general = 0;
             $suma_familiares_general = 0;
+            $suma_exhortos_general = 0;            
             $suma_totales_personas = 0;
             
             for($i = 1; $i < 8; $i++)
@@ -970,8 +995,33 @@ class TurnoController extends Controller
                 }else{
                     $promedio_familiares = $suma_familiares/$total_familiares;
                 }
-
                 $suma_familiares_general = $suma_familiares_general + $promedio_familiares;
+
+
+                $exhortos = Turno::where('hora_registro', '>=', $hora_inicio)
+                                    ->where('hora_registro', '<', $hora_fin)
+                                    ->where('tipo_turno_id', 7)
+                                    ->where('en_atencion', '!=' , 0)
+                                    ->where('casa_justicia_id', $request->id_sede)
+                                    ->where('fecha_registro', $fecha_hoy)
+                                    ->get();
+
+                    $total_exhortos = $exhortos->count();
+
+                    foreach($exhortos as $exhorto){
+                    $mayor = new Carbon('2010-05-16 '.$exhorto->hora_atencion_inicio);
+                    $menor = new Carbon('2010-05-16 '.$exhorto->hora_registro);
+                    $diferencia = $mayor->diffInMinutes($menor);
+                    $suma_exhortos = $suma_exhortos + $diferencia;
+
+                    }
+                    if($total_exhortos == 0){
+                        $promedio_exhortos = 0;
+                    }else{
+                        $promedio_exhortos = $suma_exhortos/$total_exhortos;
+                    }
+
+                $suma_exhortos_general = $suma_exhortos_general + $promedio_exhortos;
 
                 $total_atendidos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -990,6 +1040,7 @@ class TurnoController extends Controller
                 $object->demanda = $promedio_demandas.' min';
                 $object->aten_rapida = $promedio_rapidos.' min';
                 $object->o_familiar = $promedio_familiares.' min';
+                $object->exhorto = $promedio_exhortos.' min';
                 array_push($array, $object);
                 
                 $objectPersonas = new \stdClass();
@@ -1012,6 +1063,7 @@ class TurnoController extends Controller
             $objectTiempoTotales->rapidos = $suma_rapidos_general;
             $objectTiempoTotales->demandas = $suma_demandas_general;
             $objectTiempoTotales->familiares = $suma_familiares_general;
+            $objectTiempoTotales->exhorto = $suma_exhortos_general;
 
             $objectTotalPersonasAtendidas = new \stdClass();
             $objectTotalPersonasAtendidas->hora = 'Total';

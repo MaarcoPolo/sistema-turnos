@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('turno');
             $table->foreignId('tipo_turno_id')->constrained();
+            // $table->string('tipo_turno_id');
             $table->unsignedBigInteger('casa_justicia_id');
             $table->date('fecha_registro')->nullable();;
             $table->time('hora_registro')->nullable();;

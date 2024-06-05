@@ -43,8 +43,8 @@
                 </div>
             </div>
         </div>
-         <!--INICIO DE LA TABLA USUARIOS-->
-         <div class="my-2 mb-12 py-6">
+        <!--INICIO DE LA TABLA USUARIOS-->
+        <div class="my-2 mb-12 py-6">
             <div class="">
                 <div class="row justify-content-between">
                     <table class="table custom-border-table">
@@ -228,7 +228,6 @@
                                     <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p>
                                 </div>
                             </div>
-                          
                         </div>
                         <div v-if="user.user.tipo_usuario_id == 2" class="row justify-content-between mt-4">
                             <div class="col-md-4 col-12"></div>

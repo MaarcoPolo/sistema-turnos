@@ -41,7 +41,11 @@ Route::controller(AuthController::class)->group(function() {
 
 
 Route::group(['middleware' => 'auth:sanctum'], function ($router) {
+
     Route::get('/tipos-turnos', [TipoTurnoController::class, 'getTiposTurnos']);
+    Route::post('/tipos-turnos/crear-tipo', [TipoTurnoController::class, 'guardarTipoTurno']);
+    Route::post('/tipos-turnos/actualizar-tipo', [TipoTurnoController::class, 'actualizarTipoTurno']);
+    Route::post('/tipos-turnos/eliminar-tipo', [TipoTurnoController::class, 'eliminarTipoTurno']);
     
     Route::post('/cajas', [CajaController::class, 'getCajas']);
     Route::post('/cajas-disponibles', [CajaController::class, 'getCajasDisponibles']);

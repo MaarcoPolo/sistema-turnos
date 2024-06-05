@@ -27,30 +27,30 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{turnos}}</p>
+                                        <p>{{escritosConAnexos}}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>Turno</p>
+                                        <p>Escritos con Anexos</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ salas }}</p>
+                                        <p>{{ apelaciones }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>Sala</p>
+                                        <p>Apelaciones y Escritos Salas</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ internos }}</p>
+                                        <p>{{ trabajadores }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>Interno</p>
+                                        <p>Trabajadores PJ</p>
                                     </div>
                                 </div>
                             </div>
@@ -59,17 +59,17 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ demandas }}</p>
+                                        <p>{{ demandaNueva }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>Demanda</p>
+                                        <p>Demanda Nueva</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ rapidos }}</p>
+                                        <p>{{ escritosSinAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>A. Rápida</p>
@@ -83,6 +83,16 @@
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>O. Familiar</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ exhortos }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Exhortos</p>
                                     </div>
                                 </div>
                             </div>
@@ -397,12 +407,13 @@
                     sede: null,
 
                 },
-                turnos: 0,
-                salas: 0,
-                internos: 0,
-                rapidos: 0,
-                demandas: 0,
+                escritosConAnexos: 0,
+                apelaciones: 0,
+                trabajadores: 0,
+                escritosSinAnexos: 0,
+                demandaNueva: 0,
                 familiares: 0,
+                exhortos: 0,
                 sede: null,
 
 
@@ -476,13 +487,14 @@
                     let response = await axios.post('/api/turnos-pendientes', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
-                            this.turnos = response.data.pendientes.turnos
-                            this.salas = response.data.pendientes.salas
-                            this.internos = response.data.pendientes.internos
-                            this.rapidos = response.data.pendientes.rapidos
-                            this.demandas = response.data.pendientes.demandas
+                            this.escritosConAnexos = response.data.pendientes.escritosConAnexos
+                            this.apelaciones = response.data.pendientes.apelaciones
+                            this.trabajadores = response.data.pendientes.trabajadores
+                            this.escritosSinAnexos = response.data.pendientes.escritosSinAnexos
+                            this.demandaNueva = response.data.pendientes.demandaNueva
                             this.familiares = response.data.pendientes.familiares
-                          
+                            this.exhortos = response.data.pendientes.exhortos
+                        
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }

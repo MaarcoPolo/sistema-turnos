@@ -2,11 +2,10 @@
     <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
-                <p class="custom-title-page">Ventanillas</p>
+                <p class="custom-title-page">Tipo de Turnos</p>
             </div>
         </div>
         <div class="container mt-6">
-            <!-- INICIO BOTON NUEVA CAJA -->
             <div class="row justify-content-between">
                     <div class="col-md-4 col-12"></div>
                     <div class="col-md-4 col-12"></div>
@@ -17,9 +16,9 @@
                                 class="custom-button"
                                 block
                                 color="#c4f45d"
-                                @click="abrirModalNuevaCaja()"
+                                @click="abrirModalNuevoTipoTurno()"
                                 >
-                                Nueva ventanilla
+                                Nuevo Tipo de Turno
                             </v-btn>
                         </div>
                     </div>
@@ -51,8 +50,8 @@
                                 <tr>
                                     <th class="custom-title-table">Id</th>
                                     <th class="custom-title-table">Nombre</th>
-                                    <th v-if="user.user.tipo_usuario_id ==1" class="custom-title-table">Sede</th>
-                                    <th class="custom-title-table">Estatus</th>
+                                    <th class="custom-title-table">Nomenclatura</th>
+                                    <th class="custom-title-table">Descripción</th>
                                     <th class="custom-title-table">Acciones</th>
                                 </tr>
                             </thead>
@@ -65,24 +64,24 @@
                                         </div>
                                     </th>
                                 </tr>
-                                <tr v-else v-for="caja in datosPaginados" :key="caja.id">
+                                <tr v-else v-for="tipos_turnos in datosPaginados" :key="tipos_turnos.id">
                                     <td class="custom-data-table">
-                                        {{caja.num_registro}}
+                                        {{tipos_turnos.num_registro}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
-                                        {{caja.nombre}}
-                                    </td>
-                                    <td v-if="user.user.tipo_usuario_id ==1" class="custom-data-table text-uppercase">
-                                        {{caja.sede}}
+                                        {{tipos_turnos.nombre}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
-                                        {{caja.estatus}}
+                                        {{tipos_turnos.nomenclatura}}
+                                    </td>
+                                    <td class="custom-data-table text-uppercase">
+                                        {{tipos_turnos.descripcion}}
                                     </td>
                                     <td>
                                         <div class="text-center row justify-content-center">
                                             <div>
                                                 <v-icon 
-                                                    @click="abrirModalEditarCaja(caja)"
+                                                    @click="abrirModalEditarTipoTurno(tipo_turno)"
                                                     class="mr-1"
                                                     >
                                                     mdi-text-box-edit-outline
@@ -92,25 +91,17 @@
                                                     activator="parent"
                                                     location="bottom"
                                                     >
-                                                    <span style="font-size: 15px;">Editar Ventanilla</span>
+                                                    <span style="font-size: 15px;">Editar Tipo de Turno</span>
                                                 </v-tooltip>
                                             </div>
                                             <div>
                                                 <v-icon
-                                                    @click="eliminarCaja(caja)"
+                                                    @click="eliminarTipoTurno(tipo_turno)"
                                                     class="ml-1"
                                                     
                                                     >
                                                     mdi-account-off
                                                 </v-icon>
-    
-                                                <v-tooltip
-                                                    activator="parent"
-                                                    location="bottom"
-                                                    
-                                                    >
-                                                    <span style="font-size: 15px;">Desactivar Ventanilla</span>
-                                                </v-tooltip>
                                             </div>
                                         </div>
                                     </td>
@@ -119,7 +110,7 @@
                         </table>
                     </div>
                     <div>
-                        <template v-if="cajas && cajas.length > 0">
+                        <template v-if="tiposTurnos && tiposTurnos.length > 0">
                             <div class="row justify-content-between container">
                                 <div>
                                     <p class="custom-text-show-results mt-2">
@@ -128,7 +119,7 @@
                                         -
                                         <span>{{to}}</span>
                                         de
-                                        <span>{{cajas.length}}</span>
+                                        <span>{{tiposTurnos.length}}</span>
                                         resultados
                                     </p>
                                 </div>
@@ -171,7 +162,7 @@
                         </template>
                         <template v-else-if="!loading">
                             <div class="text-center">
-                                <p class="no-data-text">No hay ventanillas disponibles</p>
+                                <p class="no-data-text">No hay tipos de turnos disponibles</p>
                             </div>
                         </template>
                     </div>
@@ -180,53 +171,49 @@
         </div>
 
         <!-- INICIO MODAL AGREGAR NUEVA CAJA-->
-        <v-dialog v-model="dialogNuevaCaja" max-width="50rem" persistent>
+        <v-dialog v-model="dialogNuevoTipoTurno" max-width="50rem" persistent>
             <v-card>
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Nueva Ventanilla</p>
+                            <p>Nuevo tipo de turno</p>
                         </div>
                     </div>
                     <div class="row justify-content-between mt-5">
                         <div class="col-12">
                             <div class="div-custom-input-caja">
-                                <label for="input_nombre">Nombre de la Ventanilla:</label>
+                                <label for="input_nombre">Nombre del tipo de turno:</label>
                                 <input id="input_nombre" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.form.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
                         <div class="col-12 mt-4">
-                            <div >
-                                <label for="select_tipo_ventanilla">Tipo de Ventanilla:</label>
-                                <v-select id="select_tipo_ventanilla" multiple :items="tiposVentanillas" item-value="id" item-title="nombre" v-model="v$.form.tipo.$model">
-                                </v-select>
-                                <p class="text-validation-red" v-if="v$.form.tipo.$error">*Campo obligatorio</p>
+                            <div class="div-custom-input-caja">
+                                <label for="input_nomenclatura">Nomenclatura:</label>
+                                <input id="input_nomenclatura" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nomenclatura.$model">
+                                <p class="text-validation-red" v-if="v$.form.nomenclatura.$error">*Campo obligatorio</p>
                             </div>
                         </div>
-                        <div v-if="user.user.tipo_usuario_id == 1" class="col-12 mt-4">
+                        <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="select_sede">Sede:</label>
-                                <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
-                                    <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
-                                </select>
-                                <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p>
+                                <label for="input_descripcion">Descripción:</label>
+                                <input id="input_descripcion" type="text" class="form-control minimal custom-input text-uppercase" v-model="form.descripcion">
                             </div>
-                        </div>                            
+                        </div>
                     </div>
                     <div class="text-center mb-4 mt-6">
                         <v-btn
                             
                             class="custom-button mr-2"
                             color="#c4f45d"
-                            @click="guardarNuevaCaja()"
+                            @click="guardarNuevoTipoTurno()"
                             >
                             Guardar
                         </v-btn>
                         <v-btn
                             class="custom-button ml-2"
                             color="#6a73a0"
-                            @click="cerrarModalNuevaCaja()"
+                            @click="cerrarModalNuevoTipoTurno()"
                             >
                             Cancelar
                         </v-btn>
@@ -236,22 +223,35 @@
         </v-dialog>
 
         <!-- INICIO MODAL EDITAR CAJA-->
-        <v-dialog v-model="dialogEditarCaja" max-width="50rem" persistent>
+        <v-dialog v-model="dialogEditarTipoTurno" max-width="50rem" persistent>
             <v-card>
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Editar Ventanilla</p>
+                            <p>Editar el tipo de turno</p>
                         </div>
                     </div>
                     <div class="">
                     </div>
                     <div class="row justify-content-between">
-                        <div class="col-12">
+                        <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
                                 <label for="input_nombre">Nombre:</label>
                                 <input id="input_nombre" autocomplete="off"  class="form-control" v-model="v$.editar.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.editar.nombre.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_nomenclatura">Nomenclatura:</label>
+                                <input id="input_nomenclatura" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.editar.nomenclatura.$model">
+                                <p class="text-validation-red" v-if="v$.editar.nomenclatura.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_descripcion">Descripción:</label>
+                                <input id="input_descripcion" type="text" class="form-control minimal custom-input text-uppercase" v-model="editar.descripcion">
                             </div>
                         </div>
                     </div>
@@ -260,14 +260,14 @@
                             
                             class="custom-button mr-2"
                             color="#c4f45d"
-                            @click="guardarCambiosEditarCaja()"
+                            @click="guardarCambiosEditarTipoTurno()"
                             >
                             Guardar
                         </v-btn>
                         <v-btn
                             class="custom-button ml-2"
                             color="#6a73a0"
-                            @click="cerrarModalNuevaCaja()"
+                            @click="cerrarModalNuevoTipoTurno()"
                             >
                             Cancelar
                         </v-btn>
@@ -289,9 +289,9 @@
     import { required} from '@vuelidate/validators'
 
     export default defineComponent({
-        name: 'cajas',
-        data() {
-            return {
+        name: 'TipoTurnos',
+        data(){
+            return{
                 showNav: false,
                 loading: false,
                 elementosPorPagina: 10,
@@ -303,27 +303,20 @@
                 numShown: 5,
                 current: 1,
                 buscar: '',
-                dialogNuevaCaja: false,
-                dialogEditarCaja: false,
-                form: {
+                dialogNuevoTipoTurno: false,
+                dialogEditarTipoTurno: false,
+                form:{
                     id:null,
                     nombre:'',
-                    tipo:null,
-                    sede:null,
-                    tipo_usuario:null
-                    // descripcion:'',
-                    // fecha_oficio:new Date().toJSON().slice(0,10),
+                    nomenclatura:null,
+                    descripcion:null,
                 },
-                editar: {
+                editar:{
                     id:null,
                     nombre:'',
-                    sede:null,
-                    tipo_usuario:null
+                    nomenclatura:null,
+                    descripcion:null
                 },
-                usuario:{
-                    tipo: null,
-                    sede: null,
-                }
             }
         },
         setup(){
@@ -337,26 +330,24 @@
                         nombre:{
                             required
                         },
-                        tipo:{
+                        nomenclatura:{
                             required
                         }, 
-                        sede:{
-                            required
-                        }
                     },
                     editar:{
                         nombre:{
+                            required
+                        },
+                        nomenclatura:{
                             required
                         }
                     }
                 }
         },
     created(){
-        this.getCajas()
         this.getCatalogoTiposTurnos()
-        this.getCasasJusticia()
     },
-    computed: {
+    computed:{
         pages(){
             const numShown = Math.min(this.numShown, this.totalPaginas())
             let first = this.current - Math.floor(numShown / 2)
@@ -364,29 +355,21 @@
             first = Math.min(first, this.totalPaginas() - numShown + 1)
             return [...Array(numShown)].map((k, i) => i + first)
         },
-        cajas(){
-                return this.$store.getters.getCajas
-        },
-        user(){
-                return this.$store.getters.user
+        tiposTurnos(){
+                return this.$store.getters.getCatalogoTiposTurnos
         },
         currentRoute(){
             return this.$route.name
         },
-        tiposVentanillas(){
-                return this.$store.getters.getCatalogoTiposTurnos
-        },
-        sedes(){
-                return this.$store.getters.getCasasJusticia
-        },
+
     },
     watch:{
         buscar: function(){
             if(!this.buscar.length == 0){
-                this.datosPaginados = this.cajas.filter(item => {
+                this.datosPaginados = this.tiposTurnos.filter(item => {
                     return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
-                    || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
-                    || item.estatus.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.nomenclatura.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.descripcion.toLowerCase().includes(this.buscar.toLowerCase())
                 })
             }else{
                 this.getDataPagina(1)
@@ -403,7 +386,7 @@
                 this.$store.dispatch('logout')
             },
             totalPaginas(){
-                return Math.ceil(this.cajas.length / this.elementosPorPagina)
+                return Math.ceil(this.tiposTurnos.length / this.elementosPorPagina)
             },
             getDataPagina(noPagina){
                 this.paginaActual = noPagina
@@ -413,8 +396,8 @@
                 let fin = (noPagina * this.elementosPorPagina)
 
                 for(let index = ini; index < fin; index++){
-                    if(this.cajas[index]){
-                        this.datosPaginados.push(this.cajas[index])
+                    if(this.tiposTurnos[index]){
+                        this.datosPaginados.push(this.tiposTurnos[index])
                     }
                 }
 
@@ -423,7 +406,7 @@
                 if(noPagina < this.totalPaginas()){
                     this.to = fin
                 }else{
-                    this.to = this.cajas.length
+                    this.to = this.tiposTurnos.length
                 }
             },
             getFirstPage(){
@@ -432,109 +415,73 @@
                 this.getDataPagina(this.paginaActual)
             },
             getPreviousPage(){
-                if (this.paginaActual > 1) {
+                if(this.paginaActual > 1){
                     this.paginaActual--
                 }
                 this.setCurrentPage(this.paginaActual)
                 this.getDataPagina(this.paginaActual)
             },
-            getNextPage() {
-                if (this.paginaActual < this.totalPaginas()) {
+            getNextPage(){
+                if(this.paginaActual < this.totalPaginas()){
                     this.paginaActual++
                 }
                 this.setCurrentPage(this.paginaActual)
                 this.getDataPagina(this.paginaActual)
             },
-            getLastPage() {
+            getLastPage(){
                 this.paginaActual = this.totalPaginas()
                 this.setCurrentPage(this.paginaActual)
                 this.getDataPagina(this.paginaActual)
             },
-            isActive (noPagina) {
+            isActive(noPagina){
                 return noPagina == this.paginaActual ? 'active' : ''
             },
-            setCurrentPage(pagina) {
+            setCurrentPage(pagina){
                 this.current = pagina
             },
-            abrirModalNuevaCaja(){
-                this.dialogNuevaCaja = true
+            abrirModalNuevoTipoTurno(){
+                this.dialogNuevoTipoTurno = true
             },
-            async getCatalogoTiposTurnos() {
+            async getCatalogoTiposTurnos(){
                 try {
                     let response = await axios.get('/api/tipos-turnos')
-                    if (response.status === 200) {
-                        if (response.data.status === "ok") {
+                    if(response.status === 200){
+                        if(response.data.status === "ok"){
                             this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
-                        } else {
+                            this.mostrar = true
+                        }else{
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
-                    } else {
+                    }else{
                         errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
                     }
-                } catch (error) {
+                }catch(error){
                     errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
                 }
             },
-            async getCasasJusticia() {
-                try {
-                    let response = await axios.get('/api/casas-justicia')
-                    if (response.status === 200) {
-                        if (response.data.status === "ok") {
-                            this.$store.commit('setCasasJusticia', response.data.sedes)
-                        } else {
-                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
-                        }
-                    } else {
-                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
-                    }
-                } catch (error) {
-                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
-                }
+            cerrarModalNuevoTipoTurno(){
+                this.dialogNuevoTipoTurno = false
+                this.dialogEditarTipoTurno = false
+                this.form.nombre = ''
+                this.form.nomenclatura = ''
+                this.form.descripcion = ''
             },
-            async getCajas() {
-                this.loading = true
-                try {
-                    this.usuario.tipo = this.user.user.tipo_usuario_id
-                    this.usuario.sede = this.user.user.casa_justicia_id
-                    let response = await axios.post('/api/cajas', this.usuario)
-                    if (response.status === 200) {
-                        if (response.data.status === "ok") {
-                            this.$store.commit('setCajas', response.data.cajas)
-                            // this.oficios = response.data.oficios
-                            this.mostrar = true
-                        } else {
-                            errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
-                        }
-                    } else {
-                        errorSweetAlert('Ocurrió un error al obtener las Ventanillas')
-                    }
-                } catch (error) {
-                    errorSweetAlert('Ocurrió un error al obtener las Ventanillas')
-                }
-                this.loading = false
-            },
-            cerrarModalNuevaCaja(){
-                this.dialogNuevaCaja = false
-                this.dialogEditarCaja = false
-                this.form.nombre =''
-            },
-            abrirModalEditarCaja(caja){
-                // console.log(caja)
-                this.dialogEditarCaja=true 
-                this.editar.id = caja.id
-                this.editar.nombre = caja.nombre
+            abrirModalEditarTipoTurno(tipos_turnos){
+            console.log(tipos_turnos);
+
+                this.dialogEditarTipoTurno = true 
+                this.editar.id = tipos_turnos.id
+                this.editar.nombre = tipos_turnos.nombre
+                this.editar.nomenclatura = tipos_turnos.nomenclatura
+                this.editar.descripcion = tipos_turnos.descripcion
 
             },
-            async guardarNuevaCaja() {
-                if(this.user.user.tipo_usuario_id == 2){
-                                    this.form.sede = this.user.user.casa_justicia_id
-                                    
-                    }
-                    this.form.tipo_usuario = this.user.user.tipo_usuario_id
+            async guardarNuevoTipoTurno(){
+
                 const isFormCorrect = await this.v$.form.$validate()              
-                if (!isFormCorrect) return
+                if(!isFormCorrect) return
                 Swal.fire({
-                    title: '¿Guardar nueva Ventanilla?',
+                    title: '¿Guardar nuevo Tipo de Turno?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085D6',
@@ -542,39 +489,38 @@
                     confirmButtonText: 'Si, guardar',
                     cancelButtonText: 'Cancelar',
                     showLoaderOnConfirm: true,
-                    preConfirm: async () => {
-                        try {
+                    preConfirm: async()=>{
+                        try{
                                 this.loading = true
-                                let response = await axios.post('/api/cajas/crear-caja', this.form)
+                                let response = await axios.post('/api/tipos-turnos/crear-tipo', this.form)
                                 return response
-                            } catch (error) {
-                                errorSweetAlert('Ocurrió un error al guardar la Ventanilla.')
+                            }catch(error){
+                                errorSweetAlert('Ocurrió un error al guardar el tipo de turno.')
                             }
                         },
                         allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {
-                        if (result.isConfirmed) {
-                            if (result.value.status === 200) {
-                                if (result.value.data.status === "ok") {
+                        if(result.isConfirmed){
+                            if(result.value.status === 200){
+                                if(result.value.data.status === "ok"){
                                     successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCajas', result.value.data.cajas)
+                                    this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
                                     this.loading = false
-                                    this.cerrarModalNuevaCaja()
+                                    this.cerrarModalNuevoTipoTurno()
                                     this.getDataPagina(1)
-                                    // this.descargarCodigoOficio(result.value.data.oficio)
-                                } else if(result.value.data.status==="exists"){
+                                }else if(result.value.data.status==="exists"){
                                     warningSweetAlert(result.value.data.message)
                                     this.loading = false
-                                }else {
+                                }else{
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                 }
-                            } else {
-                                errorSweetAlert('Ocurrió un error al guardar la Ventanilla.')
+                            }else{
+                                errorSweetAlert('Ocurrió un error al guardar el nuevo tipo de turno')
                             }
                         }
                     })
             },
-            async guardarCambiosEditarCaja() {
+            async guardarCambiosEditarTipoTurno(){
                 const isFormCorrect = await this.v$.editar.$validate()              
                 if (!isFormCorrect) return
                     Swal.fire({
@@ -589,12 +535,12 @@
                         preConfirm: async () => {
                             try {
                                 this.loading = true
-                                this.editar.sede = this.user.user.casa_justicia_id
-                                this.editar.tipo_usuario = this.user.user.tipo_usuario_id
-                                let response = await axios.post('/api/cajas/actualizar-caja', this.editar)
+                                // this.editar.sede = this.user.user.casa_justicia_id
+                                // this.editar.tipo_usuario = this.user.user.tipo_usuario_id
+                                let response = await axios.post('/api/tipos-turnos/actualizar-tipo', this.editar)
                                 return response
                             } catch (error) {
-                                errorSweetAlert('Ocurrió un error al actualizar la Ventanilla.')
+                                errorSweetAlert('Ocurrió un error al actualizar los tipos de turnos.')
                             }
                         },
                         allowOutsideClick: () => !Swal.isLoading()
@@ -603,58 +549,58 @@
                             if (result.value.status === 200) {
                                 if (result.value.data.status === "ok") {
                                     successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCajas', result.value.data.cajas)
-                                    this.cerrarModalNuevaCaja()
+                                    this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
+                                    this.cerrarModalNuevoTipoTurno()
                                     this.loading = false
                                     this.getDataPagina(1)
                                 }else {
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                 }
                             } else {
-                                errorSweetAlert('Ocurrió un error al actualizar los datos de la Ventanilla.')
+                                errorSweetAlert('Ocurrió un error al actualizar los datos del tipo de turno.')
                             }
                         }
                     })
-            },
-            async eliminarCaja(caja) {
-                Swal.fire({
-                    title: '¿Desactivar Ventanilla?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085D6',
-                    cancelButtonColor: '#D33',
-                    confirmButtonText: 'Si, eliminar',
-                    cancelButtonText: 'Cancelar',
-                    showLoaderOnConfirm: true,
-                    preConfirm: async () => {
-                        try {
-                            this.loading= true
-                            caja.tipo_usuario = this.user.user.tipo_usuario_id
-                          //  console.log(caja)
-                            let response = await axios.post('/api/cajas/eliminar-caja', caja)
-                            return response
-                        }catch (error) {
-                            errorSweetAlert('Ocurrió un error al eliminar esta Ventanilla.')
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if(result.isConfirmed){
-                        if(result.value.status === 200){
-                            if(result.value.data.status === "ok"){
-                                successSweetAlert(result.value.data.message)
-                                this.$store.commit('setCajas', result.value.data.cajas)
-                                this.loading = false
-                                this.getDataPagina(1)
-                            }else{
-                                errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
+                },
+                async eliminarTipoTurno(tiposTurnos){
+                    Swal.fire({
+                        title: '¿Desea Eliminar este tipo de turno?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085D6',
+                        cancelButtonColor: '#D33',
+                        confirmButtonText: 'Si, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        showLoaderOnConfirm: true,
+                        preConfirm: async () => {
+                            try{
+                                this.loading= true
+                                //caja.tipo_usuario = this.user.user.tipo_usuario_id
+                                //console.log(caja)
+                                let response = await axios.post('/api/tipos-turnos/eliminar-tipo', tipo_turno)
+                                return response
+                                }catch(error){
+                                    errorSweetAlert('Ocurrió un error al eliminar esta Ventanilla.')
+                                }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                        }).then((result) => {
+                        if(result.isConfirmed){
+                            if(result.value.status === 200){
+                                if(result.value.data.status === "ok"){
+                                    successSweetAlert(result.value.data.message)
+                                    this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
+                                    this.loading = false
+                                    this.getDataPagina(1)
+                                    }else{
+                                        errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
+                                    }
+                                }else{
+                                    errorSweetAlert('Ocurrió un error al eliminar la Ventanilla.')
+                                }
                             }
-                        }else{
-                            errorSweetAlert('Ocurrió un error al eliminar la Ventanilla.')
-                        }
-                    }
-                })
+                        })
+                    }  
             }
-        }
     })
 </script>

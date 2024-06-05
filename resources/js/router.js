@@ -8,6 +8,7 @@ import Usuarios from './pages/Usuarios.vue'
 import Ventanilla from './pages/Ventanilla.vue'
 import Cajas from './pages/Cajas.vue'
 import Reportes from './pages/Reportes.vue'
+import TipoTurnos from './pages/TipoTurnos.vue'
 
 import KioscoPuebla from './pages/KioscoPuebla.vue'
 import KioscoCholula from './pages/KioscoCholula.vue'
@@ -103,6 +104,21 @@ const routes = [
                 next()
             } else {
                 next({name: 'Ventanilla'})
+            }
+        }
+    },
+    {
+        path: '/TipoTurnos',
+        name: 'TipoTurnos',
+        component: TipoTurnos,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'TipoTurnos'})
             }
         }
     },
