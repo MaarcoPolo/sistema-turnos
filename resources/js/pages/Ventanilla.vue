@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5 col-12 mt-4">
+            <!-- <div class="col-md-5 col-12 mt-4">
                 <div class="card-turno-2">
                     <div class="card-turno-titulo-2">
                         <p>Turnos por Atender</p>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-1 col-12"></div>
         </div>
     </div>
@@ -61,7 +61,6 @@
 <script>
     import { defineComponent } from "vue"
     import { errorSweetAlert, successSweetAlert, warningSweetAlert, infoSweetAlert } from "../helpers/sweetAlertGlobals"
-
 
     export default defineComponent({
         name: 'ventanilla',
@@ -75,13 +74,12 @@
             }
         },
         created(){
-            this.cargarTurnos()
+            // this.cargarTurnos()
         },
         mounted() {
             if(this.user.user.casa_justicia_id == 1)
             {
                 Echo.channel('ventanillasPuebla').listen('CargarTurnosPuebla', (e) => {
-                // console.log(this.user.user.casa_justicia_id)
                 this.cargarTurnos()
                 
                 })
@@ -89,7 +87,6 @@
             if(this.user.user.casa_justicia_id == 2)
             {
                 Echo.channel('ventanillasCholula').listen('CargarTurnosCholula', (e) => {
-                // console.log(e)
                 this.cargarTurnos()
                 
                 })
@@ -97,7 +94,6 @@
             if(this.user.user.casa_justicia_id == 3)
             {
                 Echo.channel('ventanillasHuejotzingo').listen('CargarTurnosHuejotzingo', (e) => {
-                // console.log(e)
                 this.cargarTurnos()
                 
                 })
@@ -105,13 +101,10 @@
             if(this.user.user.casa_justicia_id == 4)
             {
                 Echo.channel('ventanillasLaborales').listen('CargarTurnosLaborales', (e) => {
-                // console.log(e)
                 this.cargarTurnos()
                 
                 })
             }
-           
-            // this.cargarTurnos() 
         },
         computed: {
             user() {
@@ -123,29 +116,20 @@
             turnos(){
                 return this.$store.getters.getAtencionTurnos
             },
-            // obtenerturnos(){
-            //     return this.$store.getters.getObtenerTurnos
-            // }
         },
         methods:{
-            async atenderTurno()
-            {
+            async atenderTurno(){
                 this.loading = true
                 try {
                     this.usuario.id = this.user.user.id;
                     this.usuario.sede_id = this.user.user.casa_justicia_id;
-                    // console.log(this.usuario)
                         let response = await axios.post('/api/atender-turno', this.usuario)
                         if (response.status === 200) {
                             if (response.data.status === "ok") {
                                 this.$store.commit('setAtencionTurnos',response.data.turnos)
-                                // console.log(this.$store.state.turno.turnoGenerado)
-                                // successSweetAlert(response.message)
-                                // this.$router.push('/imprimir-turno-laborales')
                                 }else if(response.data.status === "no-data"){
-                                    this.$store.commit('setAtencionTurnos',response.data.turnos)
                                     infoSweetAlert(response.data.message)
-                                
+                                    this.loading = false
                                 } else {
                                 errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
                             }
@@ -157,34 +141,34 @@
                     }
                 this.loading = false
             },
-            async cargarTurnos()
-            {
-               
-                try {
-                    this.usuario.id = this.user.user.id;
-                    this.usuario.sede_id = this.user.user.casa_justicia_id;
-                    // console.log(this.usuario)
-                        let response = await axios.post('/api/cargar-turnos', this.usuario)
-                        if (response.status === 200) {
-                            if (response.data.status === "ok") {
-                                this.$store.commit('setAtencionTurnos',response.data.turnos)
-                                // console.log(this.$store.state.turno.turnoGenerado)
-                                // successSweetAlert(response.message)
-                                // this.$router.push('/imprimir-turno-laborales')
-                                }else if(response.data.status === "no-data"){
-                                    this.$store.commit('setAtencionTurnos',response.data.turnos)
-                                    infoSweetAlert(response.data.message)
-                                } else {
-                                errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
-                            }
-                        } else {
-                        errorSweetAlert('Ocurrió un error al cargar los turnos.')
-                        }
-                    } catch (error) {
-                                errorSweetAlert('Ocurrió un error al cargar los turnos.')
-                    }
+        //     async cargarTurnos()
+        //     {
+            
+        //         try {
+        //             this.usuario.id = this.user.user.id;
+        //             this.usuario.sede_id = this.user.user.casa_justicia_id;
+        //             // console.log(this.usuario)
+        //                 let response = await axios.post('/api/cargar-turnos', this.usuario)
+        //                 if (response.status === 200) {
+        //                     if (response.data.status === "ok") {
+        //                         this.$store.commit('setAtencionTurnos',response.data.turnos)
+        //                         // console.log(this.$store.state.turno.turnoGenerado)
+        //                         // successSweetAlert(response.message)
+        //                         // this.$router.push('/imprimir-turno-laborales')
+        //                         }else if(response.data.status === "no-data"){
+        //                             this.$store.commit('setAtencionTurnos',response.data.turnos)
+        //                             infoSweetAlert(response.data.message)
+        //                         } else {
+        //                         errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
+        //                     }
+        //                 } else {
+        //                 errorSweetAlert('Ocurrió un error al cargar los turnos.')
+        //                 }
+        //             } catch (error) {
+        //                         errorSweetAlert('Ocurrió un error al cargar los turnos.')
+        //             }
 
-            }
+        //     }
         }
     })
 </script>

@@ -99,7 +99,7 @@ class UserController extends Controller
                     $usuario->tipo_usuario = 'ventanilla';
                     $usuario->tipo_usuario_id = $request->tipo_usuario_id;
                 }
-               
+
                 $usuario->caja_id = $request->caja_id;
                 $usuario->casa_justicia_id = $request->sede;
                 $usuario->save();
@@ -110,15 +110,17 @@ class UserController extends Controller
                     $caja->status = true;
                     $caja->save();
 
-                    $id2 = $caja->user->asignacion;
-                    if($id2)
-                    {
-                        $id2->user_id = $usuario->id;
-                        $id2->status = true;
-                        $id2->save();
+                    // $id2 = $caja->user->asignacion;
+
+                    // if($id2)
+                    // {
+                    //     $id2->user_id = $usuario->id;
+                    //     $id2->status = true;
+                    //     $id2->save();
                     
-                    }else{
-                        for($i=0;$i <strlen($caja->tipo_turno_id); $i++)
+                    }
+                    // else{
+                        for($i=0; $i < strlen($caja->tipo_turno_id); $i++)
                         {
                         
                             $asignacion = new Asignacion;
@@ -132,8 +134,8 @@ class UserController extends Controller
                         // $asignacion->casa_justicia_id = $request->sede;
                         // $asignacion->tipo_turno = $caja->tipo_turno_id;
                         // $asignacion->save();
-                    }
-                }
+                    // }
+                // }
 
             // }
             

@@ -20,27 +20,27 @@ class CasaJusticiaSeeder extends Seeder
             'tipo_conexion_impresora' => 'local',
             'status' => 1,
         ]);
-        DB::table('casas_justicia')->insert([
-            'nombre' => 'Cholula',
-            'nomenclatura' => 'C',
-            'nombre_impresora' => 'Epson1',
-            'tipo_conexion_impresora' => 'local',
-            'status' => 1,
-        ]);
-        DB::table('casas_justicia')->insert([
-            'nombre' => 'Huejotzingo',
-            'nomenclatura' => 'H',
-            'nombre_impresora' => 'Epson1',
-            'tipo_conexion_impresora' => 'local',
-            'status' => 1,
-        ]);
-        DB::table('casas_justicia')->insert([
-            'nombre' => 'Laborales',
-            'nomenclatura' => 'L',
-            'nombre_impresora' => 'Epson1',
-            'tipo_conexion_impresora' => 'local',
-            'status' => 1,
-        ]);
+        // DB::table('casas_justicia')->insert([
+        //     'nombre' => 'Cholula',
+        //     'nomenclatura' => 'C',
+        //     'nombre_impresora' => 'Epson1',
+        //     'tipo_conexion_impresora' => 'local',
+        //     'status' => 1,
+        // ]);
+        // DB::table('casas_justicia')->insert([
+        //     'nombre' => 'Huejotzingo',
+        //     'nomenclatura' => 'H',
+        //     'nombre_impresora' => 'Epson1',
+        //     'tipo_conexion_impresora' => 'local',
+        //     'status' => 1,
+        // ]);
+        // DB::table('casas_justicia')->insert([
+        //     'nombre' => 'Laborales',
+        //     'nomenclatura' => 'L',
+        //     'nombre_impresora' => 'Epson1',
+        //     'tipo_conexion_impresora' => 'local',
+        //     'status' => 1,
+        // ]);
 
     }
 }

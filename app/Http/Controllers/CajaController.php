@@ -399,17 +399,32 @@ class CajaController extends Controller
 
         DB::beginTransaction();
         try {
-            $caja = Caja::find ($request->id);
-            $caja->tipo_turno_id = $request->tipo_ventanilla;
-            $caja->save();
-/////////////////////////////////////////////////
-            $id = $caja->user->asignacion;
-            if($id)
-            {
-                $id->tipo_turno = $request->tipo_ventanilla;
-                $id->save();
+
+            $tipo_id = '';
+            for($i=0;$i < count($request->tipo_id); $i++){
+
+                $tipo_id = $tipo_id.$request->tipo_id[$i];
+                
             }
-     /////////////////////////////////////////////////////////////////       
+
+            $caja = Caja::find($request->id);
+            $caja->tipo_turno_id = $tipo_id;
+            $caja->save();
+
+            $user = User::where('caja_id',$request->id)->first();
+            $id_user = $user->id;
+            $sede = $user->casa_justicia_id;
+
+            $asignacion_borrar = Asignacion::where('user_id',$id_user)->delete();
+
+                for($i=0; $i < count($request->tipo_id); $i++){    
+
+                        $asignacion = new Asignacion;
+                        $asignacion->user_id = $id_user;
+                        $asignacion->casa_justicia_id = $sede;
+                        $asignacion->tipo_turno = intval($request->tipo_id[$i]);
+                        $asignacion->save();
+                    }
 
 
             $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();

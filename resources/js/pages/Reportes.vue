@@ -19,9 +19,6 @@
                     <BotonCatalogo v-if="!loading_3" nombre_icon="usuarios.png" nombre_catalogo="Huejotzingo" @click="generarReporte(3)" />
                     <span v-else class="loader-reportes"></span>
                 </div>
-                <!-- <div class="col-md-3 col-12 text-center mt-2">
-                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Puebla" @click="generarReporte()" />
-                </div> -->
             </div>
         </div>
     </div>

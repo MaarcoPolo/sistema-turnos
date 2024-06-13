@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-1 col-12"></div>
             </div>
-            <div class="row justify-content-between mt-12 mb-8">
+            <div class="row justify-content-center mt-12 mb-8">
                 <div class="col-md-5 col-12 mt-4">
                     <div class="card-turno-3 row justify-content-between">
                         <div class="col-6 p-0">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-turno-3 row justify-content-between">
+                    <div class="card-turno-3 row justify-content-center">
                         <div class="col-6 card-pantalla-tabla-columna-turnos">
                             <div class="mb-4">
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[1].turno : '--'}}</p>
@@ -79,10 +79,6 @@
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
-                            <!-- <div class="mb-4">
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[10].turno : '--'}}</p>
-                                <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div> -->
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div class="mb-4">
@@ -112,13 +108,10 @@
                             <div class="mb-4">
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : '--'}}</p>
                             </div>
-                            <!-- <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[10].caja : '--'}}</p>
-                            </div> -->
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-12 mt-8">
+                <!-- <div class="col-md-6 col-12 mt-8">
                     <v-carousel class="custom-slider" cycle show-arrows="hover" hide-delimiters>
                         <v-carousel-item
                             v-for="(item,i) in imagenes_slider"
@@ -126,12 +119,12 @@
                             :src="item.src"
                             
                         ></v-carousel-item>
-                    </v-carousel>
+                    </v-carousel> -->
                     <!-- <video id="video-turnos" class="tag-video" autoplay loop muted controls>
                         <source src="../../../public/video/video-pantalla.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video> -->
-                </div>
+                <!-- </div> -->
                 <!-- <div class="col-md-1 col-12 mt-4"></div> -->
             </div>
 
@@ -154,27 +147,28 @@
             return{
                 turno:{
                     casa_justicia_id: 1,
-                },
-                imagenes_slider: [
-                    {
-                        src: '/img/slider/imagen_2.png',
-                    },
-                    {
-                        src: '/img/slider/imagen_3.png',
-                    },
-                    {
-                        src: '/img/slider/imagen_4.png',
-                    },
-                    {
-                        src: '/img/slider/imagen_5.png',
-                    },
-                ]
+                }
+                // imagenes_slider: [
+                //     {
+                //         src: '/img/slider/imagen_2.png',
+                //     },
+                //     {
+                //         src: '/img/slider/imagen_3.png',
+                //     },
+                //     {
+                //         src: '/img/slider/imagen_4.png',
+                //     },
+                //     {
+                //         src: '/img/slider/imagen_5.png',
+                //     },
+                // ]
             }
         },
         created(){
             this.turnosPantalla()
+            // this.reproducir()
         },
-        mounted() {
+        mounted(){
             Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
                 this.turnosPantalla()
             })
@@ -185,14 +179,14 @@
             },
         },
         methods:{
-            reproducir() {
+            reproducir(){
                 document.getElementById("music").play()
             },
-            async turnosPantalla() {
-                try {
+            async turnosPantalla(){
+                try{
                     let response = await axios.post('/api/turnos-pantalla', this.turno)
-                    if (response.status === 200) {
-                        if (response.data.status === "ok") {
+                    if(response.status === 200){
+                        if(response.data.status === "ok"){
                             this.$store.commit('setTurnosPantalla', response.data.turnos)
                             this.reproducir()
                         }else if(response.data.status === "no-data"){
@@ -203,7 +197,7 @@
                     } else {
                         errorSweetAlert('Ocurrió un error al obtener los turnos.')
                     }
-                } catch (error) {
+                } catch(error){
                     errorSweetAlert('Ocurrió un error al obtener los turnos.')
                 }
             },

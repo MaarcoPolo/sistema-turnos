@@ -17,17 +17,17 @@ class ContadorSeeder extends Seeder
             'contador' => 1,
             'casa_justicia_id' => 1,
         ]);
-        DB::table('contadores')->insert([
-            'contador' => 1,
-            'casa_justicia_id' => 2,
-        ]);
-        DB::table('contadores')->insert([
-            'contador' => 1,
-            'casa_justicia_id' => 3,
-        ]);
-        DB::table('contadores')->insert([
-            'contador' => 1,
-            'casa_justicia_id' => 4,
-        ]);
+        // DB::table('contadores')->insert([
+        //     'contador' => 1,
+        //     'casa_justicia_id' => 2,
+        // ]);
+        // DB::table('contadores')->insert([
+        //     'contador' => 1,
+        //     'casa_justicia_id' => 3,
+        // ]);
+        // DB::table('contadores')->insert([
+        //     'contador' => 1,
+        //     'casa_justicia_id' => 4,
+        // ]);
     }
 }

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->time('hora_atencion_inicio')->nullable();
             $table->date('fecha_atencion_fin')->nullable();
             $table->time('hora_atencion_fin')->nullable();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
 

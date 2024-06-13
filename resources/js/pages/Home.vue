@@ -5,7 +5,7 @@
                 <p class="custom-title-page">Administrar Ventanillas</p>
             </div>
         </div>
-        <div class="row justify-content-around mt-10 mx-2">
+        <div class="row justify-content-around mx-2">
             <div class="col-md-6 col-12">
                 <div class="home-main-card p-4">
                     <div class="card-titulo-administrar-ventanillas my-6">
@@ -18,7 +18,6 @@
                             <select v-model="sede" name="select_casa_justicia" class="form-control minimal custom-select text-uppercase">
                                 <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
                             </select>
-                            <!-- <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p> -->
                         </div>
                     </div>
                     <!-- SUPERADMINISTRADOR /ADMINISTRADOR PUEBLA-->
@@ -72,7 +71,7 @@
                                         <p>{{ escritosSinAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>A. Rápida</p>
+                                        <p>Escritos sin anexos</p>
                                     </div>
                                 </div>
                             </div>
@@ -191,11 +190,11 @@
             </div>
             <div class="col-md-6 col-12">
                 <div class="home-main-card p-4">
-                    <div class="card-titulo-administrar-ventanillas my-6">
+                    <!-- <div class="card-titulo-administrar-ventanillas my-6">
                         <img class="icono-administrar-ventanillas" src="../../../public/icons/ventanilla.png" alt="">
                         <p>Ventanillas</p>
-                    </div>
-                    <div class="row justify-content-between mt-10">
+                    </div> -->
+                    <!-- <div class="row justify-content-between mt-10">
                         <div class="col-md-4 col-12"></div>
                         <div class="col-md-8 col-12">
                             <div class="principal-div-custom-select">
@@ -207,9 +206,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                        
-                    <div class="container mt-4">
+                    </div>                         -->
+                    <div >
                         <div class="row justify-content-between">
                             <table class="table">
                                 <thead class="head-ventanillas">
@@ -264,7 +262,7 @@
                             </table>
                         </div>
                         <div>
-                            <template v-if="cajas && cajas.length > 0">
+                            <!-- <template v-if="cajas && cajas.length > 0">
                                 <div class="row justify-content-between container m-auto">
                                     <div class="m-auto">
                                         <p class="text-results-ventanillas mt-2">
@@ -318,13 +316,12 @@
                                 <div class="text-center">
                                     <p class="no-data-text">No hay ventanillas disponibles</p>
                                 </div>
-                            </template>
+                            </template> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- INICIO MODAL CAMBIAR TIPO DE VENTANILLA -->
         <v-dialog v-model="modalCambiarTipoVentanilla" max-width="50rem" persistent>
             <v-card>
@@ -339,7 +336,6 @@
                             <div class="div-custom-input-ventanilla">
                                 <label for="input_num_oficio">Ventanilla:</label>
                                 <input disabled id="input_num_oficio" type="text" class="form-control" v-model="form_ventanilla.nombre" autocomplete="off">
-                                <!-- <p class="text-validation-red" v-if="v$.form.num_oficio.$error">*Campo obligatorio</p> -->
                             </div>
                         </div>
                     </div>
@@ -347,10 +343,8 @@
                         <div class="col-12">
                             <div class="div-custom-select-audiencia">
                                 <label for="select_num_oficio">Tipo de Ventanilla:</label>
-                                <select name="select_tipo_usuario" class="form-control minimal custom-select text-uppercase" v-model="form_ventanilla.tipo_ventanilla">
-                                    <option  v-for="item in tiposVentanillas" :key="item.id" :value="item.id">{{item.nombre}}</option>
-                                </select>
-                                <!-- <p class="text-validation-red" v-if="v$.form.tipo_documento.$error">*Campo obligatorio</p> -->
+                                <v-select id="select_tipo_ventanilla" multiple :items="tiposVentanillas" item-value="id" item-title="nombre" v-model="form_ventanilla.tipo_id">
+                                </v-select>
                             </div>
                         </div>
                     </div>
@@ -372,8 +366,7 @@
                     </div>
                 </v-card-text>
             </v-card>
-        </v-dialog>
-        <!-- FIN MODAL CAMBIAR TIPO DE VENTANILLA -->
+        </v-dialog><!-- FIN MODAL CAMBIAR TIPO DE VENTANILLA -->
     </div>
 </template>
 
@@ -386,7 +379,7 @@
         data() {
             return {
                 loading: false,
-                elementosPorPagina: 5,
+                elementosPorPagina: 15,
                 paginaActual: 1,
                 datosPaginados: [],
                 mostrar: false,
@@ -401,6 +394,7 @@
                     id: null,
                     nombre: '',
                     tipo_ventanilla: '',
+                    tipo_id:[]
                 },
                 usuario:{
                     tipo: null,
@@ -415,9 +409,6 @@
                 familiares: 0,
                 exhortos: 0,
                 sede: null,
-
-
-             
             }
         },
         created() {
@@ -425,7 +416,6 @@
             this.getCajas()
             this.getCatalogoTiposTurnos()
             this.getCasasJusticia()
-           
         },
         computed: {
             pages() {
@@ -450,12 +440,10 @@
             sedes() {
                 return this.$store.getters.getCasasJusticia
             },
-           
         },
         watch: {
             'sede': function () {
                 this.usuario.sede = this.sede
-                // console.log(this.usuario)
                 this.getTurnosPendientes()
             },
             buscar: function () {
@@ -476,17 +464,14 @@
             },
         },
         methods: {
-            async getTurnosPendientes() {
-               
-                try {
+            async getTurnosPendientes(){
+                try{
                     if(this.user.user.tipo_usuario_id == 2){
                         this.usuario.sede = this.user.user.casa_justicia_id
-                    }
-                    // this.usuario.tipo = this.user.user.tipo_usuario_id
-                    
+                    }                    
                     let response = await axios.post('/api/turnos-pendientes', this.usuario)
                     if (response.status === 200) {
-                        if (response.data.status === "ok") {
+                        if (response.data.status === "ok"){
                             this.escritosConAnexos = response.data.pendientes.escritosConAnexos
                             this.apelaciones = response.data.pendientes.apelaciones
                             this.trabajadores = response.data.pendientes.trabajadores
@@ -504,10 +489,9 @@
                 } catch (error) {
                     errorSweetAlert('Ocurrió un error al obtener los turnos pendientes')
                 }
-                
             },
-            async getCasasJusticia() {
-                try {
+            async getCasasJusticia(){
+                try{
                     let response = await axios.get('/api/casas-justicia')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
@@ -522,9 +506,9 @@
                     errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
                 }
             },
-            async getCajas() {
+            async getCajas(){
                 this.loading = true
-                try {
+                try{
                     this.usuario.tipo = this.user.user.tipo_usuario_id
                     this.usuario.sede = this.user.user.casa_justicia_id
                     let response = await axios.post('/api/cajas', this.usuario)
@@ -543,8 +527,8 @@
                 }
                 this.loading = false
             },
-            async getCatalogoTiposTurnos() {
-                try {
+            async getCatalogoTiposTurnos(){
+                try{
                     let response = await axios.get('/api/tipos-turnos')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
@@ -559,56 +543,38 @@
                     errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
                 }
             },
-           
-            abrirModalCambiarTipoVentanilla(ventanilla) {
+            abrirModalCambiarTipoVentanilla(ventanilla){
                 this.form_ventanilla.id = ventanilla.id
                 this.form_ventanilla.nombre = ventanilla.nombre
                 this.form_ventanilla.tipo_ventanilla = ventanilla.tipo_id
                 this.modalCambiarTipoVentanilla = true
             },
-            cerrarModalCambiarTipoVentanilla() {
+            cerrarModalCambiarTipoVentanilla(){
+                this.form_ventanilla.id = ''
+                this.form_ventanilla.nombre = ''
+                this.form_ventanilla.tipo_ventanilla = ''
+                this.form_ventanilla.tipo_id = []
                 this.modalCambiarTipoVentanilla = false
             },
-            async guardarCambiosVentanilla() {
-                // const isFormCorrect = await this.v$.editar.$validate()              
-                // if (!isFormCorrect) return
-                // console.log(this.form_ventanilla)
-                    Swal.fire({
-                        title: '¿Guardar cambios?',
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085D6',
-                        cancelButtonColor: '#D33',
-                        confirmButtonText: 'Si, guardar',
-                        cancelButtonText: 'Cancelar',
-                        showLoaderOnConfirm: true,
-                        preConfirm: async () => {
-                            try {
-                                let response = await axios.post('/api/cajas/actualizar-tipo-caja', this.form_ventanilla)
-                                return response
-                            } catch (error) {
+            async guardarCambiosVentanilla(){
+                try{
+                    let response = await axios.post('/api/cajas/actualizar-tipo-caja', this.form_ventanilla)
+                        if (response.status === 200){
+                            if (response.data.status === "ok"){
+                                // successSweetAlert(response.data.message)
+                                this.$store.commit('setCajas', response.data.cajas)
+                                this.cerrarModalCambiarTipoVentanilla()
+                                this.getDataPagina(1)
+                            }else{
+                                errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
+                            }
+                            }else{
                                 errorSweetAlert('Ocurrió un error al actualizar el tipo de Ventanilla.')
                             }
-                        },
-                        allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            if (result.value.status === 200) {
-                                if (result.value.data.status === "ok") {
-                                    successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCajas', result.value.data.cajas)
-                                    this.cerrarModalCambiarTipoVentanilla()
-                                    this.getDataPagina(1)
-                                }else {
-                                    errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
-                                }
-                            } else {
-                                errorSweetAlert('Ocurrió un error al actualizar el tipo de Ventanilla.')
-                            }
+                        }catch(error){
+                            errorSweetAlert('Ocurrió un error al actualizar el tipo de Ventanilla.')
                         }
-                    })
-              
-           },
+            },
             totalPaginas() {
                 return Math.ceil(this.cajas.length / this.elementosPorPagina)
             },

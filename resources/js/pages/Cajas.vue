@@ -517,6 +517,8 @@
                 this.dialogNuevaCaja = false
                 this.dialogEditarCaja = false
                 this.form.nombre =''
+                this.form.tipo = ''
+
             },
             abrirModalEditarCaja(caja){
                 // console.log(caja)
@@ -527,7 +529,7 @@
             },
             async guardarNuevaCaja() {
                 if(this.user.user.tipo_usuario_id == 2){
-                                    this.form.sede = this.user.user.casa_justicia_id
+                    this.form.sede = this.user.user.casa_justicia_id
                                     
                     }
                     this.form.tipo_usuario = this.user.user.tipo_usuario_id

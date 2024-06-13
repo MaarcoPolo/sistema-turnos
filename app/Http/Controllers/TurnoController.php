@@ -38,17 +38,18 @@ class TurnoController extends Controller
                                     ->where('asignacion',0)
                                     ->where('status',1)
                                     ->first();
-            if($asignacion)
-            {
+            if($asignacion){
+
                 $asignacion->asignacion = true;
                 $asignacion->save();
                 DB::commit();
-                $user = $asignacion->user_id;
             }else{
+                
                 $asignaciones = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
                                     ->where('tipo_turno',$request->tipo_turno_id)
                                     ->where('status',1)
                                     ->get();
+                
                 foreach($asignaciones as $asignacion){
                         $asignacion->asignacion = false;
                         $asignacion->save();
@@ -56,19 +57,19 @@ class TurnoController extends Controller
                 }
 
                 $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
-                ->where('tipo_turno',$request->tipo_turno_id)
-                ->where('asignacion',0)
-                ->where('status',1)
-                ->first();
+                                        ->where('tipo_turno',$request->tipo_turno_id)
+                                        ->where('asignacion',0)
+                                        ->where('status',1)
+                                        ->first();
 
                 $asignacion->asignacion = true;
                 $asignacion->save();
                 DB::commit();
-                $user = $asignacion->user_id;
+                
             }
             $ultimo_turno = Turno::where('casa_justicia_id', $request->casa_justicia_id)
-            ->orderBy('id', 'desc')
-            ->first();
+                                ->orderBy('id', 'desc')
+                                ->first();
 
             $date = Carbon::now();
             $turno = new Turno;
@@ -78,25 +79,27 @@ class TurnoController extends Controller
             $turno->fecha_registro = $date->toDateString();
             $turno->hora_registro = $date->toTimeString();
             $turno->prioridad_id = 1;
-            $turno->user_id = $user;
             $turno->save();
 
             $sede = $turno->casa_justicia_id;
-            if($sede == 1){
-                    $nomen = 'P';
-            }
-            if($sede == 2){
-                    $nomen = 'C';
-            }
-            if($sede == 3){
-                    $nomen = 'H';
-            }
-            if($sede == 4){
-                    $nomen = 'L';
-            }
+
+                if($sede == 1){
+                        $nomen = 'P';
+                }
+                if($sede == 2){
+                        $nomen = 'C';
+                }
+                if($sede == 3){
+                        $nomen = 'H';
+                }
+                if($sede == 4){
+                        $nomen = 'L';
+                }
+
             $tipo_turno = $turno->tipo_turno_id; 
             $turnoo = '';
             $otra = $date->toDateString();
+            
             if($ultimo_turno){
                 $ultima_fecha = $ultimo_turno->fecha_registro;
                 if($ultima_fecha >= $otra){
@@ -138,7 +141,6 @@ class TurnoController extends Controller
                     }
                     break;
                 case '2':
-                        // $contador = Contador::where('casa_justicia_id',$sede)->get();
                         if($contador == 0)
                         {
                             $turnoo = $turnoo.'S0001'.$nomen;
@@ -161,7 +163,6 @@ class TurnoController extends Controller
                         }
                         break;
                 case '3':
-                    // $contador = Contador::where('casa_justicia_id',$sede)->get();
                     if($contador == 0)
                     {
                         $turnoo = $turnoo.'A0001'.$nomen;
@@ -184,7 +185,6 @@ class TurnoController extends Controller
                     }
                     break;
                 case '4':
-                    // $contador = Contador::where('casa_justicia_id',$sede)->get();
                     if($contador == 0)
                     {
                         $turnoo = $turnoo.'R0001'.$nomen;
@@ -207,7 +207,6 @@ class TurnoController extends Controller
                     }
                     break;
                 case '5':
-                    // $contador = Contador::where('casa_justicia_id',$sede)->get();
                     if($contador == 0)
                     {
                         $turnoo = $turnoo.'D0001'.$nomen;
@@ -230,7 +229,6 @@ class TurnoController extends Controller
                     }
                     break;
                 case '6':
-                    // $contador = Contador::where('casa_justicia_id',$sede)->get();
                     if($contador == 0)
                     {
                         $turnoo = $turnoo.'J0001'.$nomen;
@@ -253,7 +251,6 @@ class TurnoController extends Controller
                     }
                     break;
                     case '7':
-                        // $contador = Contador::where('casa_justicia_id',$sede)->get();
                         if($contador == 0)
                         {
                             $turnoo = $turnoo.'E0001'.$nomen;
@@ -272,13 +269,14 @@ class TurnoController extends Controller
                         }
                         elseif($contador >= 1000)
                         {
-                            $turnoo = $turnoo.'J'.$contador.$nomen;
+                            $turnoo = $turnoo.'E'.$contador.$nomen;
                         }
                         break;
 
             }
             $turno->turno = $turnoo;
             $turno->save();
+
             $object = new \stdClass();
             $object->id = $turno->id;
             $object->turno = $turno->turno;
@@ -297,6 +295,7 @@ class TurnoController extends Controller
         }
 
         if ($exito) {
+            
             $update = Contador::find($id_contador);
             $update->contador++;
             $update->save();
@@ -311,7 +310,6 @@ class TurnoController extends Controller
             }elseif($request->casa_justicia_id == 4){
                 CargarTurnosLaborales::dispatch();
             }
-           
             return response()->json([
                 "status" => "ok",
                 "message" => "Turno generado con éxito. ",
@@ -328,6 +326,7 @@ class TurnoController extends Controller
 
             $sede = $turno->casaJusticia->nombre;
             $tipo_red = $turno->casaJusticia->tipo_conexion_impresora;
+            
             if($tipo_red == 'local'){
                 $impresora = $turno->casaJusticia->nombre_impresora;
                 $connector = new WindowsPrintConnector($impresora);
@@ -385,182 +384,108 @@ class TurnoController extends Controller
         $exito = false;
         DB::beginTransaction();
         try{
-            $turno_atencion = Turno::where('casa_justicia_id', $request->sede_id)
-                                    ->where('user_id', $request->id)
-                                    ->where('en_atencion', 1)
-                                    ->first(); 
+            $tiposTurnos = Asignacion::select('tipo_turno')->where('user_id', $request->id)->where('casa_justicia_id', $request->sede_id)->get();
+            
+                foreach ($tiposTurnos as $tipoTurno){
+                    
+                    $tipo_turnoA  = $tipoTurno->tipo_turno;
+                
+                    $turno_atencion = Turno::where('casa_justicia_id', $request->sede_id)
+                                            ->where('tipo_turno_id', $tipo_turnoA)
+                                            ->where('en_atencion', 1)
+                                            ->where('user_id',$request->id)
+                                            ->first(); 
+    
+                        if($turno_atencion){
                             
-            if($turno_atencion){
-                $date = Carbon::now();
-                $turno_atencion->en_atencion = 2;
-                $turno_atencion->fecha_atencion_fin = $date->toDateString();
-                $turno_atencion->hora_atencion_fin = $date->toTimeString();
-                $turno_atencion->save();
-                DB::commit();
+                            $date = Carbon::now();
+                            $turno_atencion->en_atencion = 2;
+                            $turno_atencion->fecha_atencion_fin = $date->toDateString();
+                            $turno_atencion->hora_atencion_fin = $date->toTimeString();
+                            $turno_atencion->save();
+                            DB::commit();
 
-                $array_turnos = array();
-                $atender = Turno::where('casa_justicia_id', $request->sede_id)
-                                    ->where('user_id', $request->id)
-                                    ->where('en_atencion', 0)
-                                    ->first(); 
+                            $array_turnos = array();
+                            $atender = Turno::where('casa_justicia_id', $request->sede_id)
+                                            ->where('tipo_turno_id', $tipo_turnoA)
+                                            ->where('en_atencion', 0)
+                                            ->first(); 
 
-                if($atender)
-                {
-                    $date = Carbon::now();
-                    $atender->en_atencion = 1;
-                    $atender->fecha_atencion_inicio = $date->toDateString();
-                    $atender->hora_atencion_inicio = $date->toTimeString();
-                    $atender->save();
-                    DB::commit();
-                    $object = new \stdClass();
-                    $object->turno = $atender->turno;
-                    array_push($array_turnos, $object);
+                            if($atender){
+                                $date = Carbon::now();
+                                $atender->en_atencion = 1;
+                                $atender->fecha_atencion_inicio = $date->toDateString();
+                                $atender->hora_atencion_inicio = $date->toTimeString();
+                                $atender->user_id = $request->id;
+                                $atender->save();
+                                DB::commit();
 
-                    $turnos = Turno::where('casa_justicia_id', $request->sede_id)
-                                    ->where('user_id', $request->id)
-                                    ->where('en_atencion', 0)
-                                    ->limit(6)
-                                    ->get(); 
-                    $cont=1;             
-                    foreach($turnos as $turno){
-                        $object = new \stdClass();;
-                        $object->turno = $turno->turno;
-                        array_push($array_turnos, $object);
-                        $cont++;
-                    }
-                    for($i = $cont; $i < 7; $i++)
-                    {
-                        $object = new \stdClass();;
-                        $object->turno = '--';
-                        array_push($array_turnos, $object);
-                    }
+                                $object = new \stdClass();
+                                $object->turno = $atender->turno;
+                                array_push($array_turnos, $object);
 
-                    if($request->sede_id == 1){
-                        LlamarTurnoPuebla::dispatch('hola 1-');
-                    }elseif($request->sede_id == 2){
-                        LlamarTurnoCholula::dispatch('hola 2');
-                    }elseif($request->sede_id == 3){
-                        LlamarTurnoHuejotzingo::dispatch('hola 3');
-                    }elseif($request->sede_id == 4){
-                        LlamarTurnoLaborales::dispatch('hola 4');
-                    }
-                   
-                    return response()->json([
-                        "status" => "ok",
-                        "message" => "Turnos obtenidas con éxito",
-                        "turnos" => $array_turnos
-                    ], 200);
-                }else{
-                    $cont=0;
-                    for($i = $cont; $i < 7; $i++)
-                    {
-                        $object = new \stdClass();;
-                        $object->turno = '--';
-                        array_push($array_turnos, $object);
-                    }
+                                    if($request->sede_id == 1){
+                                    LlamarTurnoPuebla::dispatch('hola 1-');
+                                    }elseif($request->sede_id == 2){
+                                    LlamarTurnoCholula::dispatch('hola 2');
+                                    }elseif($request->sede_id == 3){
+                                    LlamarTurnoHuejotzingo::dispatch('hola 3');
+                                    }elseif($request->sede_id == 4){
+                                    LlamarTurnoLaborales::dispatch('hola 4');
+                                    }
 
-                    // if($request->sede_id == 1){
-                    //     LlamarTurnoPuebla::dispatch('hola 1--');
-                    // }elseif($request->sede_id == 2){
-                    //     LlamarTurnoCholula::dispatch('hola 2');
-                    // }elseif($request->sede_id == 3){
-                    //     LlamarTurnoHuejotzingo::dispatch('hola 3');
-                    // }elseif($request->sede_id == 4){
-                    //     LlamarTurnoLaborales::dispatch('hola 4');
-                    // }
-                    return response()->json([
-                        "status" => "no-data",
-                        "message" => "No tienes turnos pendientes por atender",
-                        "turnos" => $array_turnos
-                    ], 200);
+                                    return response()->json([
+                                    "status" => "ok",
+                                    "message" => "Turnos obtenidas con éxito",
+                                    "turnos" => $array_turnos
+                                    ], 200);
+                            }
 
-                }
-               
+                        }else{
+                                
+                                $atender = Turno::where('casa_justicia_id', $request->sede_id)
+                                            ->where('tipo_turno_id', $tipo_turnoA)
+                                            ->where('en_atencion', 0)
+                                            ->first(); 
+                                            
+                                $array_turnos = array();
+                                
+                                if($atender){
+                                    $date = Carbon::now();
+                                    $atender->en_atencion = 1;
+                                    $atender->fecha_atencion_inicio = $date->toDateString();
+                                    $atender->hora_atencion_inicio = $date->toTimeString();
+                                    $atender->user_id = $request->id;
+                                    $atender->save();
+                                    DB::commit();
 
-            }
-            else{
-                $array_turnos = array();
-                $atender = Turno::where('casa_justicia_id', $request->sede_id)
-                                    ->where('user_id', $request->id)
-                                    ->where('en_atencion', 0)
-                                    ->first(); 
+                                    $object = new \stdClass();
+                                    $object->turno = $atender->turno;
+                                    array_push($array_turnos, $object);
 
-                if($atender)
-                {
-                    $date = Carbon::now();
-                    $atender->en_atencion = 1;
-                    $atender->fecha_atencion_inicio = $date->toDateString();
-                    $atender->hora_atencion_inicio = $date->toTimeString();
-                    $atender->save();
-                    DB::commit();
+                                    if($request->sede_id == 1){
+                                    LlamarTurnoPuebla::dispatch('hola 1---');
+                                    }elseif($request->sede_id == 2){
+                                    LlamarTurnoCholula::dispatch('hola 2');
+                                    }elseif($request->sede_id == 3){
+                                    LlamarTurnoHuejotzingo::dispatch('hola 3');
+                                    }elseif($request->sede_id == 4){
+                                    LlamarTurnoLaborales::dispatch('hola 4');
+                                    }
+                                    return response()->json([
+                                    "status" => "ok",
+                                    "message" => "Turnos obtenidas con éxito",
+                                    "turnos" => $array_turnos
+                                    ], 200);
 
-                    $object = new \stdClass();
-                    $object->turno = $atender->turno;
-                    array_push($array_turnos, $object);
-
-                    $turnos = Turno::where('casa_justicia_id', $request->sede_id)
-                                    ->where('user_id', $request->id)
-                                    ->where('en_atencion', 0)
-                                    ->limit(6)
-                                    ->get(); 
-                    $cont =1;                
-                    foreach($turnos as $turno){
-                        $object = new \stdClass();
-                        // $object->posicion = $cont;
-                        $object->turno = $turno->turno;
-                        array_push($array_turnos, $object);
-                        $cont++;
-                    }
-                    for($i = $cont; $i < 7; $i++)
-                    {
-                        $object = new \stdClass();
-                        // $object->posicion = $cont;
-                        $object->turno = '--';
-                        array_push($array_turnos, $object);
-                    }
-
-                    if($request->sede_id == 1){
-                        LlamarTurnoPuebla::dispatch('hola 1---');
-                    }elseif($request->sede_id == 2){
-                        LlamarTurnoCholula::dispatch('hola 2');
-                    }elseif($request->sede_id == 3){
-                        LlamarTurnoHuejotzingo::dispatch('hola 3');
-                    }elseif($request->sede_id == 4){
-                        LlamarTurnoLaborales::dispatch('hola 4');
+                                }
+                            } 
                     }
                     return response()->json([
-                        "status" => "ok",
-                        "message" => "Turnos obtenidas con éxito",
-                        "turnos" => $array_turnos
-                    ], 200);
+                                "status" => "no-data",
+                                "message" => "No tienes turnos pendientes por atender",
+                                ], 200);
 
-                }else{
-                    $cont = 0;
-                    for($i = $cont; $i < 7; $i++)
-                    {
-                        $object = new \stdClass();
-                        // $object->posicion = $cont;
-                        $object->turno = '--';
-                        array_push($array_turnos, $object);
-                    }
-
-                    // if($request->sede_id == 1){
-                    //     LlamarTurnoPuebla::dispatch('hola 1----');
-                    // }elseif($request->sede_id == 2){
-                    //     LlamarTurnoCholula::dispatch('hola 2');
-                    // }elseif($request->sede_id == 3){
-                    //     LlamarTurnoHuejotzingo::dispatch('hola 3');
-                    // }elseif($request->sede_id == 4){
-                    //     LlamarTurnoLaborales::dispatch('hola 4');
-                    // }
-                    return response()->json([
-                        "status" => "no-data",
-                        "message" => "No tienes turnos pendientes por atender",
-                        "turnos" => $array_turnos
-                    ], 200);
-
-                }
-            }
         } catch (\Throwable $th) {
             DB::rollback();
             $exito = false;
@@ -585,9 +510,8 @@ class TurnoController extends Controller
                                 ->get(); 
 
             if($obtenerturnos->count()>0){
-               
                     $array = array();
-                   $object = new \stdClass();
+                    $object = new \stdClass();
                     $object->turno = '--';
                     array_push($array, $object);
 
@@ -596,7 +520,7 @@ class TurnoController extends Controller
                         $object = new \stdClass();
                         $object->turno = $turno->turno;
                         array_push($array, $object);
-                         $cont++;
+                        $cont++;
                     }
                     for($i = $cont; $i < 7; $i++)
                     {
@@ -629,8 +553,7 @@ class TurnoController extends Controller
                 ], 200);
 
             }
-
-           
+        
         } catch (\Throwable $th) {
             DB::rollback();
             $exito = false;
@@ -649,9 +572,7 @@ class TurnoController extends Controller
     {
         DB::beginTransaction();
         try{
-           
             $turnos = Turno::where('casa_justicia_id', $request->casa_justicia_id)
-                                // ->where('user_id', $request->id)
                                 ->where('en_atencion', '>=' ,1)
                                 ->orderBy('fecha_atencion_inicio', 'DESC')
                                 ->orderBy('hora_atencion_inicio', 'DESC')
@@ -663,7 +584,6 @@ class TurnoController extends Controller
                     $array_turnos = array();              
                     foreach($turnos as $turno){
                         $object = new \stdClass();
-                        // $object->posicion = $cont;
                         $object->turno = $turno->turno;
                         $object->caja = substr($turno->usuario->caja->nombre, 10);
                         array_push($array_turnos, $object);
@@ -701,9 +621,6 @@ class TurnoController extends Controller
                     ], 200);
 
                 }
-
-                   
-
         }catch (\Throwable $th) {
             DB::rollback();
             $exito = false;
@@ -715,11 +632,9 @@ class TurnoController extends Controller
                 "line" => $th->getLine(),
             ], 200);
         }
-
     }
 
-    public function turnosPendientes(Request $request)
-    {
+public function turnosPendientes(Request $request){
         try{
             $escritosConAnexos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 1)
