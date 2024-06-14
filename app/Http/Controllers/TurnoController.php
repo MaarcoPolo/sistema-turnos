@@ -280,7 +280,6 @@ class TurnoController extends Controller
             $object = new \stdClass();
             $object->id = $turno->id;
             $object->turno = $turno->turno;
-
             DB::commit();
             $exito = true;
 
@@ -300,7 +299,6 @@ class TurnoController extends Controller
             $update->contador++;
             $update->save();
             DB::commit();
-
             if($request->casa_justicia_id == 1){
                 CargarTurnosPuebla::dispatch();
             }elseif($request->casa_justicia_id == 2){
@@ -342,24 +340,24 @@ class TurnoController extends Controller
             $impresora = new Printer($connector);       
             $impresora->setJustification(Printer::JUSTIFY_CENTER);
             $impresora->bitImageColumnFormat($logo);
-            $impresora->text("\n");
-            $impresora->setTextSize(1, 1);
-            $impresora->text("Oficialía Común de Partes\n");
-            $impresora->text($sede."\n");
-            $impresora->text("\n");
-            $impresora->setTextSize(2, 2);
-            $impresora->text("¡Hola!\n");
-            $impresora->text("Tu turno es:\n");
+            // $impresora->text("\n");
+            // $impresora->setTextSize(1, 1);
+            // $impresora->text("Oficialía Común de Partes\n");
+            // $impresora->text($sede."\n");
+            // $impresora->text("\n");
+            // $impresora->setTextSize(2, 2);
+            // $impresora->text("¡Hola!\n");
+            // $impresora->text("Tu turno es:\n");
             $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
-            $impresora->setTextSize(5, 5);
-            $impresora->text($turnoo."\n");
-            $impresora->setTextSize(2, 2);
-            $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
-            $impresora->text("\n");
+            $impresora->setTextSize(3, 3);
+            $impresora->text($turnoo);
+            // $impresora->setTextSize(2, 2);
+            // $impresora->textRaw(str_repeat(chr(196), 20).PHP_EOL);
+            // $impresora->text("\n");
             $impresora->setTextSize(1, 1);
             $impresora->text("\nFecha y hora:\n");
             $impresora->text($fecha);
-            $impresora->feed(3);
+            $impresora->feed(1);
             $impresora->cut();
             $impresora->close();
 

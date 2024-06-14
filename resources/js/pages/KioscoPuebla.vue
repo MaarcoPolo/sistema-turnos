@@ -23,7 +23,7 @@
                     <span v-else class="loader"></span>
                 </div>
                 <div class="col-md-6 col-12 text-center div-boton-generar-turno">
-                    <img v-if="!loader_4" class="boton-generar-turno" src="../../../public/img/escritos_sin_anexos.png" alt="" @click="generarTurno(4)">
+                    <img v-if="!loader_4" class="boton-generar-turno" src="../../../public/img/sin_anexos.png" alt="" @click="generarTurno(4)">
                     <span v-else class="loader"></span>
                 </div>
             </div>

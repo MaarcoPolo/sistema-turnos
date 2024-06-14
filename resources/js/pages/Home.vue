@@ -85,6 +85,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row justify-content-center mt-6">
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
@@ -96,6 +98,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </template>
                     <!-- ADMINISTRADOR CHOLULA -->
                     <template v-if="user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 2">
@@ -416,6 +420,13 @@
             this.getCajas()
             this.getCatalogoTiposTurnos()
             this.getCasasJusticia()
+        },
+        mounted(){
+
+            Echo.channel('ventanillasPuebla').listen('CargarTurnosPuebla', (e) => {
+                this.getTurnosPendientes()
+                
+                })
         },
         computed: {
             pages() {

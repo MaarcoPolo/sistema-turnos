@@ -22,7 +22,7 @@
                                     <img src="../../../public/icons/imprimir.png" alt="">
                                 </div>
                                 <v-btn
-                                    class="custom-card-button"
+                                    class="custom-card-button text-h2"
                                     color="#c4f45d"
                                     :loading="loading"
                                     >
@@ -36,7 +36,7 @@
                                     <img src="../../../public/icons/regresar.png" alt="">
                                 </div>
                                 <v-btn
-                                    class="custom-card-button"
+                                    class="custom-card-button text-h2"
                                     color="#c4f45d"
                                     >
                                     Regresar
