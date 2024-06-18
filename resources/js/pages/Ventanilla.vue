@@ -73,9 +73,6 @@
                 loading: false,
             }
         },
-        created(){
-            // this.cargarTurnos()
-        },
         mounted() {
             if(this.user.user.casa_justicia_id == 1)
             {
@@ -141,34 +138,6 @@
                     }
                 this.loading = false
             },
-        //     async cargarTurnos()
-        //     {
-            
-        //         try {
-        //             this.usuario.id = this.user.user.id;
-        //             this.usuario.sede_id = this.user.user.casa_justicia_id;
-        //             // console.log(this.usuario)
-        //                 let response = await axios.post('/api/cargar-turnos', this.usuario)
-        //                 if (response.status === 200) {
-        //                     if (response.data.status === "ok") {
-        //                         this.$store.commit('setAtencionTurnos',response.data.turnos)
-        //                         // console.log(this.$store.state.turno.turnoGenerado)
-        //                         // successSweetAlert(response.message)
-        //                         // this.$router.push('/imprimir-turno-laborales')
-        //                         }else if(response.data.status === "no-data"){
-        //                             this.$store.commit('setAtencionTurnos',response.data.turnos)
-        //                             infoSweetAlert(response.data.message)
-        //                         } else {
-        //                         errorSweetAlert(`${response.value.data.message}<br>Error: ${response.value.data.error}<br>Location: ${response.value.data.location}<br>Line: ${response.value.data.line}`)
-        //                     }
-        //                 } else {
-        //                 errorSweetAlert('Ocurrió un error al cargar los turnos.')
-        //                 }
-        //             } catch (error) {
-        //                         errorSweetAlert('Ocurrió un error al cargar los turnos.')
-        //             }
-
-        //     }
         }
     })
 </script>

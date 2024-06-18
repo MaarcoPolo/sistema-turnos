@@ -7,7 +7,7 @@
                     <div class="card-turno-3">
                         <img class="icono-pantalla" src="../../../public/icons/turno.png" alt="">
                         <div class="card-turno-titulo">
-                            <p style="font-size: 2rem;">Turno</p>
+                            <p style="font-size: 4rem;">Turno</p>
                         </div>
                         <div class="card-turno-body-3">
                             <p class="card-numero-turno">{{ turnos.length > 0 ? turnos[0].turno : '--'}}</p>
@@ -18,7 +18,7 @@
                     <div class="card-turno-3">
                         <img class="icono-pantalla" src="../../../public/icons/ventanilla.png" alt="">
                         <div class="card-turno-titulo">
-                            <p style="font-size: 2rem;">Pasar a Ventanilla</p>
+                            <p style="font-size: 4rem;">Pasar a Ventanilla</p>
                         </div>
                         <div class="card-turno-body-3">
                             <p class="card-ventanilla-turno">{{ turnos.length > 0 ? turnos[0].caja : '--'}}</p>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-1 col-12"></div>
             </div>
-            <div class="row justify-content-center mt-12 mb-8">
+            <div class="row justify-content-center mt-10 mb-8">
                 <div class="col-md-7 col-12">
                     <div class="card-turno-3 row justify-content-between">
                         <div class="col-6 p-0">
@@ -71,14 +71,6 @@
                                 <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[7].turno : '--'}}</p>
                                 <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
                             </div>
-                            <!-- <div>
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[8].turno : '--'}}</p>
-                                <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div> -->
-                            <!-- <div>
-                                <p class="pantalla-tabla-turno">{{ turnos.length > 0 ? turnos[9].turno : '--'}}</p>
-                                <img class="icono-flecha-turno" src="../../../public/icons/flecha-turno.png" alt="">
-                            </div> -->
                         </div>
                         <div class="col-6 card-pantalla-tabla-columna-ventanillas">
                             <div>
@@ -102,12 +94,6 @@
                             <div>
                                 <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[7].caja : '--'}}</p>
                             </div>
-                            <!-- <div>
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[8].caja : '--'}}</p>
-                            </div> -->
-                            <!-- <div class="mb-4">
-                                <p class="pantalla-tabla-ventanilla">{{ turnos.length > 0 ? turnos[9].caja : '--'}}</p>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -127,7 +113,6 @@
                 <!-- </div> -->
                 <!-- <div class="col-md-1 col-12 mt-4"></div> -->
             </div>
-
             <button id="startbtn" @click="reproducir()" style="display: none;">Start</button>
             <audio controls id="music" autoplay style="display: none;">
                 <source src="../../../public/video/timbre.mp3">
@@ -166,7 +151,6 @@
         },
         created(){
             this.turnosPantalla()
-            // this.reproducir()
         },
         mounted(){
             Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {

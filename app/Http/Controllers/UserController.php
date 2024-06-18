@@ -23,8 +23,6 @@ class UserController extends Controller
                                 ->where('casa_justicia_id', $request->sede)
                                 ->get();
             }
-            // $usuarios = User::all();
-           
 
             $array_usuarios = array();
             $cont = 1;
@@ -47,11 +45,6 @@ class UserController extends Controller
                 }else{
                     $objectUsuario->ventanilla = 'SIN VENTANILLA';
                 }
-                
-                // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
-                // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
-                // $objectUsuario->area_id = $usuario->area_id;
-                // $objectUsuario->area = $usuario->areas->nombre;
                 
                 array_push($array_usuarios, $objectUsuario);
                 $cont++;
@@ -110,16 +103,7 @@ class UserController extends Controller
                     $caja->status = true;
                     $caja->save();
 
-                    // $id2 = $caja->user->asignacion;
-
-                    // if($id2)
-                    // {
-                    //     $id2->user_id = $usuario->id;
-                    //     $id2->status = true;
-                    //     $id2->save();
-                    
-                    }
-                    // else{
+                }
                         for($i=0; $i < strlen($caja->tipo_turno_id); $i++)
                         {
                         
@@ -129,16 +113,6 @@ class UserController extends Controller
                             $asignacion->tipo_turno = intval($caja->tipo_turno_id[$i]);
                             $asignacion->save();
                         }
-                        // $asignacion = new Asignacion;
-                        // $asignacion->user_id = $usuario->id;
-                        // $asignacion->casa_justicia_id = $request->sede;
-                        // $asignacion->tipo_turno = $caja->tipo_turno_id;
-                        // $asignacion->save();
-                    // }
-                // }
-
-            // }
-            
             
             if($request->tipo_usuario == 1){
                 $usuarios = User::where('status', 1)
@@ -150,8 +124,6 @@ class UserController extends Controller
                                 ->where('casa_justicia_id', $request->sede)
                                 ->get();
             }
-
-            ////////// $usuarios = User::where('status', 1)->get();
 
             $array_usuarios = array();
             $cont = 1;
@@ -174,11 +146,7 @@ class UserController extends Controller
                 }else{
                     $objectUsuario->ventanilla = 'SIN VENTANILLA';
                 }
-                // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
-                // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
-                // $objectUsuario->area_id = $usuario->area_id;
-                // $objectUsuario->area = $usuario->areas->nombre;
-                
+
                 array_push($array_usuarios, $objectUsuario);
                 $cont++;
             }
@@ -216,12 +184,10 @@ class UserController extends Controller
             $usuario->nombre = $request->nombre;
             $usuario->apellido_paterno = $request->apellido_paterno;
             $usuario->apellido_materno = $request->apellido_materno;
-            // $usuario->tipo_usuario_id = $request->tipo_usuario_id;
             $usuario->casa_justicia_id = $request->sede;
             $usuario->email = $request->email;
             $usuario->username = $request->username;
             $usuario->password = $request->password;
-            // $usuario->numero = $request->numero;
             if($request->tipo_usuario == 1){
                 $usuario->tipo_usuario_id = $request->tipo_usuario_id;
                 if($request->tipo_usuario_id == 2){
@@ -287,21 +253,9 @@ class UserController extends Controller
                     }
 
                 }
-                
-                
-
-                // $asignacion = Asignacion::where('user_id' , $request->id)->where('status' , 1)->get();
-                // $asignacion->status = false;
-                // $asignacion->save();
-               
-
-               
-                
-                
-                }
+            }
             
             $usuario->save();
-            
 
             if($request->tipo_usuario == 1){
                 $usuarios = User::where('status', 1)
@@ -314,8 +268,6 @@ class UserController extends Controller
                                 ->get();
             }
             
-            // $usuarios = User::where('status', 1)->get();
-
             $array_usuarios = array();
             $cont = 1;
             foreach ($usuarios as $usuario) {
@@ -337,10 +289,6 @@ class UserController extends Controller
                 }else{
                     $objectUsuario->ventanilla = 'SIN VENTANILLA';
                 }
-                // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
-                // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
-                // $objectUsuario->area_id = $usuario->area_id;
-                // $objectUsuario->area = $usuario->areas->nombre;
                 
                 array_push($array_usuarios, $objectUsuario);
                 $cont++;
@@ -424,10 +372,6 @@ class UserController extends Controller
                 }else{
                     $objectUsuario->ventanilla = 'SIN VENTANILLA';
                 }
-                // $objectUsuario->tipo_usuario_id = $usuario->tipo_usuario_id;
-                // $objectUsuario->tipo_usuario = $usuario->tipoUsuario->nombre;
-                // $objectUsuario->area_id = $usuario->area_id;
-                // $objectUsuario->area = $usuario->areas->nombre;
                 
                 array_push($array_usuarios, $objectUsuario);
                 $cont++;

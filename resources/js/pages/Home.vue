@@ -426,7 +426,12 @@
             Echo.channel('ventanillasPuebla').listen('CargarTurnosPuebla', (e) => {
                 this.getTurnosPendientes()
                 
-                })
+                }),
+            
+            Echo.channel('turnosPuebla').listen('LlamarTurnoPuebla', (e) => {
+                this.getTurnosPendientes()
+                
+            })
         },
         computed: {
             pages() {

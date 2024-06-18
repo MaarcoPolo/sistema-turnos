@@ -33,40 +33,6 @@ class TurnoController extends Controller
         $exito = false;
         DB::beginTransaction();
         try{
-            $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
-                                    ->where('tipo_turno',$request->tipo_turno_id)
-                                    ->where('asignacion',0)
-                                    ->where('status',1)
-                                    ->first();
-            if($asignacion){
-
-                $asignacion->asignacion = true;
-                $asignacion->save();
-                DB::commit();
-            }else{
-                
-                $asignaciones = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
-                                    ->where('tipo_turno',$request->tipo_turno_id)
-                                    ->where('status',1)
-                                    ->get();
-                
-                foreach($asignaciones as $asignacion){
-                        $asignacion->asignacion = false;
-                        $asignacion->save();
-                        DB::commit();
-                }
-
-                $asignacion = Asignacion::where('casa_justicia_id',$request->casa_justicia_id)
-                                        ->where('tipo_turno',$request->tipo_turno_id)
-                                        ->where('asignacion',0)
-                                        ->where('status',1)
-                                        ->first();
-
-                $asignacion->asignacion = true;
-                $asignacion->save();
-                DB::commit();
-                
-            }
             $ultimo_turno = Turno::where('casa_justicia_id', $request->casa_justicia_id)
                                 ->orderBy('id', 'desc')
                                 ->first();
@@ -1000,7 +966,7 @@ public function turnosPendientes(Request $request){
 
             $f= Carbon::now();
             $fecha = $f->toDateString();
-           
+        
             // $fechaAnterior = $fecha->subDay();
 
             $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '$oficialia'");
@@ -1045,7 +1011,7 @@ public function turnosPendientes(Request $request){
                 $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
                 ocomun.juzgado = juzgados.codigo and fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
                 and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
-               
+    
                 $objectP->demandasDiaAnterior = $demandasDiaAnterior;
             }
             else
