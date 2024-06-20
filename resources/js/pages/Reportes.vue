@@ -1,9 +1,12 @@
 <template>
     <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
-            <div class="">
+            <div>
                 <p class="custom-title-page">Reportes</p>
             </div>
+        </div>
+        <div class="row justify-content-center mt-10">        
+            <input type="date" style="font-size: 2rem;" v-model="variables_reporte.fecha" required>    
         </div>
         <div class="container mt-8">
             <div class="row justify-content-around mt-4">
@@ -33,7 +36,8 @@
         data() {
             return {
                 variables_reporte: {
-                    id_sede: 1,
+                    id_sede: null,
+                    fecha: ''
                 },
                 loading_1: false,
                 loading_2: false,
@@ -67,6 +71,7 @@
                 }
                 this.variables_reporte.id_sede = id_sede
                 try {
+                    console.log(this.variables_reporte)
                     let response = await axios.post('/api/reportes/generar-reporte-tiempo-real', this.variables_reporte, {
                         responseType: 'arraybuffer'
                     }).then((response) => {

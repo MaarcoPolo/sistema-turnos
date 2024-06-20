@@ -6,10 +6,10 @@
                 <p>{{this.user.user.nombre}}</p>
             </div>
         </div>
-        <div class="row justify-content-center mt-8">
+        <!-- <div class="row justify-content-center mt-8">
             <button v-if="!loading" class="boton-sencillo" @click="atenderTurno()">Atender Nuevo Turno</button>
             <span v-else class="loader-ventanilla"></span>
-        </div>
+        </div> -->
         <div class="row justify-content-between mt-12">
             <div class="col-md-1 col-12"></div>
             <div class="col-md-5 col-12 mt-4">
@@ -54,6 +54,10 @@
                 </div>
             </div> -->
             <div class="col-md-1 col-12"></div>
+        </div>
+        <div class="row justify-content-center mt-8">
+            <button v-if="!loading" class="boton-sencillo" @click="atenderTurno()">Atender Nuevo Turno</button>
+            <span v-else class="loader-ventanilla"></span>
         </div>
     </div>
 </template>

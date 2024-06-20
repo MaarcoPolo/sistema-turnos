@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Turnos Oficialia</title>
     @php
-     $prueba = $objectP->distrito_sede_id;
+        $prueba = $objectP->distrito_sede_id;
     @endphp
     <style>
         table {
@@ -73,6 +73,7 @@
 <body>
     <br>
     <p class="titulo">Reporte del sistema de control de turnos para la atención al público</p>
+    <p class="titulo">{{$objectP->fecha_consulta}}</p>
     <p class="subtitulo">Estadística de Oficialía Común de Partes del distrito de {{$objectP->distrito_sede}}</p>
     <table>
         <tr>
@@ -106,10 +107,10 @@
         <tr>
             
             @if ($prueba == 1)
-            <td colspan="1" class="encabezado_secundario">Esc s/a</td>
+            <td colspan="1" class="encabezado_secundario">Esc c/a</td>
             <td colspan="1" class="encabezado_secundario">Apel y Esc</td> 
             <td colspan="1" class="encabezado_secundario">Trab PJ</td> 
-            <td colspan="1" class="encabezado_secundario">Esc c/a</td> 
+            <td colspan="1" class="encabezado_secundario">Esc s/a</td> 
             <td colspan="1" class="encabezado_secundario">Dem nueva</td>
             <td colspan="1" class="encabezado_secundario">O. familiar</td>
             <td colspan="1" class="encabezado_secundario">Exhortos</td>
@@ -221,8 +222,9 @@
             <tr>
                 <td colspan="1" class="encabezado_secundario" style="width: 5%;">No.</td>
                 <td colspan="1" class="encabezado_secundario" style="width: 10%;">Folio</td>
-                <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
+                <td colspan="1" class="encabezado_secundario" style="width: 65%;">Juzgado</td>
                 <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
+                <td colspan="1" class="encabezado_secundario" style="width: 10%;">Fecha</td>
             </tr>
             @for($j=0; $j<$objectP->num_promociones_dia_anterior; $j++)
                 @if($aux_cont < 30 && $aux_key < $objectP->num_promociones_dia_anterior)
@@ -231,6 +233,7 @@
                         <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->ID}}</td>
                         <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->JUZGADO}}</td>
                         <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->HORA}}</td>
+                        <td colspan="1" class="dato_secundario">{{$objectP->promocionesDiaAnterior[$aux_key]->FECHA}}</td>
                     </tr>
                     @php
                         $aux_cont = $aux_cont + 1;
@@ -248,8 +251,9 @@
         <tr>
             <td colspan="1" class="encabezado_secundario" style="width: 5%;">No.</td>
             <td colspan="1" class="encabezado_secundario" style="width: 10%;">Folio</td>
-            <td colspan="1" class="encabezado_secundario" style="width: 75%;">Juzgado</td>
+            <td colspan="1" class="encabezado_secundario" style="width: 65%;">Juzgado</td>
             <td colspan="1" class="encabezado_secundario" style="width: 10%;">Hora</td>
+            <td colspan="1" class="encabezado_secundario" style="width: 10%;">Fecha</td>
         </tr>
         @foreach($objectP->demandasDiaAnterior as $key => $demanda)
             <tr>
@@ -257,6 +261,7 @@
                 <td colspan="1" class="dato_secundario">{{$demanda->ID}}</td>
                 <td colspan="1" class="dato_secundario">{{$demanda->JUZGADO}}</td>
                 <td colspan="1" class="dato_secundario">{{$demanda->HORA}}</td>
+                <td colspan="1" class="dato_secundario">{{$demanda->FECHA}}</td>
             </tr>
         @endforeach
     </table>

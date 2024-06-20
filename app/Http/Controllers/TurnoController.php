@@ -47,21 +47,6 @@ class TurnoController extends Controller
             $turno->prioridad_id = 1;
             $turno->save();
 
-            $sede = $turno->casa_justicia_id;
-
-                if($sede == 1){
-                        $nomen = 'P';
-                }
-                if($sede == 2){
-                        $nomen = 'C';
-                }
-                if($sede == 3){
-                        $nomen = 'H';
-                }
-                if($sede == 4){
-                        $nomen = 'L';
-                }
-
             $tipo_turno = $turno->tipo_turno_id; 
             $turnoo = '';
             $otra = $date->toDateString();
@@ -91,151 +76,151 @@ class TurnoController extends Controller
                 
                     if($contador < 10)
                     {
-                        $turnoo = $turnoo.'T000'.$contador.$nomen;
+                        $turnoo = $turnoo.'T000'.$contador;
                     }
                     elseif($contador >= 10 && $contador < 100)
                     {
-                        $turnoo = $turnoo.'T00'.$contador.$nomen;   
+                        $turnoo = $turnoo.'T00'.$contador;   
                     }
                     elseif($contador >= 100 && $contador < 1000)
                     {
-                        $turnoo = $turnoo.'T0'.$contador.$nomen; 
+                        $turnoo = $turnoo.'T0'.$contador; 
                     }
                     elseif($contador >= 1000)
                     {
-                        $turnoo = $turnoo.'T'.$contador.$nomen;
+                        $turnoo = $turnoo.'T'.$contador;
                     }
                     break;
                 case '2':
                         if($contador == 0)
                         {
-                            $turnoo = $turnoo.'S0001'.$nomen;
+                            $turnoo = $turnoo.'S0001';
                         }
                         elseif($contador < 10)
                         {
-                            $turnoo = $turnoo.'S000'.$contador.$nomen;
+                            $turnoo = $turnoo.'S000'.$contador;
                         }
                         elseif($contador >= 10 && $contador < 100)
                         {
-                            $turnoo = $turnoo.'S00'.$contador.$nomen;   
+                            $turnoo = $turnoo.'S00'.$contador;   
                         }
                         elseif($contador >= 100 && $contador < 1000)
                         {
-                            $turnoo = $turnoo.'S0'.$contador.$nomen; 
+                            $turnoo = $turnoo.'S0'.$contador; 
                         }
                         elseif($contador >= 1000)
                         {
-                            $turnoo = $turnoo.'S'.$contador.$nomen;
+                            $turnoo = $turnoo.'S'.$contador;
                         }
                         break;
                 case '3':
                     if($contador == 0)
                     {
-                        $turnoo = $turnoo.'A0001'.$nomen;
+                        $turnoo = $turnoo.'A0001';
                     }
                     elseif($contador < 10)
                     {
-                        $turnoo = $turnoo.'A000'.$contador.$nomen;
+                        $turnoo = $turnoo.'A000'.$contador;
                     }
                     elseif($contador >= 10 && $contador < 100)
                     {
-                        $turnoo = $turnoo.'A00'.$contador.$nomen;   
+                        $turnoo = $turnoo.'A00'.$contador;   
                     }
                     elseif($contador >= 100 && $contador < 1000)
                     {
-                        $turnoo = $turnoo.'A0'.$contador.$nomen; 
+                        $turnoo = $turnoo.'A0'.$contador; 
                     }
                     elseif($contador >= 1000)
                     {
-                        $turnoo = $turnoo.'A'.$contador.$nomen;
+                        $turnoo = $turnoo.'A'.$contador;
                     }
                     break;
                 case '4':
                     if($contador == 0)
                     {
-                        $turnoo = $turnoo.'R0001'.$nomen;
+                        $turnoo = $turnoo.'R0001';
                     }
                     elseif($contador < 10)
                     {
-                        $turnoo = $turnoo.'R000'.$contador.$nomen;
+                        $turnoo = $turnoo.'R000'.$contador;
                     }
                     elseif($contador >= 10 && $contador < 100)
                     {
-                        $turnoo = $turnoo.'R00'.$contador.$nomen;   
+                        $turnoo = $turnoo.'R00'.$contador;   
                     }
                     elseif($contador >= 100 && $contador < 1000)
                     {
-                        $turnoo = $turnoo.'R0'.$contador.$nomen; 
+                        $turnoo = $turnoo.'R0'.$contador; 
                     }
                     elseif($contador >= 1000)
                     {
-                        $turnoo = $turnoo.'R'.$contador.$nomen;
+                        $turnoo = $turnoo.'R'.$contador;
                     }
                     break;
                 case '5':
                     if($contador == 0)
                     {
-                        $turnoo = $turnoo.'D0001'.$nomen;
+                        $turnoo = $turnoo.'D0001';
                     }
                     elseif($contador < 10)
                     {
-                        $turnoo = $turnoo.'D000'.$contador.$nomen;
+                        $turnoo = $turnoo.'D000'.$contador;
                     }
                     elseif($contador >= 10 && $contador < 100)
                     {
-                        $turnoo = $turnoo.'D00'.$contador.$nomen;   
+                        $turnoo = $turnoo.'D00'.$contador;   
                     }
                     elseif($contador >= 100 && $contador < 1000)
                     {
-                        $turnoo = $turnoo.'D0'.$contador.$nomen; 
+                        $turnoo = $turnoo.'D0'.$contador; 
                     }
                     elseif($contador >= 1000)
                     {
-                        $turnoo = $turnoo.'D'.$contador.$nomen;
+                        $turnoo = $turnoo.'D'.$contador;
                     }
                     break;
                 case '6':
                     if($contador == 0)
                     {
-                        $turnoo = $turnoo.'J0001'.$nomen;
+                        $turnoo = $turnoo.'J0001';
                     }
                     elseif($contador < 10)
                     {
-                        $turnoo = $turnoo.'J000'.$contador.$nomen;
+                        $turnoo = $turnoo.'J000'.$contador;
                     }
                     elseif($contador >= 10 && $contador < 100)
                     {
-                        $turnoo = $turnoo.'J00'.$contador.$nomen;   
+                        $turnoo = $turnoo.'J00'.$contador;   
                     }
                     elseif($contador >= 100 && $contador < 1000)
                     {
-                        $turnoo = $turnoo.'J0'.$contador.$nomen; 
+                        $turnoo = $turnoo.'J0'.$contador; 
                     }
                     elseif($contador >= 1000)
                     {
-                        $turnoo = $turnoo.'J'.$contador.$nomen;
+                        $turnoo = $turnoo.'J'.$contador;
                     }
                     break;
                     case '7':
                         if($contador == 0)
                         {
-                            $turnoo = $turnoo.'E0001'.$nomen;
+                            $turnoo = $turnoo.'E0001';
                         }
                         elseif($contador < 10)
                         {
-                            $turnoo = $turnoo.'E000'.$contador.$nomen;
+                            $turnoo = $turnoo.'E000'.$contador;
                         }
                         elseif($contador >= 10 && $contador < 100)
                         {
-                            $turnoo = $turnoo.'E00'.$contador.$nomen;   
+                            $turnoo = $turnoo.'E00'.$contador;   
                         }
                         elseif($contador >= 100 && $contador < 1000)
                         {
-                            $turnoo = $turnoo.'E0'.$contador.$nomen; 
+                            $turnoo = $turnoo.'E0'.$contador; 
                         }
                         elseif($contador >= 1000)
                         {
-                            $turnoo = $turnoo.'E'.$contador.$nomen;
+                            $turnoo = $turnoo.'E'.$contador;
                         }
                         break;
 
@@ -603,42 +588,35 @@ public function turnosPendientes(Request $request){
             $escritosConAnexos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 1)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
             $apelaciones = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 2)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
             $trabajadores = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 3)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
             $escritosSinAnexos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 4)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
             $demandaNueva = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 5)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
             $familiares = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 6)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
             $exhortos = Turno::where('casa_justicia_id', $request->sede)
                                     ->where('tipo_turno_id', 7)
                                     ->where('en_atencion', 0)
-                                    // ->where('status', 1)
                                     ->count();
 
                         $object = new \stdClass();
@@ -673,6 +651,7 @@ public function turnosPendientes(Request $request){
     {
         try {
             $distrito_sede = CasaJusticia::find($request->id_sede);
+            $fecha_hoy = $request->fecha;
 
             switch($request->id_sede)
             {
@@ -694,15 +673,18 @@ public function turnosPendientes(Request $request){
             $objectP = new \stdClass();
             $objectP->id_sede = $request->id_sede;
             $array_personas = array();
-            $array = array();
+            $array_Promedios = array();
             $inicio = 8;
             $fin = 9;
+
             $date = Carbon::now();
-            $fecha_hoy=$date->toDateString();
+            // $fecha_hoy=$date->toDateString();
             $fecha = new Carbon($date->toDateString() . '08:00:00');
             $hora_inicio = $fecha->toTimeString();
             $fecha->addHours(1);
             $hora_fin = $fecha->toTimeString();
+
+
             $suma_turnos = 0;
             $suma_salas = 0;
             $suma_internos = 0;
@@ -722,6 +704,8 @@ public function turnosPendientes(Request $request){
             
             for($i = 1; $i < 8; $i++)
             {
+                ///// ESCRITOS CON ANEXOS //////
+                $suma_turnos = 0;
                 $turnos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 1)
@@ -732,11 +716,14 @@ public function turnosPendientes(Request $request){
 
                 $total_turnos = $turnos->count();
 
+
                 foreach($turnos as $turno){
+
                     $mayor = new Carbon('2010-05-16 '.$turno->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$turno->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_turnos = $suma_turnos + $diferencia;
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_turnos = $suma_turnos + $total_diferencia;
                 }
 
                 if($total_turnos == 0){
@@ -744,8 +731,11 @@ public function turnosPendientes(Request $request){
                 }else{
                     $promedio_turnos = $suma_turnos/$total_turnos;
                 }
-                
                 $suma_turnos_general = $suma_turnos_general + $promedio_turnos;
+
+                ///////////APELACIONES Y ESCRITOS SALAS ////////////////////
+
+                $suma_salas = 0;
 
                 $salas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -758,11 +748,12 @@ public function turnosPendientes(Request $request){
                 $total_salas = $salas->count();
 
                 foreach($salas as $sala){
+
                     $mayor = new Carbon('2010-05-16 '.$sala->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$sala->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_salas = $suma_salas + $diferencia;
-
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_salas = $suma_salas + $total_diferencia;
                 }
 
                 if($total_salas == 0){
@@ -770,8 +761,10 @@ public function turnosPendientes(Request $request){
                 }else{
                     $promedio_salas = $suma_salas/$total_salas;
                 }
-                
                 $suma_salas_general = $suma_salas_general + $promedio_salas;
+
+                /////TRABAJADORES PODER JUDICIAL///////////
+                $suma_internos = 0;
 
                 $internos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -783,12 +776,14 @@ public function turnosPendientes(Request $request){
 
                 $total_internos = $internos->count();
 
+
                 foreach($internos as $interno){
+
                     $mayor = new Carbon('2010-05-16 '.$interno->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$interno->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_internos = $suma_internos + $diferencia;
-
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_internos = $suma_internos + $total_diferencia;
                 }
 
                 if($total_internos == 0){
@@ -796,8 +791,11 @@ public function turnosPendientes(Request $request){
                 }else{
                     $promedio_internos = $suma_internos/$total_internos;
                 }
-
                 $suma_internos_general = $suma_internos_general + $promedio_internos;
+
+                ///////ESCRITOS SIN ANEXOS//////
+
+                $suma_rapidos = 0;
 
                 $rapidas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -810,11 +808,12 @@ public function turnosPendientes(Request $request){
                 $total_rapidas = $rapidas->count();
 
                 foreach($rapidas as $rapida){
+
                     $mayor = new Carbon('2010-05-16 '.$rapida->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$rapida->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_rapidos = $suma_rapidos + $diferencia;
-
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_rapidos = $suma_rapidos + $total_diferencia;
                 }
 
                 if($total_rapidas == 0){
@@ -822,9 +821,10 @@ public function turnosPendientes(Request $request){
                 }else{
                     $promedio_rapidos = $suma_rapidos/$total_rapidas;
                 }
-
                 $suma_rapidos_general = $suma_rapidos_general + $promedio_rapidos;
 
+                //////// DEMANDA NUEVA ////////
+                $suma_demandas = 0;
                 $demandas = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
                                     ->where('tipo_turno_id', 5)
@@ -836,11 +836,12 @@ public function turnosPendientes(Request $request){
                 $total_demandas = $demandas->count();
 
                 foreach($demandas as $demanda){
+
                     $mayor = new Carbon('2010-05-16 '.$demanda->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$demanda->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_demandas = $suma_demandas + $diferencia;
-
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_demandas = $suma_demandas + $total_diferencia;
                 }
 
                 if($total_demandas == 0){
@@ -848,8 +849,10 @@ public function turnosPendientes(Request $request){
                 }else{
                     $promedio_demandas = $suma_demandas/$total_demandas;
                 }
-
                 $suma_demandas_general = $suma_demandas_general + $promedio_demandas;
+
+                //// ORALIDAD FAMILIAR /////
+                $suma_familiares = 0;
 
                 $familiares = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -862,11 +865,12 @@ public function turnosPendientes(Request $request){
                 $total_familiares = $familiares->count();
 
                 foreach($familiares as $familiar){
+
                     $mayor = new Carbon('2010-05-16 '.$familiar->hora_atencion_inicio);
                     $menor = new Carbon('2010-05-16 '.$familiar->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_familiares = $suma_familiares + $diferencia;
-
+                    $diferencia = $mayor->diffInSeconds($menor);
+                    $total_diferencia = $diferencia/60;
+                    $suma_familiares = $suma_familiares + $total_diferencia;
                 }
 
                 if($total_familiares == 0){
@@ -876,6 +880,8 @@ public function turnosPendientes(Request $request){
                 }
                 $suma_familiares_general = $suma_familiares_general + $promedio_familiares;
 
+                ////// EXHORTOS //////
+                $suma_exhortos = 0;
 
                 $exhortos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -888,12 +894,14 @@ public function turnosPendientes(Request $request){
                     $total_exhortos = $exhortos->count();
 
                     foreach($exhortos as $exhorto){
-                    $mayor = new Carbon('2010-05-16 '.$exhorto->hora_atencion_inicio);
-                    $menor = new Carbon('2010-05-16 '.$exhorto->hora_registro);
-                    $diferencia = $mayor->diffInMinutes($menor);
-                    $suma_exhortos = $suma_exhortos + $diferencia;
 
+                        $mayor = new Carbon('2010-05-16 '.$exhorto->hora_atencion_inicio);
+                        $menor = new Carbon('2010-05-16 '.$exhorto->hora_registro);
+                        $diferencia = $mayor->diffInSeconds($menor);
+                        $total_diferencia = $diferencia/60;
+                        $suma_exhortos = $suma_exhortos + $total_diferencia;
                     }
+
                     if($total_exhortos == 0){
                         $promedio_exhortos = 0;
                     }else{
@@ -901,6 +909,8 @@ public function turnosPendientes(Request $request){
                     }
 
                 $suma_exhortos_general = $suma_exhortos_general + $promedio_exhortos;
+
+                //// GENERAAAAAALEEEEEEEEES ////
 
                 $total_atendidos = Turno::where('hora_registro', '>=', $hora_inicio)
                                     ->where('hora_registro', '<', $hora_fin)
@@ -910,18 +920,19 @@ public function turnosPendientes(Request $request){
                                     ->count();
 
                 $suma_totales_personas = $suma_totales_personas + $total_atendidos;
+
+                ///////////////////////////////////////////////////////////////////////////////
                 
-                $object = new \stdClass();
-                $object->hora = $inicio.' a '.$fin;
-                $object->turno = $promedio_turnos.' min';
-                $object->sala = $promedio_salas.' min';
-                $object->interno = $promedio_internos.' min';
-                $object->demanda = $promedio_demandas.' min';
-                $object->aten_rapida = $promedio_rapidos.' min';
-                $object->o_familiar = $promedio_familiares.' min';
-                $object->exhorto = $promedio_exhortos.' min';
-                array_push($array, $object);
-                
+                $objectPromedios = new \stdClass();
+                $objectPromedios->hora = $inicio.' a '.$fin;
+                $objectPromedios->turno = bcdiv($promedio_turnos,'1',2).' min';
+                $objectPromedios->sala = bcdiv($promedio_salas,'1',2).' min';
+                $objectPromedios->interno = bcdiv($promedio_internos,'1',2).' min';
+                $objectPromedios->demanda = bcdiv($promedio_demandas,'1',2).' min';
+                $objectPromedios->aten_rapida = bcdiv($promedio_rapidos,'1',2).' min';
+                $objectPromedios->o_familiar = bcdiv($promedio_familiares,'1',2).' min';
+                $objectPromedios->exhorto = bcdiv($promedio_exhortos,'1',2).' min';
+                array_push($array_Promedios, $objectPromedios);
                 $objectPersonas = new \stdClass();
                 $objectPersonas->hora = $inicio.' a '.$fin;
                 $objectPersonas->totales = $total_atendidos;
@@ -936,13 +947,13 @@ public function turnosPendientes(Request $request){
 
             $objectTiempoTotales = new \stdClass();
             $objectTiempoTotales->texto = 'Total';
-            $objectTiempoTotales->turno = $suma_turnos_general;
-            $objectTiempoTotales->salas = $suma_salas_general;
-            $objectTiempoTotales->internos = $suma_internos_general;
-            $objectTiempoTotales->rapidos = $suma_rapidos_general;
-            $objectTiempoTotales->demandas = $suma_demandas_general;
-            $objectTiempoTotales->familiares = $suma_familiares_general;
-            $objectTiempoTotales->exhorto = $suma_exhortos_general;
+            $objectTiempoTotales->turno = bcdiv($suma_turnos_general,'1',2);
+            $objectTiempoTotales->salas = bcdiv($suma_salas_general,'1',2);
+            $objectTiempoTotales->internos = bcdiv($suma_internos_general,'1',2);
+            $objectTiempoTotales->rapidos = bcdiv($suma_rapidos_general,'1',2);
+            $objectTiempoTotales->demandas = bcdiv($suma_demandas_general,'1',2);
+            $objectTiempoTotales->familiares = bcdiv($suma_familiares_general,'1',2);
+            $objectTiempoTotales->exhorto = bcdiv($suma_exhortos_general,'1',2);
 
             $objectTotalPersonasAtendidas = new \stdClass();
             $objectTotalPersonasAtendidas->hora = 'Total';
@@ -954,9 +965,10 @@ public function turnosPendientes(Request $request){
                                     ->count();
             
             // Objeto principal
+            $objectP->fecha_consulta = $fecha_hoy;
             $objectP->distrito_sede = $distrito_sede->nombre;
             $objectP->distrito_sede_id = $distrito_sede->id;
-            $objectP->estadisticas_horarios = $array;
+            $objectP->estadisticas_horarios = $array_Promedios;
             $objectP->estadisticas_horarios_totales = $objectTiempoTotales;
             $objectP->personas_atendidas = $array_personas;
             $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
@@ -964,31 +976,31 @@ public function turnosPendientes(Request $request){
 
             //Consultas 209 dia anterior(guardia)
 
-            $f= Carbon::now();
-            $fecha = $f->toDateString();
+            // $f= Carbon::now();
+            // $fecha = $f->toDateString();
         
             // $fechaAnterior = $fecha->subDay();
 
-            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha'  and oficialia = '$oficialia'");
+            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha_hoy'  and oficialia = '$oficialia'");
 
-            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='$distrito'");
+            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='$distrito'");
 
-            $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha' AND distrito='APELACION'");
+            $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='APELACION'");
 
             $objectP->totalPromociones = $promocionesRecibidas[0]->total;
             $objectP->totalDemandas = $demandasRecividas[0]->total;
             $objectP->totalApelaciones = $apelacionesRecividas[0]->total;
             
             
-            $fechaAnterior = $f->subDay()->toDateString();
+            // $fechaAnterior = $f->subDay()->toDateString();
 
-            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia'");
+            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fecha_hoy."' and hora>'15:00:00' and oficialia = '$oficialia'");
         
             if($existenPromocionesDiaAnterior[0]->total > 0)
             {
 
-                $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA FROM promociones_pen,juzgados 
-                WHERE  fecha='".$fechaAnterior."' and hora>'15:00:00' and oficialia = '$oficialia' and promociones_pen.juzgado = juzgados.codigo");
+                $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM promociones_pen,juzgados 
+                WHERE  fecha='".$fecha_hoy."' and hora>'15:00:00' and oficialia = '$oficialia' and promociones_pen.juzgado = juzgados.codigo");
 
                 $objectP->promocionesDiaAnterior = $promocionesDiaAnterior;
                 $num_promociones = count($promocionesDiaAnterior);
@@ -1003,13 +1015,13 @@ public function turnosPendientes(Request $request){
             }
             
             $existenDemandasDiaAnterior = DB::connection('mysql_209')->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
-            fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+            fecha='".$fecha_hoy."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
             and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
 
             if($existenDemandasDiaAnterior[0]->total > 0)
             {
-                $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA FROM ocomun,juzgados WHERE 
-                ocomun.juzgado = juzgados.codigo and fecha='".$fechaAnterior."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
+                $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM ocomun,juzgados WHERE 
+                ocomun.juzgado = juzgados.codigo and fecha='".$fecha_hoy."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
                 and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
     
                 $objectP->demandasDiaAnterior = $demandasDiaAnterior;
