@@ -160,16 +160,16 @@
             </tr>
         @endforeach
         <tr>
-            <td class="dato_principal">TOTAL</td>
+            <td class="dato_principal">Promedio del dia</td>
             
             @if ($prueba == 1)
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->salas }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->internos }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->rapidos }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }}</td>
-            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->exhorto }}</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->salas }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->internos }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->rapidos }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }} min</td>
+            <td class="dato_principal">{{ $objectP->estadisticas_horarios_totales->exhorto }} min</td>
             @endif
             
             @if ($prueba == 2)

@@ -237,7 +237,7 @@ class TurnoController extends Controller
         }catch (\Throwable $th) {
             return response()->json([
                 "status" => "error",
-                "message" => "Ocurrió un error al generar el turno",
+                "message" => "Ocurrió un error  controlador al generar el turno",
                 "error" => $th->getMessage(),
                 "location" => $th->getFile(),
                 "line" => $th->getLine(),
@@ -945,15 +945,24 @@ public function turnosPendientes(Request $request){
                 $hora_fin = $fecha->toTimeString();
             }
 
+                $suma_turnos_general_promedio = bcdiv($suma_turnos_general,'1',2)/7;
+                $suma_salas_general_promedio = bcdiv($suma_salas_general,'1',2)/7;
+                $suma_internos_general_promedio = bcdiv($suma_internos_general,'1',2)/7;
+                $suma_rapidos_general_promedio = bcdiv($suma_rapidos_general,'1',2)/7;
+                $suma_demandas_general_promedio = bcdiv($suma_demandas_general,'1',2)/7;
+                $suma_familiares_general_promedio = bcdiv($suma_familiares_general,'1',2)/7;
+                $suma_exhortos_general_promedio = bcdiv($suma_exhortos_general,'1',2)/7;
+
+
             $objectTiempoTotales = new \stdClass();
             $objectTiempoTotales->texto = 'Total';
-            $objectTiempoTotales->turno = bcdiv($suma_turnos_general,'1',2);
-            $objectTiempoTotales->salas = bcdiv($suma_salas_general,'1',2);
-            $objectTiempoTotales->internos = bcdiv($suma_internos_general,'1',2);
-            $objectTiempoTotales->rapidos = bcdiv($suma_rapidos_general,'1',2);
-            $objectTiempoTotales->demandas = bcdiv($suma_demandas_general,'1',2);
-            $objectTiempoTotales->familiares = bcdiv($suma_familiares_general,'1',2);
-            $objectTiempoTotales->exhorto = bcdiv($suma_exhortos_general,'1',2);
+            $objectTiempoTotales->turno = bcdiv($suma_turnos_general_promedio,'1',2);
+            $objectTiempoTotales->salas = bcdiv($suma_salas_general_promedio,'1',2);
+            $objectTiempoTotales->internos = bcdiv($suma_internos_general_promedio,'1',2);
+            $objectTiempoTotales->rapidos = bcdiv($suma_rapidos_general_promedio,'1',2);
+            $objectTiempoTotales->demandas = bcdiv($suma_demandas_general_promedio,'1',2);
+            $objectTiempoTotales->familiares = bcdiv($suma_familiares_general_promedio,'1',2);
+            $objectTiempoTotales->exhorto = bcdiv($suma_exhortos_general_promedio,'1',2);
 
             $objectTotalPersonasAtendidas = new \stdClass();
             $objectTotalPersonasAtendidas->hora = 'Total';

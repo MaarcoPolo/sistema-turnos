@@ -107,7 +107,7 @@
                     errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
                 } catch (error) {
-                    errorSweetAlert('Ocurrió un error al generar el turno.')
+                    errorSweetAlert('Ocurrió un error al generar el turno catch.')
                 }
                 this.loader_1 = false
                 this.loader_2 = false
