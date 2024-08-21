@@ -5,7 +5,6 @@ use App\Events\Hello;
 use App\Events\PrivateTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\CajaController;
 use App\Http\Controllers\TurnoController;
 use Illuminate\Support\Facades\Broadcast;
@@ -58,6 +57,11 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post('/usuarios/crear-usuario', [UserController::class, 'guardarUsuario']);
     Route::post('/usuarios/actualizar-usuario', [UserController::class, 'actualizarUsuario']);
     Route::post('/usuarios/eliminar-usuario', [UserController::class, 'eliminarUsuario']);
+
+    Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);
+    Route::post('/casas-justicia/crear-casaJusticia', [CasaJusticiaController::class, 'guardarCasaJusticia']);
+    Route::post('/casas-justicia/actualizar-casaJusticia', [CasaJusticiaController::class,'actualizarCasaJusticia']);
+    Route::post('/casas-justicia/eliminar-casaJusticia', [CasaJusticiaController::class,'eliminarCasaJusticia']);
 });
     
 Route::post('/generar-turno', [TurnoController::class, 'generarTurno']);
@@ -69,24 +73,6 @@ Route::post('/turnos-pendientes', [TurnoController::class, 'turnosPendientes']);
 
 Route::post('/cargar-turnos', [TurnoController::class, 'cargarTurnos']);
 
-Route::get('/casas-justicia', [CasaJusticiaController::class, 'getCasasJusticia']);
 Route::get('/tipo-usuarios', [TipoUsuarioController::class, 'getTipoUsuarios']);
 
 Route::post('/reportes/generar-reporte-tiempo-real', [TurnoController::class, 'generarReporteTiempoReal']);
-
-// Route::get('/broadcast', function () {
-//     broadcast(new NewMessage());
-// });
-
-// Route::get('/broadcast', function () {
-//     // return Hello::dispatch();
-//     Hello::dispatch();
-//     return 'sent';
-// });
-
-// Route::get('/broadcast-private', function () {
-//     $user = User::find(1);
-//     // return Hello::dispatch();
-//     PrivateTest::dispatch($user);
-//     return 'sent ' . $user->nombre;
-// });

@@ -273,7 +273,7 @@ class TurnoController extends Controller
             $turnoo = $turno->turno;
             $sede_id =  $turno->casa_justicia_id;
 
-            $sede = $turno->casaJusticia->nombre;
+            // $sede = $turno->casaJusticia->nombre;
             $tipo_red = $turno->casaJusticia->tipo_conexion_impresora;
             
             if($tipo_red == 'local'){
@@ -983,12 +983,7 @@ public function turnosPendientes(Request $request){
             $objectP->total_personas_atendidas = $objectTotalPersonasAtendidas;
             $objectP->total_turnos_asignados = $total_turnos_asignados;
 
-            //Consultas 209 dia anterior(guardia)
-
-            // $f= Carbon::now();
-            // $fecha = $f->toDateString();
-        
-            // $fechaAnterior = $fecha->subDay();
+            //Consultas 209
 
             $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha_hoy'  and oficialia = '$oficialia'");
 
@@ -1060,7 +1055,6 @@ public function turnosPendientes(Request $request){
                 $pdf->Image($footer_image_file, 50,268,160,30);
 
                 $pdf->Cell(0, 10, '      Página '.$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages(), 0, false, 'L', 0, '', 0, false, 'T', 'M');
-                // $pdf->MultiCell(1, 1, '[LEFT]', 0, 'L', 1, 0, '10', '150', true);
             });
 
             $PDF_MARGIN_LEFT = 5;

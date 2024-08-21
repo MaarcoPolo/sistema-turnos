@@ -11,17 +11,18 @@ class TipoTurnoController extends Controller
     public function getTiposTurnos()
     {
         try {
-            $tipos_turnos = TipoTurno::where('status', 1)->get();
+            $tiposTurnos = TipoTurno::where('status', 1)->get();
 
             $array_tipos_turnos = array();
             $cont = 1;
-            foreach ($tipos_turnos as $tipo_turno) {
+            foreach ($tiposTurnos as $tipoTurno) {
                 $objectTipoTurno = new \stdClass();
-                $objectTipoTurno->id = $tipo_turno->id;
+                $objectTipoTurno->id = $tipoTurno->id;
                 $objectTipoTurno->num_registro = $cont;
-                $objectTipoTurno->nombre = $tipo_turno->nombre;
-                $objectTipoTurno->descripcion = $tipo_turno->descripcion;
-                $objectTipoTurno->nomenclatura = $tipo_turno->nomenclatura;
+                $objectTipoTurno->nombre = $tipoTurno->nombre;
+                $objectTipoTurno->nomenclatura = $tipoTurno->nomenclatura;
+                $objectTipoTurno->descripcion = $tipoTurno->descripcion;
+
                 
                 array_push($array_tipos_turnos, $objectTipoTurno);
                 $cont++;
@@ -52,6 +53,7 @@ class TipoTurnoController extends Controller
             $tipoTurno->nombre = $request->nombre;
             $tipoTurno->nomenclatura = $request->nomenclatura;
             $tipoTurno->descripcion = $request->descripcion;
+            $tipoTurno->status = true;
             $tipoTurno->save();
 
             $tiposTurnos = TipoTurno::where('status', 1)->get();
@@ -65,7 +67,7 @@ class TipoTurnoController extends Controller
                 $objectTipoTurno->nombre = $tipoTurno->nombre;
                 $objectTipoTurno->nomenclatura = $tipoTurno->nomenclatura;
                 $objectTipoTurno->descripcion = $tipoTurno->descripcion;
-                
+
                 array_push($array_tipos_turnos, $objectTipoTurno);
                 $cont++;
             }
@@ -85,7 +87,7 @@ class TipoTurnoController extends Controller
         if($exito){
             return response()->json([
                 "status" => "ok",
-                "message" => "Nuevo tipo de turno guardad con éxito.",
+                "message" => "Nuevo tipo de turno guardado con éxito.",
                 "tipos_turnos" => $array_tipos_turnos,
             
             ], 200);
@@ -102,7 +104,7 @@ class TipoTurnoController extends Controller
             $tipoTurno->descripcion = $request->descripcion;
             $tipoTurno->save();
 
-            $tipoTurno = TipoTurno::where('status', 1)->get();
+            $tiposTurnos = TipoTurno::where('status', 1)->get();
 
             $array_tipos_turnos = array();
             $cont = 1;
@@ -148,7 +150,7 @@ class TipoTurnoController extends Controller
             $tipoTurno->status = false;
             $tipoTurno->save();
 
-            $tipoTurno = TipoTurno::where('status', 1)->get();
+            $tiposTurnos = TipoTurno::where('status', 1)->get();
 
             $array_tipos_turnos = array();
             $cont = 1;

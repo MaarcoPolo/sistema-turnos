@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="custom-title-div-normal row justify-content-between">
             <div class="">
-                <p class="custom-title-page">Tipo de Turnos</p>
+                <p class="custom-title-page">Casas de justicia (Oficialias)</p>
             </div>
         </div>
         <div class="container mt-6">
@@ -16,9 +16,9 @@
                                 class="custom-button"
                                 block
                                 color="#c4f45d"
-                                @click="abrirModalNuevoTipoTurno()"
+                                @click="abrirModalNuevaCasaJusticia()"
                                 >
-                                Nuevo Tipo de Turno
+                                Nueva Casa de Justicia
                             </v-btn>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                     <th class="custom-title-table">Id</th>
                                     <th class="custom-title-table">Nombre</th>
                                     <th class="custom-title-table">Nomenclatura</th>
-                                    <th class="custom-title-table">Descripción</th>
+                                    <th class="custom-title-table">IP</th>
                                     <th class="custom-title-table">Acciones</th>
                                 </tr>
                             </thead>
@@ -64,24 +64,24 @@
                                         </div>
                                     </th>
                                 </tr>
-                                <tr v-else v-for="tipos_turnos in datosPaginados" :key="tipos_turnos.id">
+                                <tr v-else v-for="casa_justicia in datosPaginados" :key="casa_justicia.id">
                                     <td class="custom-data-table">
-                                        {{tipos_turnos.num_registro}}
+                                        {{casa_justicia.num_registro}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
-                                        {{tipos_turnos.nombre}}
+                                        {{casa_justicia.nombre}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
-                                        {{tipos_turnos.nomenclatura}}
+                                        {{casa_justicia.nomenclatura}}
                                     </td>
                                     <td class="custom-data-table text-uppercase">
-                                        {{tipos_turnos.descripcion}}
+                                        {{casa_justicia.ip}}
                                     </td>
                                     <td>
                                         <div class="text-center row justify-content-center">
                                             <div>
                                                 <v-icon 
-                                                    @click="abrirModalEditarTipoTurno(tipos_turnos)"
+                                                    @click="abrirModalEditarCasaJusticia(casa_justicia)"
                                                     class="mr-1"
                                                     >
                                                     mdi-text-box-edit-outline
@@ -91,12 +91,12 @@
                                                     activator="parent"
                                                     location="bottom"
                                                     >
-                                                    <span style="font-size: 15px;">Editar Tipo de Turno</span>
+                                                    <span style="font-size: 15px;">Editar Casa de justicia</span>
                                                 </v-tooltip>
                                             </div>
                                             <div>
                                                 <v-icon
-                                                    @click="eliminarTipoTurno(tipos_turnos)"
+                                                    @click="eliminarCasaJusticia(casa_justicia)"
                                                     class="ml-1"
                                                     
                                                     >
@@ -110,7 +110,7 @@
                         </table>
                     </div>
                     <div>
-                        <template v-if="tiposTurnos && tiposTurnos.length > 0">
+                        <template v-if="casasJusticia && casasJusticia.length > 0">
                             <div class="row justify-content-between container">
                                 <div>
                                     <p class="custom-text-show-results mt-2">
@@ -119,7 +119,7 @@
                                         -
                                         <span>{{to}}</span>
                                         de
-                                        <span>{{tiposTurnos.length}}</span>
+                                        <span>{{casasJusticia.length}}</span>
                                         resultados
                                     </p>
                                 </div>
@@ -162,7 +162,7 @@
                         </template>
                         <template v-else-if="!loading">
                             <div class="text-center">
-                                <p class="no-data-text">No hay tipos de turnos disponibles</p>
+                                <p class="no-data-text">No hay casas de justicia disponibles</p>
                             </div>
                         </template>
                     </div>
@@ -171,18 +171,18 @@
         </div>
 
         <!-- INICIO MODAL AGREGAR NUEVA CAJA-->
-        <v-dialog v-model="dialogNuevoTipoTurno" max-width="50rem" persistent>
+        <v-dialog v-model="dialogNuevaCasaJusticia" max-width="50rem" persistent>
             <v-card>
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Nuevo tipo de turno</p>
+                            <p>Nueva Casa de Justicia</p>
                         </div>
                     </div>
                     <div class="row justify-content-between mt-5">
                         <div class="col-12">
                             <div class="div-custom-input-caja">
-                                <label for="input_nombre">Nombre del tipo de turno:</label>
+                                <label for="input_nombre">Nombre de la casa de justicia:</label>
                                 <input id="input_nombre" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.form.nombre.$error">*Campo obligatorio</p>
                             </div>
@@ -196,8 +196,23 @@
                         </div>
                         <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="input_descripcion">Descripción:</label>
-                                <input id="input_descripcion" type="text" class="form-control minimal custom-input text-uppercase" v-model="form.descripcion">
+                                <label for="input_ip">IP:</label>
+                                <input id="input_ip" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.ip.$model">
+                                <p class="text-validation-red" v-if="v$.form.ip.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_nombre_impresora">Nombre de impresora:</label>
+                                <input id="input_nombre_impresora" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.nombre_impresora.$model">
+                                <p class="text-validation-red" v-if="v$.form.nombre_impresora.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_tipo_conexion_impresora">Tipo de conexión de la impresora:</label>
+                                <input id="input_tipo_conexion_impresora" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.form.tipo_conexion_impresora.$model">
+                                <p class="text-validation-red" v-if="v$.form.tipo_conexion_impresora.$error">*Campo obligatorio</p>
                             </div>
                         </div>
                     </div>
@@ -206,14 +221,14 @@
                             
                             class="custom-button mr-2"
                             color="#c4f45d"
-                            @click="guardarNuevoTipoTurno()"
+                            @click="guardarNuevaCasaJusticia()"
                             >
                             Guardar
                         </v-btn>
                         <v-btn
                             class="custom-button ml-2"
                             color="#6a73a0"
-                            @click="cerrarModalNuevoTipoTurno()"
+                            @click="cerrarModalNuevaCasaJusticia()"
                             >
                             Cancelar
                         </v-btn>
@@ -223,21 +238,21 @@
         </v-dialog>
 
         <!-- INICIO MODAL EDITAR CAJA-->
-        <v-dialog v-model="dialogEditarTipoTurno" max-width="50rem" persistent>
+        <v-dialog v-model="dialogEditarCasaJusticia" max-width="50rem" persistent>
             <v-card>
                 <v-card-text>
                     <div class="text-center my-8 custom-border">
                         <div class="custom-subtitle">
-                            <p>Editar el tipo de turno</p>
+                            <p>Editar la Casa de Justicia</p>
                         </div>
                     </div>
                     <div class="">
                     </div>
-                    <div class="row justify-content-between">
-                        <div class="col-12 mt-4">
+                    <div class="row justify-content-between mt-5">
+                        <div class="col-12">
                             <div class="div-custom-input-caja">
-                                <label for="input_nombre">Nombre:</label>
-                                <input id="input_nombre" autocomplete="off"  class="form-control" v-model="v$.editar.nombre.$model">
+                                <label for="input_nombre">Nombre de la casa de justicia:</label>
+                                <input id="input_nombre" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.editar.nombre.$model">
                                 <p class="text-validation-red" v-if="v$.editar.nombre.$error">*Campo obligatorio</p>
                             </div>
                         </div>
@@ -250,8 +265,23 @@
                         </div>
                         <div class="col-12 mt-4">
                             <div class="div-custom-input-caja">
-                                <label for="input_descripcion">Descripción:</label>
-                                <input id="input_descripcion" type="text" class="form-control minimal custom-input text-uppercase" v-model="editar.descripcion">
+                                <label for="input_ip">IP:</label>
+                                <input id="input_ip" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.editar.ip.$model">
+                                <p class="text-validation-red" v-if="v$.editar.ip.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_nombre_impresora">Nombre de impresora:</label>
+                                <input id="input_nombre_impresora" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.editar.nombre_impresora.$model">
+                                <p class="text-validation-red" v-if="v$.editar.nombre_impresora.$error">*Campo obligatorio</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="div-custom-input-caja">
+                                <label for="input_tipo_conexion_impresora">Tipo de conexión de la impresora:</label>
+                                <input id="input_tipo_conexion_impresora" type="text" class="form-control minimal custom-input text-uppercase" v-model="v$.editar.tipo_conexion_impresora.$model">
+                                <p class="text-validation-red" v-if="v$.editar.tipo_conexion_impresora.$error">*Campo obligatorio</p>
                             </div>
                         </div>
                     </div>
@@ -260,14 +290,14 @@
                             
                             class="custom-button mr-2"
                             color="#c4f45d"
-                            @click="guardarCambiosEditarTipoTurno()"
+                            @click="guardarCambiosEditarCasaJusticia()"
                             >
                             Guardar
                         </v-btn>
                         <v-btn
                             class="custom-button ml-2"
                             color="#6a73a0"
-                            @click="cerrarModalNuevoTipoTurno()"
+                            @click="cerrarModalNuevaCasaJusticia()"
                             >
                             Cancelar
                         </v-btn>
@@ -277,7 +307,6 @@
         </v-dialog>
     </div>
 </template>
-
 <script>
     import { defineComponent } from "vue";
     import { errorSweetAlert, successSweetAlert, warningSweetAlert } from "../helpers/sweetAlertGlobals"
@@ -289,7 +318,7 @@
     import { required} from '@vuelidate/validators'
 
     export default defineComponent({
-        name: 'TipoTurnos',
+        name: 'CasasJusticia',
         data(){
             return{
                 showNav: false,
@@ -303,19 +332,23 @@
                 numShown: 5,
                 current: 1,
                 buscar: '',
-                dialogNuevoTipoTurno: false,
-                dialogEditarTipoTurno: false,
+                dialogNuevaCasaJusticia: false,
+                dialogEditarCasaJusticia: false,
                 form:{
                     id:null,
                     nombre:'',
                     nomenclatura:null,
-                    descripcion:null,
+                    ip:null,
+                    nombre_impresora:'',
+                    tipo_conexion_impresora:''
                 },
                 editar:{
                     id:null,
                     nombre:'',
                     nomenclatura:null,
-                    descripcion:null
+                    ip:null,
+                    nombre_impresora:'',
+                    tipo_conexion_impresora:''
                 },
             }
         },
@@ -330,22 +363,40 @@
                         nombre:{
                             required
                         },
+                        ip:{
+                            required
+                        },
                         nomenclatura:{
                             required
-                        }, 
+                        },
+                        nombre_impresora:{
+                            required
+                        },
+                        tipo_conexion_impresora:{
+                            required
+                        }
                     },
                     editar:{
                         nombre:{
                             required
                         },
+                        ip:{
+                            required
+                        },
                         nomenclatura:{
+                            required
+                        },
+                        nombre_impresora:{
+                            required
+                        },
+                        tipo_conexion_impresora:{
                             required
                         }
                     }
                 }
         },
     created(){
-        this.getCatalogoTiposTurnos()
+        this.getCasasJusticia()
     },
     computed:{
         pages(){
@@ -355,8 +406,8 @@
             first = Math.min(first, this.totalPaginas() - numShown + 1)
             return [...Array(numShown)].map((k, i) => i + first)
         },
-        tiposTurnos(){
-                return this.$store.getters.getCatalogoTiposTurnos
+        casasJusticia(){
+                return this.$store.getters.getCasasJusticia
         },
         currentRoute(){
             return this.$route.name
@@ -366,10 +417,10 @@
     watch:{
         buscar: function(){
             if(!this.buscar.length == 0){
-                this.datosPaginados = this.tiposTurnos.filter(item => {
+                this.datosPaginados = this.casasJusticia.filter(item => {
                     return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
                     || item.nomenclatura.toLowerCase().includes(this.buscar.toLowerCase())
-                    || item.descripcion.toLowerCase().includes(this.buscar.toLowerCase())
+                    || item.ip.toLowerCase().includes(this.buscar.toLowerCase())
                 })
             }else{
                 this.getDataPagina(1)
@@ -386,7 +437,7 @@
                 this.$store.dispatch('logout')
             },
             totalPaginas(){
-                return Math.ceil(this.tiposTurnos.length / this.elementosPorPagina)
+                return Math.ceil(this.casasJusticia.length / this.elementosPorPagina)
             },
             getDataPagina(noPagina){
                 this.paginaActual = noPagina
@@ -396,8 +447,8 @@
                 let fin = (noPagina * this.elementosPorPagina)
 
                 for(let index = ini; index < fin; index++){
-                    if(this.tiposTurnos[index]){
-                        this.datosPaginados.push(this.tiposTurnos[index])
+                    if(this.casasJusticia[index]){
+                        this.datosPaginados.push(this.casasJusticia[index])
                     }
                 }
 
@@ -406,7 +457,7 @@
                 if(noPagina < this.totalPaginas()){
                     this.to = fin
                 }else{
-                    this.to = this.tiposTurnos.length
+                    this.to = this.casasJusticia.length
                 }
             },
             getFirstPage(){
@@ -439,48 +490,52 @@
             setCurrentPage(pagina){
                 this.current = pagina
             },
-            abrirModalNuevoTipoTurno(){
-                this.dialogNuevoTipoTurno = true
+            abrirModalNuevaCasaJusticia(){
+                this.dialogNuevaCasaJusticia = true
             },
-            async getCatalogoTiposTurnos(){
+            async getCasasJusticia(){
                 try {
-                    let response = await axios.get('/api/tipos-turnos')
+                    let response = await axios.get('/api/casas-justicia')
                     if(response.status === 200){
                         if(response.data.status === "ok"){
-                            this.$store.commit('setCatalogoTiposTurnos', response.data.tipos_turnos)
+                            this.$store.commit('setCasasJusticia', response.data.casa_justicia)
                             this.mostrar = true
                         }else{
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
                     }else{
-                        errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
+                        errorSweetAlert('Ocurrió un error al obtener las casas de justicia')
                     }
                 }catch(error){
-                    errorSweetAlert('Ocurrió un error al obtener los tipos de turnos')
+                    errorSweetAlert('Ocurrió un error al obtener las casas de justicia catch')
                 }
             },
-            cerrarModalNuevoTipoTurno(){
-                this.dialogNuevoTipoTurno = false
-                this.dialogEditarTipoTurno = false
+            cerrarModalNuevaCasaJusticia(){
+                this.dialogNuevaCasaJusticia = false
+                this.dialogEditarCasaJusticia = false
                 this.form.nombre = ''
                 this.form.nomenclatura = ''
-                this.form.descripcion = ''
+                this.form.ip = ''
+                this.form.nombre_impresora = ''
+                this.form.tipo_conexion_impresora = ''
             },
-            abrirModalEditarTipoTurno(tipos_turnos){
+            abrirModalEditarCasaJusticia(casa_justicia){
 
-                this.dialogEditarTipoTurno = true 
-                this.editar.id = tipos_turnos.id
-                this.editar.nombre = tipos_turnos.nombre
-                this.editar.nomenclatura = tipos_turnos.nomenclatura
-                this.editar.descripcion = tipos_turnos.descripcion
+                this.dialogEditarCasaJusticia = true 
+                this.editar.id = casa_justicia.id
+                this.editar.nombre = casa_justicia.nombre
+                this.editar.nomenclatura = casa_justicia.nomenclatura
+                this.editar.ip = casa_justicia.ip
+                this.editar.nombre_impresora = casa_justicia.nombre_impresora
+                this.editar.tipo_conexion_impresora = casa_justicia.tipo_conexion_impresora
 
             },
-            async guardarNuevoTipoTurno(){
+            async guardarNuevaCasaJusticia(){
 
                 const isFormCorrect = await this.v$.form.$validate()              
                 if(!isFormCorrect) return
                 Swal.fire({
-                    title: '¿Guardar nuevo Tipo de Turno?',
+                    title: '¿Guardar nueva Casa de Justicia?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085D6',
@@ -491,10 +546,10 @@
                     preConfirm: async()=>{
                         try{
                                 this.loading = true
-                                let response = await axios.post('/api/tipos-turnos/crear-tipo', this.form)
+                                let response = await axios.post('/api/casas-justicia/crear-casaJusticia', this.form)
                                 return response
                             }catch(error){
-                                errorSweetAlert('Ocurrió un error al guardar el tipo de turno.')
+                                errorSweetAlert('Ocurrió un error al guardar la casa de justicia.')
                             }
                         },
                         allowOutsideClick: () => !Swal.isLoading()
@@ -503,9 +558,9 @@
                             if(result.value.status === 200){
                                 if(result.value.data.status === "ok"){
                                     successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCatalogoTiposTurnos', result.value.data.tipos_turnos)
+                                    this.$store.commit('setCasasJusticia', result.value.data.casa_justicia)
                                     this.loading = false
-                                    this.cerrarModalNuevoTipoTurno()
+                                    this.cerrarModalNuevaCasaJusticia()
                                     this.getDataPagina(1)
                                 }else if(result.value.data.status==="exists"){
                                     warningSweetAlert(result.value.data.message)
@@ -514,12 +569,12 @@
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                 }
                             }else{
-                                errorSweetAlert('Ocurrió un error al guardar el nuevo tipo de turno')
+                                errorSweetAlert('Ocurrió un error al guardar la nueva casa de justicia')
                             }
                         }
                     })
             },
-            async guardarCambiosEditarTipoTurno(){
+            async guardarCambiosEditarCasaJusticia(){
                 const isFormCorrect = await this.v$.editar.$validate()              
                 if (!isFormCorrect) return
                     Swal.fire({
@@ -532,12 +587,12 @@
                         cancelButtonText: 'Cancelar',
                         showLoaderOnConfirm: true,
                         preConfirm: async () => {
-                            try {
+                            try{
                                 this.loading = true
-                                let response = await axios.post('/api/tipos-turnos/actualizar-tipo', this.editar)
+                                let response = await axios.post('/api/casas-justicia/actualizar-casaJusticia', this.editar)
                                 return response
-                            } catch (error) {
-                                errorSweetAlert('Ocurrió un error al actualizar los tipos de turnos.')
+                            }catch(error){
+                                errorSweetAlert('Ocurrió un error al actualizar la casa de justicia.')
                             }
                         },
                         allowOutsideClick: () => !Swal.isLoading()
@@ -546,22 +601,22 @@
                             if (result.value.status === 200) {
                                 if (result.value.data.status === "ok") {
                                     successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCatalogoTiposTurnos', result.value.data.tipos_turnos)
-                                    this.cerrarModalNuevoTipoTurno()
+                                    this.$store.commit('setCasasJusticia', result.value.data.casa_justicia)
+                                    this.cerrarModalNuevaCasaJusticia()
                                     this.loading = false
                                     this.getDataPagina(1)
                                 }else {
                                     errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                 }
                             } else {
-                                errorSweetAlert('Ocurrió un error al actualizar los datos del tipo de turno.')
+                                errorSweetAlert('Ocurrió un error al actualizar las casas de justicia.')
                             }
                         }
                     })
                 },
-                async eliminarTipoTurno(tipos_turnos){
+                async eliminarCasaJusticia(casa_justicia){
                     Swal.fire({
-                        title: '¿Desea Eliminar este tipo de turno?',
+                        title: '¿Desea Eliminar esta Casa de justicia?',
                         icon: 'question',
                         showCancelButton: true,
                         confirmButtonColor: '#3085D6',
@@ -572,7 +627,7 @@
                         preConfirm: async () => {
                             try{
                                 this.loading= true
-                                let response = await axios.post('/api/tipos-turnos/eliminar-tipo', tipos_turnos)
+                                let response = await axios.post('/api/casas-justicia/eliminar-casaJusticia', casa_justicia)
                                 return response
                                 }catch(error){
                                     errorSweetAlert('Ocurrió un error al eliminar esta Ventanilla.')
@@ -584,14 +639,14 @@
                             if(result.value.status === 200){
                                 if(result.value.data.status === "ok"){
                                     successSweetAlert(result.value.data.message)
-                                    this.$store.commit('setCatalogoTiposTurnos', result.value.data.tipos_turnos)
+                                    this.$store.commit('setCasasJusticia', result.value.data.casa_justicia)
                                     this.loading = false
                                     this.getDataPagina(1)
                                     }else{
                                         errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
                                     }
                                 }else{
-                                    errorSweetAlert('Ocurrió un error al eliminar el tipo de turno.')
+                                    errorSweetAlert('Ocurrió un error al eliminar la casa de justicia.')
                                 }
                             }
                         })

@@ -71,16 +71,13 @@
             },
         },
         methods: {
-           async imprimirTurno() {
+            async imprimirTurno() {
                 this.loading = true
                 this.turno.id = this.turnoGenerado.id
                 try {
                         let response = await axios.post('/api/imprimir-turno', this.turno)
                         if (response.status === 200) {
                             if (response.data.status === "ok") {
-                                // this.$store.commit('setTurnoGenerado',response.data.turno)
-                                // console.log(this.$store.state.turno.turnoGenerado)
-                                // successSweetAlert(response.message)
                                 this.$router.push('/kiosco-huejotzingo')
                                 
                                 } else {

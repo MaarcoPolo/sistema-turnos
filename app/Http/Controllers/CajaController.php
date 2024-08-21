@@ -15,8 +15,7 @@ class CajaController extends Controller
     {
         try {
             if($request->tipo == 2){
-                // $sede = $request->sede;
-                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
+
                 $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
 
                 $array_cajas = array();
@@ -60,7 +59,6 @@ class CajaController extends Controller
                     "cajas" => $array_cajas
                 ], 200);
             }else{
-                // $cajas = Caja::where('status', 1)->get();
                 $cajas = Caja::all();
 
                 $array_cajas = array();
@@ -156,28 +154,23 @@ class CajaController extends Controller
     
         DB::beginTransaction();
         try{
-            $inserttipos = "";
-            foreach($request->tipo as $tipo)
-            {
-                $inserttipos =$inserttipos.$tipo;
-                if(count($request->tipo ) > 1)
-                    $inserttipos = $inserttipos;
+            $tipo_id = '';
+            for($i=0;$i < count($request->tipo_id); $i++){
 
+                $tipo_id = $tipo_id.$request->tipo_id[$i];
+                
             }
                 $caja = new Caja;
                 $caja->nombre = $request->nombre;
                 $caja->casa_justicia_id = $request->sede;
-                $caja->tipo_turno_id = $inserttipos;
+                $caja->tipo_turno_id = $tipo_id;
                 $caja->status = 0;
                 $caja->save();
 
-
             if($request->tipo_usuario == 1){
-                // $cajas = Caja::where('status', 1)->get();
                 $cajas = Caja::all();
 
             }else{
-                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
                 $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
             }
 
@@ -247,10 +240,8 @@ class CajaController extends Controller
             $caja->save();
 
             if($request->tipo_usuario == 1){
-                // $cajas = Caja::where('status', 1)->get();
                 $cajas = Caja::all();
             }else{
-                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $request->sede)->get();
                 $cajas = Caja::where('casa_justicia_id', $request->sede)->get();
             }
             $array_cajas = array();
@@ -317,24 +308,17 @@ class CajaController extends Controller
             $caja = Caja::find($request->id);
             $caja->status = false;
             $caja->save();
-//////////////////////////////
+
             $id = $caja->user->asignacion;
             if($id){
                 $id->status = false;
                 $id->save();
-                //  QUITAR CAJA ASIGNADA
-                // $usuario = User::find($id->user_id);
-                // $usuario->caja_id = 0;
-                // $usuario->save();
-
             }
-           
+            
             if($request->tipo_usuario == 1){
-                // $cajas = Caja::where('status', 1)->get();
                 $cajas = Caja::all();
             }else{
                 $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();
-                // $cajas = Caja::where('status', 1)->where('casa_justicia_id', $caja->casa_justicia_id)->get();
             }
 
             $array_cajas = array();
@@ -425,7 +409,6 @@ class CajaController extends Controller
                         $asignacion->tipo_turno = intval($request->tipo_id[$i]);
                         $asignacion->save();
                     }
-
 
             $cajas = Caja::where('casa_justicia_id', $caja->casa_justicia_id)->get();
                 $array_cajas = array();

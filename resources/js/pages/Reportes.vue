@@ -71,7 +71,6 @@
                 }
                 this.variables_reporte.id_sede = id_sede
                 try {
-                    console.log(this.variables_reporte)
                     let response = await axios.post('/api/reportes/generar-reporte-tiempo-real', this.variables_reporte, {
                         responseType: 'arraybuffer'
                     }).then((response) => {

@@ -16,6 +16,9 @@
                 <div class="col-md-3 col-12 text-center">
                     <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Tipo de turnos" @click="this.$router.push('/TipoTurnos')" />
                 </div>
+                <div class="col-md-3 col-12 text-center">
+                    <BotonCatalogo nombre_icon="usuarios.png" nombre_catalogo="Casas de justicia" @click="this.$router.push('/CasasJusticia')" />
+                </div>
                 <div class="col-md-3 col-12 text-center"></div>
             </div>
         </div>

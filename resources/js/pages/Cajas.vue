@@ -208,7 +208,7 @@
                             <div class="div-custom-input-caja">
                                 <label for="select_sede">Sede:</label>
                                 <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.form.sede.$model">
-                                    <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                    <option  v-for="item in casa_justicia" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                 </select>
                                 <p class="text-validation-red" v-if="v$.form.sede.$error">*Campo obligatorio</p>
                             </div>
@@ -290,8 +290,8 @@
 
     export default defineComponent({
         name: 'cajas',
-        data() {
-            return {
+        data(){
+            return{
                 showNav: false,
                 loading: false,
                 elementosPorPagina: 10,
@@ -305,16 +305,14 @@
                 buscar: '',
                 dialogNuevaCaja: false,
                 dialogEditarCaja: false,
-                form: {
+                form:{
                     id:null,
                     nombre:'',
                     tipo:null,
                     sede:null,
                     tipo_usuario:null
-                    // descripcion:'',
-                    // fecha_oficio:new Date().toJSON().slice(0,10),
                 },
-                editar: {
+                editar:{
                     id:null,
                     nombre:'',
                     sede:null,
@@ -376,7 +374,7 @@
         tiposVentanillas(){
                 return this.$store.getters.getCatalogoTiposTurnos
         },
-        sedes(){
+        casa_justicia(){
                 return this.$store.getters.getCasasJusticia
         },
     },
@@ -480,7 +478,7 @@
                     let response = await axios.get('/api/casas-justicia')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
-                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                            this.$store.commit('setCasasJusticia', response.data.casa_justicia)
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -521,7 +519,7 @@
 
             },
             abrirModalEditarCaja(caja){
-                // console.log(caja)
+
                 this.dialogEditarCaja=true 
                 this.editar.id = caja.id
                 this.editar.nombre = caja.nombre
@@ -563,7 +561,6 @@
                                     this.loading = false
                                     this.cerrarModalNuevaCaja()
                                     this.getDataPagina(1)
-                                    // this.descargarCodigoOficio(result.value.data.oficio)
                                 } else if(result.value.data.status==="exists"){
                                     warningSweetAlert(result.value.data.message)
                                     this.loading = false
@@ -632,7 +629,6 @@
                         try {
                             this.loading= true
                             caja.tipo_usuario = this.user.user.tipo_usuario_id
-                          //  console.log(caja)
                             let response = await axios.post('/api/cajas/eliminar-caja', caja)
                             return response
                         }catch (error) {

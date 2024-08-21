@@ -9,6 +9,7 @@ import Ventanilla from './pages/Ventanilla.vue'
 import Cajas from './pages/Cajas.vue'
 import Reportes from './pages/Reportes.vue'
 import TipoTurnos from './pages/TipoTurnos.vue'
+import CasasJusticia from './pages/CasasJusticia.vue'
 
 import KioscoPuebla from './pages/KioscoPuebla.vue'
 import KioscoCholula from './pages/KioscoCholula.vue'
@@ -126,6 +127,21 @@ const routes = [
         path: '/reportes',
         name: 'Reportes',
         component: Reportes,
+        meta: {
+            requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.user.tipo_usuario_id != 3) {
+                next()
+            } else {
+                next({name: 'Ventanilla'})
+            }
+        }
+    },
+    {
+        path: '/CasasJusticia',
+        name: 'CasasJusticia',
+        component: CasasJusticia,
         meta: {
             requiresAuth: true
         },

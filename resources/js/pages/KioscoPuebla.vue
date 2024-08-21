@@ -7,38 +7,38 @@
         </div>
         <div class="pt-6">
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
-            <div class="row justify-content-between div-row-botones-generar-turno">
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+            <div class="row justify-content-between div-row-botones-generar-turno ">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/escritos_anexos.png" alt="" @click="generarTurno(1)">
                     <span v-else class="loader"></span>
                 </div>
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_2" class="boton-generar-turno" src="../../../public/img/apelaciones.png" alt="" @click="generarTurno(2)">
                     <span v-else class="loader"></span>
                 </div>
             </div>
             <div class="row justify-content-between div-row-botones-generar-turno">
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_3" class="boton-generar-turno" src="../../../public/img/trabajadores.png" alt="" @click="generarTurno(3)">
                     <span v-else class="loader"></span>
                 </div>
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_4" class="boton-generar-turno" src="../../../public/img/sin_anexos.png" alt="" @click="generarTurno(4)">
                     <span v-else class="loader"></span>
                 </div>
             </div>
             <div class="row justify-content-between div-row-botones-generar-turno">
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_5" class="boton-generar-turno" src="../../../public/img/demanda.png" alt="" @click="generarTurno(5)">
                     <span v-else class="loader"></span>
                 </div>
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
                     <img v-if="!loader_6" class="boton-generar-turno" src="../../../public/img/citas_oralidad.png" alt="" @click="generarTurno(6)">
                     <span v-else class="loader"></span>
                 </div>
             </div>
             <div class="row justify-content-center div-row-botones-generar-turno">
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-10">
                     <img v-if="!loader_7" class="boton-generar-turno" src="../../../public/img/exhortos.png" alt="" @click="generarTurno(7)">
                     <span v-else class="loader"></span>
                 </div>

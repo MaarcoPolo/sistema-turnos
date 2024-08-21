@@ -16,7 +16,7 @@
                         <div class="div-custom-input-caja">
                             <label for="select_nombre">Sede:</label>
                             <select v-model="sede" name="select_casa_justicia" class="form-control minimal custom-select text-uppercase">
-                                <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                <option  v-for="item in casa_justicia" :key="item.id" :value="item.id">{{item.nombre}}</option>
                             </select>
                         </div>
                     </div>
@@ -453,7 +453,7 @@
             tiposVentanillas() {
                 return this.$store.getters.getCatalogoTiposTurnos
             },
-            sedes() {
+            casa_justicia() {
                 return this.$store.getters.getCasasJusticia
             },
         },
@@ -511,7 +511,7 @@
                     let response = await axios.get('/api/casas-justicia')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
-                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                            this.$store.commit('setCasasJusticia', response.data.casa_justicia)
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }

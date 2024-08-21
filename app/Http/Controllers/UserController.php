@@ -96,14 +96,13 @@ class UserController extends Controller
                 $usuario->caja_id = $request->caja_id;
                 $usuario->casa_justicia_id = $request->sede;
                 $usuario->save();
+                
+                    if($request->caja_id){
 
-                if($request->caja_id)
-                {
-                    $caja = Caja::find($request->caja_id);
-                    $caja->status = true;
-                    $caja->save();
+                        $caja = Caja::find($request->caja_id);
+                        $caja->status = true;
+                        $caja->save();
 
-                }
                         for($i=0; $i < strlen($caja->tipo_turno_id); $i++)
                         {
                         
@@ -113,7 +112,10 @@ class UserController extends Controller
                             $asignacion->tipo_turno = intval($caja->tipo_turno_id[$i]);
                             $asignacion->save();
                         }
-            
+                    }else{
+                        $caja = false;
+                    }
+                                
             if($request->tipo_usuario == 1){
                 $usuarios = User::where('status', 1)
                                 ->where('tipo_usuario_id','!=', 1)

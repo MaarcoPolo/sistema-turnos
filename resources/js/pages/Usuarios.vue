@@ -195,14 +195,12 @@
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoP">Apellido paterno:</label>
                                     <input id="input_apellidoP" type="text" class="form-control" v-model="usuario.apellido_paterno">
-                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_paterno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
                                 <div class="div-custom-input-caja">
                                     <label for="input_apellidoM">Apellido materno:</label>
                                     <input id="input_apellidoM" type="text" class="form-control" v-model="usuario.apellido_materno">
-                                    <!-- <p class="text-validation-red" v-if="v$.usuario.apellido_materno.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                         </div>
@@ -211,7 +209,6 @@
                                 <div class="div-custom-input-caja">
                                     <label for="input_email">Correo:</label>
                                     <input id="input_email" type="text" class="form-control" v-model="usuario.email">
-                                    <!-- <p class="text-validation-red" v-if="v$.usuario.email.$error">*Correo inválido</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12">
@@ -237,7 +234,6 @@
                                     <select id="select_ventanilla" class="form-control minimal custom-select text-uppercase" v-model="usuario.caja_id">
                                         <option  v-for="item in ventanillas" :key="item.num" :value="item.id">{{item.nombre}}</option>
                                     </select>
-                                    <!-- <p class="text-validation-red" v-if="v$.usuario.password.$error">*Campo obligatorio</p> -->
                                 </div>
                             </div>
                             <div class="col-md-4 col-12"></div>
@@ -256,7 +252,7 @@
                                 <div class="div-custom-input-caja">
                                     <label for="select_sede">Sede:</label>
                                     <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
-                                        <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                        <option  v-for="item in casa_justicia" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
                                 </div>
@@ -383,7 +379,7 @@
                                 <div class="div-custom-input-caja">
                                     <label for="select_sede">Sede:</label>
                                     <select id="select_sede" class="form-control minimal custom-select text-uppercase" v-model="v$.usuario.sede.$model">
-                                        <option  v-for="item in sedes" :key="item.id" :value="item.id">{{item.nombre}}</option>
+                                        <option  v-for="item in casa_justicia" :key="item.id" :value="item.id">{{item.nombre}}</option>
                                     </select>
                                     <p class="text-validation-red" v-if="v$.usuario.sede.$error">*Campo obligatorio</p>
                                 </div>
@@ -464,9 +460,6 @@
                     caja_id: null,
                     ventanilla: '',
                     tipo_usuario_id: null
-                    // username:'',
-                    // area_id:'',
-                    // numero:'',
                 },
                 v:{
                     sede: null
@@ -501,23 +494,12 @@
                         sede: {
                             required
                         },
-                        // email: {
-                        //     required, 
-                        //     email
-                        // },
                         password: {
                             required
                         },
                         username: {
                             required
-                        },
-                        // tipo_usuario_id: {
-                        //     required
-                        // },
-                        // area_id: {
-                        //     required
-                        // },
-                        
+                        },                        
                     }
                 }
         },
@@ -528,39 +510,38 @@
             this.getTipoUsuarios()
         },
         computed: {
-        pages() {
-            const numShown = Math.min(this.numShown, this.totalPaginas())
-            let first = this.current - Math.floor(numShown / 2)
-            first = Math.max(first, 1)
-            first = Math.min(first, this.totalPaginas() - numShown + 1)
-            return [...Array(numShown)].map((k, i) => i + first)
+            pages() {
+                const numShown = Math.min(this.numShown, this.totalPaginas())
+                let first = this.current - Math.floor(numShown / 2)
+                first = Math.max(first, 1)
+                first = Math.min(first, this.totalPaginas() - numShown + 1)
+                return [...Array(numShown)].map((k, i) => i + first)
+            },
+            ventanillas() {
+                    return this.$store.getters.getVentanillasDisponibles
+            },
+            usuarios() {
+                    return this.$store.getters.getUsuarios
+            },
+            user() {
+                    return this.$store.getters.user
+            },
+            currentRoute() {
+                return this.$route.name
+            },
+            casa_justicia() {
+                    return this.$store.getters.getCasasJusticia
+            },
+            tipoUsuarios() {
+                    return this.$store.getters.getTipoUsuarios
+            },
         },
-        ventanillas() {
-                return this.$store.getters.getVentanillasDisponibles
-        },
-        usuarios() {
-                return this.$store.getters.getUsuarios
-        },
-        user() {
-                return this.$store.getters.user
-        },
-        currentRoute() {
-            return this.$route.name
-        },
-        sedes() {
-                return this.$store.getters.getCasasJusticia
-        },
-        tipoUsuarios() {
-                return this.$store.getters.getTipoUsuarios
-        },
-      },
         watch: {
             buscar: function () {
                 if (!this.buscar.length == 0) {
                     this.datosPaginados = this.usuarios.filter(item => {
                         return item.nombre.toLowerCase().includes(this.buscar.toLowerCase())
                         || item.sede.toLowerCase().includes(this.buscar.toLowerCase())
-                    
                     })
                 } else {
                     this.getDataPagina(1)
@@ -573,14 +554,13 @@
             },
             'usuario.sede': function () {
                 this.v.sede = this.usuario.sede
-                // console.log(this.usuario)
                 this.ventanillasDisponibles()
             },
         },
         methods: {
-        logout() {
-                this.$store.dispatch('logout')
-            },
+            logout() {
+                    this.$store.dispatch('logout')
+                },
             totalPaginas() {
                 return Math.ceil(this.usuarios.length / this.elementosPorPagina)
             },
@@ -647,7 +627,6 @@
                     }else{
                         this.usuario.tipo_usuario = 1
                     }
-                   
                     let response = await axios.post('/api/usuarios', this.usuario)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
@@ -666,16 +645,11 @@
                 this.loading = false
             },
             async getTipoUsuarios() {
-                // this.loading = true
                 try {
-                    // this.usuario.tipo = this.user.user.tipo_usuario_id
-                    // this.usuario.sede = this.user.user.casa_justicia_id
                     let response = await axios.get('/api/tipo-usuarios')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setTipoUsuarios', response.data.tipoUsuarios)
-                            // this.oficios = response.data.oficios
-                            // this.mostrar = true
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -685,14 +659,13 @@
                 } catch (error) {
                     errorSweetAlert('Ocurrió un error al obtener los tipos de usuarios')
                 }
-                // this.loading = false
             },
             async getCasasJusticia() {
                 try {
                     let response = await axios.get('/api/casas-justicia')
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
-                            this.$store.commit('setCasasJusticia', response.data.sedes)
+                            this.$store.commit('setCasasJusticia', response.data.casa_justicia)
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -704,20 +677,15 @@
                 }
             },
             async ventanillasDisponibles() {
-                // this.loading = true
                 try {
                     if(this.user.user.tipo_usuario_id == 2){
                         this.v.sede = this.user.user.casa_justicia_id
                     }
                     
-                    // this.usuario.tipo_usuario = this.user.user.tipo_usuario_id
                     let response = await axios.post('/api/cajas-disponibles', this.v)
                     if (response.status === 200) {
                         if (response.data.status === "ok") {
                             this.$store.commit('setVentanillasDisponibles', response.data.ventanillas)
-                            
-                            // this.oficios = response.data.oficios
-                            // this.mostrar = true
                         } else {
                             errorSweetAlert(`${response.data.message}<br>Error: ${response.data.error}<br>Location: ${response.data.location}<br>Line: ${response.data.line}`)
                         }
@@ -727,7 +695,6 @@
                 } catch (error) {
                     errorSweetAlert('Ocurrió un error al obtener las ventanillas')
                 }
-                // this.loading = false
             },
             cerrarModalNuevoUsuario(){
                 this.dialogNuevoUsuario = false
@@ -741,9 +708,7 @@
                 
             },
             abrirModalEditarUsuario(usuario){
-                // console.log(usuario)
                 this.dialogEditarUsuario=true 
-                // this.dialogEditarUsuario = true
                 this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
                 this.usuario.sede = usuario.sede_id
                 this.usuario.id = usuario.id
@@ -753,9 +718,7 @@
                 this.usuario.email = usuario.email
                 this.usuario.password = usuario.password
                 this.usuario.ventanilla = usuario.ventanilla
-                // this.usuario.area_id = usuario.area_id
                 this.usuario.username = usuario.username
-                // this.ventanillasDisponibles()
             },
             async guardarNuevoUsuario() {
                 if(this.user.user.tipo_usuario_id == 2){
@@ -810,23 +773,6 @@
                         }
                     })
             },
-                // Abrir modal de editar usuario ya con los datos cargados
-            //     EditarUsuario(usuario) {
-            //     this.dialogEditarUsuario = true
-            //     this.usuario.id = usuario.id
-            //     this.usuario.nombre = usuario.nombre
-            //     this.usuario.apellido_materno = usuario.apellido_materno
-            //     this.usuario.apellido_paterno = usuario.apellido_paterno
-            //     this.usuario.email = usuario.email
-            //     this.usuario.password = usuario.password
-            //     // this.usuario.tipo_usuario_id = usuario.tipo_usuario_id
-            //     this.usuario.ventanilla = usuario.ventanilla
-            //     this.usuario.username = usuario.username
-            //     // this.usuario.email_confirm = usuario.email
-            //     // this.usuario.password_confirm = usuario.password
-            //     // this.usuario.numero = usuario.numero
-            // },
-            // boton para cerrar el modal
             CancelarEditarUsuario() {
                 this.dialogEditarUsuario = false
                 this.usuario.id = ''
@@ -834,19 +780,11 @@
                 this.usuario.apellido_paterno = ''
                 this.usuario.apellido_materno = ''
                 this.usuario.email = ''
-                // this.usuario.tipo_usuario_id = ''
                 this.usuario.username = ''
                 this.usuario.password = ''        
-                // this.usuario.area_id = ''  
-                // this.usuario.numero = '' 
                 this.ventanillasDisponibles()   
             },
             async guardarCambiosEditarUsuario() {
-                // if(this.user.user.tipo_usuario_id == 2){
-                    // console.log(this.usuario)
-                //     // this.usuario.tipo_usuario_id = this.user.user.tipo_usuario_id
-                //     // this.usuario.sede = this.user.user.casa_justicia_id
-                // }
                 const isFormCorrect = await this.v$.usuario.$validate()              
                 if (!isFormCorrect) return
                     Swal.fire({
@@ -885,43 +823,43 @@
                         }
                     })
             },
-           async eliminarUsuario(usuario) {
-                Swal.fire({
-                  title: '¿Eliminar Usuario?',
-                  icon: 'question',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085D6',
-                  cancelButtonColor: '#D33',
-                  confirmButtonText: 'Si, eliminar',
-                  cancelButtonText: 'Cancelar',
-                  showLoaderOnConfirm: true,
-                  preConfirm: async () => {
-                      try {
-                            usuario.tipo_usuario = this.user.user.tipo_usuario_id
-                            usuario.sede = this.user.user.casa_justicia_id
-                          let response = await axios.post('/api/usuarios/eliminar-usuario', usuario)
-                          return response
-                      } catch (error) {
-                          errorSweetAlert('Ocurrió un error al eliminar este Usuario.')
-                      }
-                  },
-                  allowOutsideClick: () => !Swal.isLoading()
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      if (result.value.status === 200) {
-                          if (result.value.data.status === "ok") {
-                              successSweetAlert(result.value.data.message)
-                              this.$store.commit('setUsuarios', result.value.data.usuarios)
-                              this.getDataPagina(1)
-                          } else {
-                              errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
-                          }
-                      } else {
-                          errorSweetAlert('Ocurrió un error al eliminar el Usuario.')
-                      }
-                  }
-              })
-               
+            async eliminarUsuario(usuario) {
+                    Swal.fire({
+                    title: '¿Eliminar Usuario?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085D6',
+                    cancelButtonColor: '#D33',
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    showLoaderOnConfirm: true,
+                    preConfirm: async () => {
+                        try {
+                                usuario.tipo_usuario = this.user.user.tipo_usuario_id
+                                usuario.sede = this.user.user.casa_justicia_id
+                            let response = await axios.post('/api/usuarios/eliminar-usuario', usuario)
+                            return response
+                        } catch (error) {
+                            errorSweetAlert('Ocurrió un error al eliminar este Usuario.')
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (result.value.status === 200) {
+                            if (result.value.data.status === "ok") {
+                                successSweetAlert(result.value.data.message)
+                                this.$store.commit('setUsuarios', result.value.data.usuarios)
+                                this.getDataPagina(1)
+                            } else {
+                                errorSweetAlert(`${result.value.data.message}<br>Error: ${result.value.data.error}<br>Location: ${result.value.data.location}<br>Line: ${result.value.data.line}`)
+                            }
+                        } else {
+                            errorSweetAlert('Ocurrió un error al eliminar el Usuario.')
+                        }
+                    }
+                })
+                
             }
         }
     })
