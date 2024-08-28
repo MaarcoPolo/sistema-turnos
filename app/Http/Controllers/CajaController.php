@@ -154,16 +154,18 @@ class CajaController extends Controller
     
         DB::beginTransaction();
         try{
-            $tipo_id = '';
-            for($i=0;$i < count($request->tipo_id); $i++){
+            $inserttipos = "";
+            foreach($request->tipo as $tipo)
+            {
+                $inserttipos =$inserttipos.$tipo;
+                if(count($request->tipo ) > 1)
+                    $inserttipos = $inserttipos;
 
-                $tipo_id = $tipo_id.$request->tipo_id[$i];
-                
             }
                 $caja = new Caja;
                 $caja->nombre = $request->nombre;
                 $caja->casa_justicia_id = $request->sede;
-                $caja->tipo_turno_id = $tipo_id;
+                $caja->tipo_turno_id = $inserttipos;
                 $caja->status = 0;
                 $caja->save();
 

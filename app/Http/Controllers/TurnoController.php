@@ -575,7 +575,7 @@ class TurnoController extends Controller
             $exito = false;
             return response()->json([
                 "status" => "error",
-                "message" => "Ocurrió un error al actualizar el turno.",
+                "message" => "Ocurrió un error al actualizar el turno catch.",
                 "error" => $th->getMessage(),
                 "location" => $th->getFile(),
                 "line" => $th->getLine(),

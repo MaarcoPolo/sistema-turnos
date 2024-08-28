@@ -111,7 +111,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ turnos }}</p>
+                                        <p>{{ escritosSinAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -121,7 +121,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ demandas }}</p>
+                                        <p>{{ demandaNueva }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Demanda</p>
@@ -461,6 +461,7 @@
             'sede': function () {
                 this.usuario.sede = this.sede
                 this.getTurnosPendientes()
+
             },
             buscar: function () {
                 if (!this.buscar.length == 0) {
