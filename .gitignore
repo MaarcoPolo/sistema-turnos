@@ -18,3 +18,7 @@ yarn-error.log
 /.idea
 /.vscode
 vite.config.js
+/bootstrap/cache
+/storage/app/
+/storage/framework/
+/storage/logs/
