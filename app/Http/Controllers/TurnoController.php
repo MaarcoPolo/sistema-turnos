@@ -277,7 +277,7 @@ class TurnoController extends Controller
             $tipo_red = $turno->casaJusticia->tipo_conexion_impresora;
             
             if($tipo_red == 'local'){
-                $impresora = $turno->casaJusticia->nombre_impresora;
+                $impresora = $turno->casaJusticia->nombre_impresora ;
                 $connector = new WindowsPrintConnector($impresora);
             }else{
                 $impresora = $turno->casaJusticia->ip;
@@ -667,6 +667,10 @@ public function turnosPendientes(Request $request){
                     $oficialia = '9996';
                     $distrito = 'HUEJOTZINGO';
                 break;
+                case '4':
+                    $oficialia = '1000';
+                    $distrito = 'PUEBLA';
+                break;
             }
             $currentDate = Carbon::now();
 
@@ -984,12 +988,17 @@ public function turnosPendientes(Request $request){
             $objectP->total_turnos_asignados = $total_turnos_asignados;
 
             //Consultas 209
+            if($request->id_sede == 4)
+            {
+                $base = 'mysql_209_laborales';
+            }else{
+                $base = 'mysql_209';
+            }
+            $promocionesRecibidas = DB::connection($base)->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha_hoy'  and oficialia = '$oficialia'");
 
-            $promocionesRecibidas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='$fecha_hoy'  and oficialia = '$oficialia'");
+            $demandasRecividas = DB::connection($base)->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='$distrito'");
 
-            $demandasRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='$distrito'");
-
-            $apelacionesRecividas = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='APELACION'");
+            $apelacionesRecividas = DB::connection($base)->select("SELECT COUNT(CU) AS total FROM ocomun WHERE fecha='$fecha_hoy' AND distrito='APELACION'");
 
             $objectP->totalPromociones = $promocionesRecibidas[0]->total;
             $objectP->totalDemandas = $demandasRecividas[0]->total;
@@ -998,12 +1007,12 @@ public function turnosPendientes(Request $request){
             
             // $fechaAnterior = $f->subDay()->toDateString();
 
-            $existenPromocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fecha_hoy."' and hora>'15:00:00' and oficialia = '$oficialia'");
+            $existenPromocionesDiaAnterior = DB::connection($base)->select("SELECT COUNT(CU) AS total FROM promociones_pen WHERE fecha='".$fecha_hoy."' and hora>'15:00:00' and oficialia = '$oficialia'");
         
             if($existenPromocionesDiaAnterior[0]->total > 0)
             {
 
-                $promocionesDiaAnterior = DB::connection('mysql_209')->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM promociones_pen,juzgados 
+                $promocionesDiaAnterior = DB::connection($base)->select("SELECT ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM promociones_pen,juzgados 
                 WHERE  fecha='".$fecha_hoy."' and hora>'15:00:00' and oficialia = '$oficialia' and promociones_pen.juzgado = juzgados.codigo");
 
                 $objectP->promocionesDiaAnterior = $promocionesDiaAnterior;
@@ -1018,13 +1027,13 @@ public function turnosPendientes(Request $request){
                 $objectP->num_tablas = 0;
             }
             
-            $existenDemandasDiaAnterior = DB::connection('mysql_209')->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
+            $existenDemandasDiaAnterior = DB::connection($base)->select("SELECT count(folio) as total FROM ocomun,juzgados WHERE ocomun.juzgado = juzgados.codigo and
             fecha='".$fecha_hoy."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
             and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
 
             if($existenDemandasDiaAnterior[0]->total > 0)
             {
-                $demandasDiaAnterior = DB::connection('mysql_209')->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM ocomun,juzgados WHERE 
+                $demandasDiaAnterior = DB::connection($base)->select("SELECT folio AS ID,juzgados.descrip AS JUZGADO,HORA,FECHA FROM ocomun,juzgados WHERE 
                 ocomun.juzgado = juzgados.codigo and fecha='".$fecha_hoy."' and substr(hora,LENGTH(Hora)-2)=' pm' AND replace(substr(hora,1,2),':','')!=12
                 and replace(substr(hora,1,2),':','')>=3 and ocomun.distrito = '$distrito'");
     

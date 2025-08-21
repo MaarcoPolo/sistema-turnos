@@ -9,12 +9,29 @@
         <div class="pt-6">
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
             <div class="row justify-content-between div-row-botones-generar-turno">
-                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
-                    <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
+                    <img v-if="!loader_5" class="boton-generar-turno" src="../../../public/img/demanda_nueva_lab.png" alt="" @click="generarTurno(5)">
                     <span v-else class="loader"></span>
                 </div>
-                <div class="col-md-6 col-12">
-                    <!-- <img class="boton-generar-turno" src="../../../public/img/generar-turno-sala.png" alt="" @click="generarTurno(2)"> -->
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
+                    <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/promociones_lab.png" alt="" @click="generarTurno(1)">
+                    <span v-else class="loader"></span>
+                </div>
+            </div>
+            <div class="row justify-content-between div-row-botones-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
+                    <img v-if="!loader_4" class="boton-generar-turno" src="../../../public/img/promociones_audiencias_lab.png" alt="" @click="generarTurno(4)">
+                    <span v-else class="loader"></span>
+                </div>
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
+                    <img v-if="!loader_7" class="boton-generar-turno" src="../../../public/img/exhortos_lab.png" alt="" @click="generarTurno(7)">
+                    <span v-else class="loader"></span>
+                </div>
+            </div>
+            <div class="row justify-content-between div-row-botones-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno mt-15">
+                    <img v-if="!loader_2" class="boton-generar-turno" src="../../../public/img/huelgas_lab.png" alt="" @click="generarTurno(2)">
+                    <span v-else class="loader"></span>
                 </div>
             </div>
         </div>
@@ -33,16 +50,35 @@
                     tipo_turno_id: null,
                     casa_justicia_id: 4,
                 },
-                loader_1: false,    
-                
-                
+                loader_1: false, 
+                loader_2: false,
+                loader_7: false,    
+                loader_4: false,    
+                loader_5: false,    
             }
         },
         methods: {
-           async generarTurno(turno) {
-                this.loader_1 = true
-                this.turno.tipo_turno_id = turno;
+            async generarTurno(turno) {
+                switch(turno) {
+                    case 1:
+                        this.loader_1 = true
+                        break;
+                    case 2:
+                        this.loader_2 = true
+                        break;
+                    case 7:
+                        this.loader_7 = true
+                        break;
+                    case 4:
+                        this.loader_4 = true
+                        break;
+                    case 5:
+                        this.loader_5 = true
+                        break;
+                }
+
                 try {
+                    this.turno.tipo_turno_id = turno;
                         let response = await axios.post('/api/generar-turno', this.turno)
                         if (response.status === 200) {
                             if (response.data.status === "ok") {
@@ -59,9 +95,11 @@
                                 errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
                     this.loader_1 = false
+                    this.loader_2 = false
+                    this.loader_7 = false
+                    this.loader_4 = false
+                    this.loader_5 = false
             }
-           
-            
         }
     })
 </script>

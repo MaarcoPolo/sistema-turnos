@@ -121,14 +121,20 @@
             <td colspan="2" class="encabezado_secundario">Demanda</td>
             <td colspan="2" class="encabezado_secundario">O. familiar</td>
             @endif
+
             @if ($prueba == 3)
-            <td colspan="3" class="encabezado_secundario">Turno</td>
-            <td colspan="3" class="encabezado_secundario">Demanda</td>
+            <td colspan="2" class="encabezado_secundario">Turno</td>
+            <td colspan="2" class="encabezado_secundario">Demanda</td>
+            <td colspan="2" class="encabezado_secundario">O. familiar</td>
             @endif
             
-             
-            
-            
+            @if ($prueba == 4)
+            <td colspan="1" class="encabezado_secundario">Demanda</td>
+            <td colspan="1" class="encabezado_secundario">Promociones</td>
+            <td colspan="2" class="encabezado_secundario">Prom Audiencias</td>
+            <td colspan="1" class="encabezado_secundario">Exhortos</td>
+            <td colspan="2" class="encabezado_secundario">Huelgas</td>
+            @endif
         </tr>
         @foreach ($objectP->estadisticas_horarios as $estadistica_horario)
             <tr>
@@ -138,8 +144,8 @@
                 <td class="dato_secundario">{{ $estadistica_horario->turno }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->sala }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->interno }}</td>
-                <td class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->aten_rapida }}</td>
+                <td class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->o_familiar }}</td>
                 <td class="dato_secundario">{{ $estadistica_horario->exhorto }}</td>
                 @endif
@@ -152,11 +158,18 @@
                 @endif
                 @if ($prueba == 3)
                 <td class="dato_secundario">{{ $estadistica_horario->hora }}</td>
-                <td colspan="3" class="dato_secundario">{{ $estadistica_horario->turno }}</td>
-                <td colspan="3" class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
+                <td colspan="2" class="dato_secundario">{{ $estadistica_horario->turno }}</td>
+                <td colspan="2" class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
+                <td colspan="2" class="dato_secundario">{{ $estadistica_horario->o_familiar }}</td>
                 @endif
-                
-                
+                @if ($prueba == 4)
+                <td class="dato_secundario">{{ $estadistica_horario->hora }}</td>
+                <td colspan="1" class="dato_secundario">{{ $estadistica_horario->demanda }}</td>
+                <td colspan="1" class="dato_secundario">{{ $estadistica_horario->turno }}</td>
+                <td colspan="2" class="dato_secundario">{{ $estadistica_horario->aten_rapida }}</td>
+                <td colspan="1" class="dato_secundario">{{ $estadistica_horario->exhorto }}</td>
+                <td colspan="2" class="dato_secundario">{{ $estadistica_horario->sala }}</td>
+                @endif
             </tr>
         @endforeach
         <tr>
@@ -178,10 +191,17 @@
             <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }}</td>
             @endif
             @if ($prueba == 3)
-            <td colspan="3" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }}</td>
-            <td colspan="3" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }}</td>
+            <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }}</td>
+            <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }}</td>
+            <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->familiares }}</td>
             @endif
-            
+            @if ($prueba == 4)
+            <td colspan="1" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->demandas }} min</td>
+            <td colspan="1" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->turno }} min</td>
+            <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->rapidos }} min</td>
+            <td colspan="1" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->exhorto }} min</td>
+            <td colspan="2" class="dato_principal">{{ $objectP->estadisticas_horarios_totales->salas }} min</td>
+            @endif
         </tr>
     </table><br><br><table>
         <tr>

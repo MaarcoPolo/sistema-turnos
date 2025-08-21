@@ -18,6 +18,14 @@
                     <span v-else class="loader"></span>
                 </div>
             </div>
+            <div class="row justify-content-between div-row-botones-generar-turno">
+                <div class="col-md-6 col-12 text-center div-boton-generar-turno">
+                    <img v-if="!loader_6" class="boton-generar-turno" src="../../../public/img/oral-familiar.png" alt="" @click="generarTurno(6)">
+                    <span v-else class="loader"></span>
+                </div>
+                <div class="col-md-6 col-12">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -36,9 +44,7 @@
                 },
                 loader_1: false,
                 loader_5: false,
-                    
-                
-                
+                loader_6: false,
             }
         },
         methods: {
@@ -50,6 +56,9 @@
                     case 5:
                         this.loader_5 = true
                         break
+                    case 6:
+                        this.loader_6 = true
+                    break
                 }
                 this.turno.tipo_turno_id = turno;
                 try {
@@ -70,6 +79,7 @@
                     }
                     this.loader_1 = false
                     this.loader_5 = false
+                    this.loader_6 = false
             }
            
             

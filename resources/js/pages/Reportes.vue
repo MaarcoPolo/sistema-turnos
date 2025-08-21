@@ -22,6 +22,10 @@
                     <BotonCatalogo v-if="!loading_3" nombre_icon="usuarios.png" nombre_catalogo="Huejotzingo" @click="generarReporte(3)" />
                     <span v-else class="loader-reportes"></span>
                 </div>
+                <div class="col-md-3 col-12 text-center mt-2" v-if="this.user.user.casa_justicia_id == 4 || this.user.user.tipo_usuario_id == 1">
+                    <BotonCatalogo v-if="!loading_4" nombre_icon="usuarios.png" nombre_catalogo="Laborales" @click="generarReporte(4)" />
+                    <span v-else class="loader-reportes"></span>
+                </div>
             </div>
         </div>
     </div>
@@ -42,6 +46,7 @@
                 loading_1: false,
                 loading_2: false,
                 loading_3: false,
+                loading_4: false,
             }
         },
         components: {
@@ -68,6 +73,10 @@
                         this.loading_3 = true
                         sede_nombre = 'Huejotzingo'
                         break
+                    case 4:
+                        this.loading_4 = true
+                        sede_nombre = 'Laborales'
+                        break
                 }
                 this.variables_reporte.id_sede = id_sede
                 try {
@@ -86,6 +95,7 @@
                 this.loading_1 = false
                 this.loading_2 = false
                 this.loading_3 = false
+                this.loading_4 = false
             }
         }
     })
