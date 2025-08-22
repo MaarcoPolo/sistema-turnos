@@ -147,23 +147,33 @@
                         <div class="row justify-content-between mt-6"></div>
                         <div class="row justify-content-between mt-6"></div>
                         <div class="row justify-content-between mt-6">
-                            <div class="col-md-6 col-12 mt-6">
-                                <div class="card-tipo-turno-h">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ turnos }}</p>
+                                        <p>{{ escritosSinAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12 mt-6">
-                                <div class="card-tipo-turno-h">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ demandas }}</p>
+                                        <p>{{ demandaNueva }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Demanda</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ familiares }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>O. Familiar</p>
                                     </div>
                                 </div>
                             </div>
@@ -171,23 +181,71 @@
                     </template>
                     <!-- ADMINISTRADOR LABORALES -->
                     <template v-if="user.user.tipo_usuario_id == 2 && user.user.casa_justicia_id == 4">
-                        <div class="row justify-content-between mt-6"></div>
-                        <div class="row justify-content-between mt-6"></div>
-                        <div class="row justify-content-between mt-6"></div>
-                        <div class="row justify-content-between mt-6"></div>
-                        <div class="row justify-content-between mt-6">
-                            <div class="col-md-4 col-12 mt-6"></div>
+                       <div class="row justify-content-between mt-6">
                             <div class="col-md-4 col-12 mt-6">
-                                <div class="card-tipo-turno-l">
+                                <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ turnos }}</p>
+                                        <p>{{escritosConAnexos}}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
-                                        <p>Turno</p>
+                                        <p>Promociones</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12 mt-6"></div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ apelaciones }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Huelgas</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ trabajadores }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Trabajadores PJ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between mt-6">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ demandaNueva }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Demanda Nueva</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ escritosSinAnexos }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Promociones audiencias</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-6">
+                            <div class="col-md-4 col-12 mt-6">
+                                <div class="card-tipo-turno">
+                                    <div class="card-tipo-turno-body">
+                                        <p>{{ exhortos }}</p>
+                                    </div>
+                                    <div class="card-tipo-turno-titulo">
+                                        <p>Exhortos</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </template>
                 </div>
