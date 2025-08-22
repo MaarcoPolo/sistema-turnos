@@ -205,18 +205,6 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ trabajadores }}</p>
-                                    </div>
-                                    <div class="card-tipo-turno-titulo">
-                                        <p>Trabajadores PJ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between mt-6">
-                            <div class="col-md-4 col-12 mt-6">
-                                <div class="card-tipo-turno">
-                                    <div class="card-tipo-turno-body">
                                         <p>{{ demandaNueva }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
@@ -224,6 +212,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row justify-content-between mt-6">
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
@@ -234,8 +224,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row justify-content-center mt-6">
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
@@ -246,6 +234,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row justify-content-center mt-6">
                         </div>
                     </template>
                 </div>
