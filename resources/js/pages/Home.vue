@@ -111,7 +111,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ escritosSinAnexos }}</p>
+                                        <p>{{ escritosConAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>
@@ -150,7 +150,7 @@
                             <div class="col-md-4 col-12 mt-6">
                                 <div class="card-tipo-turno">
                                     <div class="card-tipo-turno-body">
-                                        <p>{{ escritosSinAnexos }}</p>
+                                        <p>{{ escritosConAnexos }}</p>
                                     </div>
                                     <div class="card-tipo-turno-titulo">
                                         <p>Turno</p>

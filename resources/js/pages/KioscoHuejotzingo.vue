@@ -10,7 +10,7 @@
             <img class="division" src="../../../public/img/solicitar-turno-division.png" alt="">
             <div class="row justify-content-between div-row-botones-generar-turno">
                 <div class="col-md-6 col-12 text-center div-boton-generar-turno">
-                    <img v-if="!loader_4" class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(4)">
+                    <img v-if="!loader_1" class="boton-generar-turno" src="../../../public/img/generar-turno.png" alt="" @click="generarTurno(1)">
                     <span v-else class="loader"></span>
                 </div>
                 <div class="col-md-6 col-12 text-center div-boton-generar-turno">
@@ -42,7 +42,7 @@
                     tipo_turno_id: null,
                     casa_justicia_id: 3,
                 },
-                loader_4: false,
+                loader_1: false,
                 loader_5: false,
                 loader_6: false,
             }
@@ -51,7 +51,7 @@
            async generarTurno(turno) {
             switch (turno) {
                     case 1:
-                        this.loader_4 = true
+                        this.loader_1 = true
                         break
                     case 5:
                         this.loader_5 = true
@@ -77,7 +77,7 @@
                     } catch (error) {
                                 errorSweetAlert('Ocurrió un error al generar el turno.')
                     }
-                    this.loader_4 = false
+                    this.loader_1 = false
                     this.loader_5 = false
                     this.loader_6 = false
             }
