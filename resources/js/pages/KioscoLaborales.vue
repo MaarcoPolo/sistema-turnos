@@ -76,7 +76,6 @@
                         this.loader_5 = true
                         break;
                 }
-
                 try {
                     this.turno.tipo_turno_id = turno;
                         let response = await axios.post('/api/generar-turno', this.turno)
