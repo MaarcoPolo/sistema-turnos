@@ -480,6 +480,33 @@
                 this.getTurnosPendientes()
                 
             })
+            Echo.channel('ventanillasCholula').listen('CargarTurnosCholula', (e) => {
+                this.getTurnosPendientes()
+                
+                }),
+            
+            Echo.channel('turnosCholula').listen('LlamarTurnoCholula', (e) => {
+                this.getTurnosPendientes()
+                
+            })
+            Echo.channel('ventanillasHuejotzingo').listen('CargarTurnosHuejotzingo', (e) => {
+                this.getTurnosPendientes()
+                
+                }),
+            
+            Echo.channel('turnosHuejotzingo').listen('LlamarTurnoHuejotzingo', (e) => {
+                this.getTurnosPendientes()
+                
+            })
+            Echo.channel('ventanillasLaborales').listen('CargarTurnosLaborales', (e) => {
+                this.getTurnosPendientes()
+                
+                }),
+            
+            Echo.channel('turnosLaborales').listen('LlamarTurnoLaborales', (e) => {
+                this.getTurnosPendientes()
+                
+            })
         },
         computed: {
             pages() {
